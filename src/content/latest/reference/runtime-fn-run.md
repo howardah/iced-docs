@@ -1,56 +1,51 @@
 ---
 title: Runtime Function - run
-description: Use iced::run for the shortest path to a working application.
+description: Detailed guidance for iced::run.
 version: latest
 last_updated: 2026-02-19
-order: 21
+order: 25
 ---
 
 # Runtime Function - iced::run
 
-Authoritative source: `ref/doc/iced/fn.run.html`.
+Authoritative source: ref/doc/iced/fn.run.html.
 
 ## Verified signature
 
 ```rust
 pub fn run<State, Message, Theme, Renderer>(
-    update: impl UpdateFn<State, Message> + 'static,
-    view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer> + 'static,
+update: impl UpdateFn<State, Message> + 'static,
+view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer> + 'static,
 ) -> Result
 where
-    State: Default + 'static,
-    Message: Send + MaybeDebug + MaybeClone + 'static,
-    Theme: Base + 'static,
-    Renderer: Renderer + 'static,
+State: Default + 'static,
+Message: Send + MaybeDebug + MaybeClone + 'static,
+Theme: Base + 'static,
+Renderer: Renderer + 'static,
 ```
+## When to use it
 
-## How to use it
+Use it for straightforward apps where `State: Default` is acceptable and you want minimal startup wiring.
 
-Provide update and view logic directly:
+## Why to use it
 
-```rust
-pub fn main() -> iced::Result {
-    iced::run(Counter::update, Counter::view)
-}
-```
+It is the shortest path from update/view logic to a running app.
 
-Example source: `ref/examples/counter/src/main.rs`.
+## Example References
 
-## When to use
+- ref/examples/loupe/src/main.rs
+- ref/examples/custom_widget/src/main.rs
+- ref/examples/slider/src/main.rs
+- ref/examples/tooltip/src/main.rs
+- ref/examples/progress_bar/src/main.rs
+- ref/examples/geometry/src/main.rs
 
-- You want minimal startup code.
-- `State: Default` is acceptable.
-- You do not need initial async boot output at startup.
+## API verification notes
 
-## Why choose it
-
-It keeps entrypoint complexity low and is ideal for small-to-medium apps.
-
-## When not to use
-
-If you need richer startup/runtime hooks (`title`, `theme`, `subscription`, `window_size`, boot task), prefer `iced::application`.
+- Confirm full bounds and semantics in rustdoc before documenting advanced behavior.
+- Prefer rustdoc when examples and intuition differ.
 
 ## Related
 
-- [Runtime Function - application](/latest/reference/runtime-fn-application)
 - [Runtime API](/latest/reference/runtime-api)
+- [Core Concepts](/latest/reference/core-concepts)

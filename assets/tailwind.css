@@ -165,6 +165,9 @@
   .absolute {
     position: absolute;
   }
+  .fixed {
+    position: fixed;
+  }
   .relative {
     position: relative;
   }
@@ -191,6 +194,9 @@
   }
   .block {
     display: block;
+  }
+  .contents {
+    display: contents;
   }
   .grid {
     display: grid;

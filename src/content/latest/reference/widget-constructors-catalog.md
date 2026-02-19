@@ -8,7 +8,7 @@ order: 91
 
 # Widget Constructors Catalog
 
-All constructor pages are generated from ref/doc/iced/widget/sidebar-items.js.
+Generated from ref/doc/iced/widget/sidebar-items.js.
 
 ## Constructors
 

@@ -10,26 +10,40 @@ order: 308
 
 Authoritative source: ref/doc/iced/widget/fn.checkbox.html.
 
-## What it returns
+## Rustdoc summary
 
-This function constructs a widget element (or helper wrapper) in the iced::widget namespace.
+Creates a new
+Checkbox
+.
+
+## Verified signature
+
+```rust
+pub fn checkbox<'a, Message, Theme, Renderer>(
+is_checked: bool,
+) -> Checkbox<'a, Message, Theme, Renderer>where
+Theme: Catalog + 'a,
+Renderer: Renderer,
+```
 
 ## When to use
 
-- Use it as the primary constructor for this widget/helper.
-- Chain builder methods on the returned widget value to configure behavior and style.
+Use this constructor/helper as the typed entrypoint for the widget or layout helper it creates.
 
-## Why it matters
+## Why to use
 
-Constructors keep UI trees explicit and strongly typed.
+It gives explicit widget construction with compile-time type checking and builder chaining.
 
-## API verification
+## Example References
 
-Check exact generic parameters, argument types, and bounds in:
-
-- ref/doc/iced/widget/fn.checkbox.html
+- ref/examples/vectorial_text/src/main.rs
+- ref/examples/ferris/src/main.rs
+- ref/examples/checkbox/src/main.rs
+- ref/examples/layout/src/main.rs
+- ref/examples/tour/src/main.rs
+- ref/examples/events/src/main.rs
 
 ## Related
 
-- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
 - [Widget Elements Catalog](/latest/reference/widget-elements-catalog)

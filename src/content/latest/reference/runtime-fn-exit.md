@@ -1,44 +1,39 @@
 ---
 title: Runtime Function - exit
-description: Use iced::exit to request runtime shutdown via Task.
+description: Detailed guidance for iced::exit.
 version: latest
 last_updated: 2026-02-19
-order: 24
+order: 23
 ---
 
 # Runtime Function - iced::exit
 
-Authoritative source: `ref/doc/iced/fn.exit.html`.
+Authoritative source: ref/doc/iced/fn.exit.html.
 
 ## Verified signature
 
 ```rust
 pub fn exit<T>() -> Task<T>
 ```
+## When to use it
 
-## How to use it
+Use it inside update logic when a message should trigger runtime shutdown.
 
-Return it from update logic when your app should terminate:
+## Why to use it
 
-```rust
-Message::Quit => iced::exit(),
-```
+It returns a `Task` so shutdown composes with the same side-effect model as other runtime actions.
 
-Example sources:
+## Example References
 
-- `ref/examples/changelog/src/main.rs`
-- `ref/examples/multi_window/src/main.rs`
+- ref/examples/changelog/src/main.rs
+- ref/examples/multi_window/src/main.rs
 
-## When to use
+## API verification notes
 
-- App-level Quit action
-- Controlled shutdown after a specific workflow
-
-## Why choose it
-
-It integrates cleanly with the same task-based runtime flow used for other side effects.
+- Confirm full bounds and semantics in rustdoc before documenting advanced behavior.
+- Prefer rustdoc when examples and intuition differ.
 
 ## Related
 
-- [Tasks and Subscriptions](/latest/reference/tasks-subscriptions)
-- [Runtime Function - daemon](/latest/reference/runtime-fn-daemon)
+- [Runtime API](/latest/reference/runtime-api)
+- [Core Concepts](/latest/reference/core-concepts)

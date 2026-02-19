@@ -166,3 +166,51 @@ Validation tests passing:
 - `app::tests::all_pages_have_required_frontmatter`
 - `app::tests::internal_links_resolve`
 - `app::tests::search_index_builds`
+
+## 2026-02-19 (Reference Expansion Pass 3 - Signature/Example Enrichment)
+
+### Summary
+
+Enhanced generated reference pages so each runtime/widget page now includes extracted rustdoc signatures (or declarations), rustdoc summary text, and example-file references sourced from `ref/examples`.
+
+### Implemented
+
+- Upgraded generator workflow in:
+- `scripts/generate_reference_pages.sh`
+
+- Added extraction helpers in generator:
+- Signature extraction from rustdoc item declarations (`<pre class="rust item-decl">`)
+- Summary extraction from `ref/doc/iced/widget/index.html` item `<dd>` blocks
+- Example-file discovery via `rg` against `ref/examples/**/*.rs`
+
+- Re-generated all generated reference pages with enriched sections:
+- `## Verified signature` / `## Verified type declaration`
+- `## Rustdoc summary`
+- `## Example References`
+- Runtime function pages now include expanded `When to use` / `Why to use` guidance plus examples.
+
+### Verification Against `ref/`
+
+Data extraction sources used by generation:
+
+- `ref/doc/iced/sidebar-items.js`
+- `ref/doc/iced/widget/sidebar-items.js`
+- `ref/doc/iced/widget/index.html`
+- `ref/doc/iced/fn.*.html`
+- `ref/doc/iced/widget/fn.*.html`
+- `ref/doc/iced/widget/struct.*.html`
+- `ref/examples/**/*.rs`
+
+### Build/Test Results
+
+Executed successfully after enrichment:
+
+- `cargo check`
+- `cargo test`
+- `scripts/ci_quality_gates.sh`
+
+Validation tests passing:
+
+- `app::tests::all_pages_have_required_frontmatter`
+- `app::tests::internal_links_resolve`
+- `app::tests::search_index_builds`

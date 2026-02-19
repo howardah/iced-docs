@@ -1,54 +1,51 @@
 ---
 title: Runtime Function - application
-description: Use iced::application to configure app startup and runtime behavior.
+description: Detailed guidance for iced::application.
 version: latest
 last_updated: 2026-02-19
-order: 22
+order: 21
 ---
 
 # Runtime Function - iced::application
 
-Authoritative source: `ref/doc/iced/fn.application.html`.
+Authoritative source: ref/doc/iced/fn.application.html.
 
 ## Verified signature
 
 ```rust
 pub fn application<State, Message, Theme, Renderer>(
-    boot: impl BootFn<State, Message>,
-    update: impl UpdateFn<State, Message>,
-    view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer>,
-) -> Application<impl Program<State = State, Message = Message, Theme = Theme>>
-where
-    State: 'static,
-    Message: Send + 'static,
-    Theme: Base,
-    Renderer: Renderer,
+boot: impl BootFn<State, Message>,
+update: impl UpdateFn<State, Message>,
+view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer>,
+) -> Application<impl Program<State = State, Message = Message, Theme = Theme>>where
+State: 'static,
+Message: Send + 'static,
+Theme: Base,
+Renderer: Renderer,
 ```
+## When to use it
 
-## How to use it
+Use it when you need runtime builder configuration (title/theme/window/subscription/font/presets) before `.run()`.
 
-Build and configure before `.run()`:
+## Why to use it
 
-```rust
-iced::application(Tour::default, Tour::update, Tour::view)
-    .title(Tour::title)
-    .centered()
-    .run()
-```
+It scales better for production apps with explicit startup and configuration needs.
 
-Example source: `ref/examples/tour/src/main.rs`.
+## Example References
 
-## When to use
+- ref/examples/clock/src/main.rs
+- ref/examples/scrollable/src/main.rs
+- ref/examples/screenshot/src/main.rs
+- ref/examples/download_progress/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/tour/src/main.rs
 
-- You need app configuration methods before run.
-- You need explicit boot logic.
-- You need subscription/title/window/theme hooks.
+## API verification notes
 
-## Why choose it
-
-It scales better than `run` for production apps with non-trivial configuration.
+- Confirm full bounds and semantics in rustdoc before documenting advanced behavior.
+- Prefer rustdoc when examples and intuition differ.
 
 ## Related
 
-- [Runtime Function - run](/latest/reference/runtime-fn-run)
-- [Runtime Function - daemon](/latest/reference/runtime-fn-daemon)
+- [Runtime API](/latest/reference/runtime-api)
+- [Core Concepts](/latest/reference/core-concepts)

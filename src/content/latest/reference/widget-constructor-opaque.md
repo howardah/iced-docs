@@ -10,26 +10,36 @@ order: 318
 
 Authoritative source: ref/doc/iced/widget/fn.opaque.html.
 
-## What it returns
+## Rustdoc summary
 
-This function constructs a widget element (or helper wrapper) in the iced::widget namespace.
+Wraps the given widget and captures any mouse button presses inside the bounds of
+the widget—effectively making it opaque.
+
+## Verified signature
+
+```rust
+pub fn opaque<'a, Message, Theme, Renderer>(
+content: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Element<'a, Message, Theme, Renderer>where
+Message: 'a,
+Theme: 'a,
+Renderer: Renderer + 'a,
+```
 
 ## When to use
 
-- Use it as the primary constructor for this widget/helper.
-- Chain builder methods on the returned widget value to configure behavior and style.
+Use this constructor/helper as the typed entrypoint for the widget or layout helper it creates.
 
-## Why it matters
+## Why to use
 
-Constructors keep UI trees explicit and strongly typed.
+It gives explicit widget construction with compile-time type checking and builder chaining.
 
-## API verification
+## Example References
 
-Check exact generic parameters, argument types, and bounds in:
-
-- ref/doc/iced/widget/fn.opaque.html
+- ref/examples/modal/src/main.rs
+- ref/examples/gallery/src/main.rs
 
 ## Related
 
-- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
 - [Widget Elements Catalog](/latest/reference/widget-elements-catalog)

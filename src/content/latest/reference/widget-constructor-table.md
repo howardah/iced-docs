@@ -10,26 +10,37 @@ order: 336
 
 Authoritative source: ref/doc/iced/widget/fn.table.html.
 
-## What it returns
+## Rustdoc summary
 
-This function constructs a widget element (or helper wrapper) in the iced::widget namespace.
+Creates a new
+Table
+with the given columns and rows.
+
+## Verified signature
+
+```rust
+pub fn table<'a, 'b, T, Message, Theme, Renderer>(
+columns: impl IntoIterator<Item = Column<'a, 'b, T, Message, Theme, Renderer>>,
+rows: impl IntoIterator<Item = T>,
+) -> Table<'a, Message, Theme, Renderer>where
+T: Clone,
+Theme: Catalog,
+Renderer: Renderer,
+```
 
 ## When to use
 
-- Use it as the primary constructor for this widget/helper.
-- Chain builder methods on the returned widget value to configure behavior and style.
+Use this constructor/helper as the typed entrypoint for the widget or layout helper it creates.
 
-## Why it matters
+## Why to use
 
-Constructors keep UI trees explicit and strongly typed.
+It gives explicit widget construction with compile-time type checking and builder chaining.
 
-## API verification
+## Example References
 
-Check exact generic parameters, argument types, and bounds in:
-
-- ref/doc/iced/widget/fn.table.html
+- ref/examples/table/src/main.rs
 
 ## Related
 
-- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
 - [Widget Elements Catalog](/latest/reference/widget-elements-catalog)

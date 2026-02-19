@@ -8,24 +8,21 @@ order: 110
 
 # Widget Module - iced::widget::pane_grid
 
-This page tracks the module entrypoint defined in ref/doc/iced/widget/pane_grid/index.html.
+Authoritative source: ref/doc/iced/widget/pane_grid/index.html.
 
-## Overview
+## Rustdoc description
 
-- Module name: pane_grid
-- Rustdoc: ref/doc/iced/widget/pane_grid/index.html
+Pane grids let your users split regions of your application and organize layout dynamically.
 
 ## When to use
 
-Use this module when you need the widget family and related styling/state APIs grouped under iced::widget::pane_grid.
+Use this module when you need the widget family and related style/state APIs grouped under iced::widget::pane_grid.
 
-## Common workflow
+## Example References
 
-1. Start from the constructor function in iced::widget.
-2. Use this module docs for detailed types, catalogs, and style options.
-3. Cross-check with matching examples in ref/examples.
+- ref/examples/pane_grid/src/main.rs
 
 ## Related
 
-- [Widgets Overview](/latest/reference/widgets-overview)
+- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
 - [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)

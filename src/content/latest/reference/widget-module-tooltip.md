@@ -8,24 +8,21 @@ order: 127
 
 # Widget Module - iced::widget::tooltip
 
-This page tracks the module entrypoint defined in ref/doc/iced/widget/tooltip/index.html.
+Authoritative source: ref/doc/iced/widget/tooltip/index.html.
 
-## Overview
+## Rustdoc description
 
-- Module name: tooltip
-- Rustdoc: ref/doc/iced/widget/tooltip/index.html
+Tooltips display a hint of information over some element when hovered.
 
 ## When to use
 
-Use this module when you need the widget family and related styling/state APIs grouped under iced::widget::tooltip.
+Use this module when you need the widget family and related style/state APIs grouped under iced::widget::tooltip.
 
-## Common workflow
+## Example References
 
-1. Start from the constructor function in iced::widget.
-2. Use this module docs for detailed types, catalogs, and style options.
-3. Cross-check with matching examples in ref/examples.
+- ref/examples/tooltip/src/main.rs
 
 ## Related
 
-- [Widgets Overview](/latest/reference/widgets-overview)
+- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
 - [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)

@@ -8,7 +8,7 @@ order: 92
 
 # Widget Elements Catalog
 
-All element pages are generated from ref/doc/iced/widget/sidebar-items.js.
+Generated from ref/doc/iced/widget/sidebar-items.js.
 
 ## Elements
 

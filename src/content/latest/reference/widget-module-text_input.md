@@ -8,24 +8,21 @@ order: 124
 
 # Widget Module - iced::widget::text_input
 
-This page tracks the module entrypoint defined in ref/doc/iced/widget/text_input/index.html.
+Authoritative source: ref/doc/iced/widget/text_input/index.html.
 
-## Overview
+## Rustdoc description
 
-- Module name: text_input
-- Rustdoc: ref/doc/iced/widget/text_input/index.html
+Text inputs display fields that can be filled with text.
 
 ## When to use
 
-Use this module when you need the widget family and related styling/state APIs grouped under iced::widget::text_input.
+Use this module when you need the widget family and related style/state APIs grouped under iced::widget::text_input.
 
-## Common workflow
+## Example References
 
-1. Start from the constructor function in iced::widget.
-2. Use this module docs for detailed types, catalogs, and style options.
-3. Cross-check with matching examples in ref/examples.
+- TODO(api-verify): add canonical example mapping for this item.
 
 ## Related
 
-- [Widgets Overview](/latest/reference/widgets-overview)
+- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
 - [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)

@@ -10,26 +10,37 @@ order: 325
 
 Authoritative source: ref/doc/iced/widget/fn.rich_text.html.
 
-## What it returns
+## Rustdoc summary
 
-This function constructs a widget element (or helper wrapper) in the iced::widget namespace.
+Creates a new
+Rich
+text widget with the provided spans.
+
+## Verified signature
+
+```rust
+pub fn rich_text<'a, Link, Message, Theme, Renderer>(
+spans: impl AsRef<[Span<'a, Link, <Renderer as Renderer>::Font>]> + 'a,
+) -> Rich<'a, Link, Message, Theme, Renderer>where
+Link: Clone + 'static,
+Theme: Catalog + 'a,
+Renderer: Renderer,
+<Renderer as Renderer>::Font: 'a,
+```
 
 ## When to use
 
-- Use it as the primary constructor for this widget/helper.
-- Chain builder methods on the returned widget value to configure behavior and style.
+Use this constructor/helper as the typed entrypoint for the widget or layout helper it creates.
 
-## Why it matters
+## Why to use
 
-Constructors keep UI trees explicit and strongly typed.
+It gives explicit widget construction with compile-time type checking and builder chaining.
 
-## API verification
+## Example References
 
-Check exact generic parameters, argument types, and bounds in:
-
-- ref/doc/iced/widget/fn.rich_text.html
+- TODO(api-verify): add canonical example mapping for this item.
 
 ## Related
 
-- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
 - [Widget Elements Catalog](/latest/reference/widget-elements-catalog)

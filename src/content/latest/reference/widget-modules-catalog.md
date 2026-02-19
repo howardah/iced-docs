@@ -8,7 +8,7 @@ order: 90
 
 # Widget Modules Catalog
 
-All module pages are generated from ref/doc/iced/widget/sidebar-items.js.
+Generated from ref/doc/iced/widget/sidebar-items.js.
 
 ## Modules
 

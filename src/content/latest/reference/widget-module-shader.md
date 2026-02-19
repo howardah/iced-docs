@@ -8,24 +8,21 @@ order: 118
 
 # Widget Module - iced::widget::shader
 
-This page tracks the module entrypoint defined in ref/doc/iced/widget/shader/index.html.
+Authoritative source: ref/doc/iced/widget/shader/index.html.
 
-## Overview
+## Rustdoc description
 
-- Module name: shader
-- Rustdoc: ref/doc/iced/widget/shader/index.html
+A custom shader widget for wgpu applications.
 
 ## When to use
 
-Use this module when you need the widget family and related styling/state APIs grouped under iced::widget::shader.
+Use this module when you need the widget family and related style/state APIs grouped under iced::widget::shader.
 
-## Common workflow
+## Example References
 
-1. Start from the constructor function in iced::widget.
-2. Use this module docs for detailed types, catalogs, and style options.
-3. Cross-check with matching examples in ref/examples.
+- ref/examples/custom_shader/src/scene.rs
 
 ## Related
 
-- [Widgets Overview](/latest/reference/widgets-overview)
+- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
 - [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)

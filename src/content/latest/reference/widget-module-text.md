@@ -8,24 +8,22 @@ order: 122
 
 # Widget Module - iced::widget::text
 
-This page tracks the module entrypoint defined in ref/doc/iced/widget/text/index.html.
+Authoritative source: ref/doc/iced/widget/text/index.html.
 
-## Overview
+## Rustdoc description
 
-- Module name: text
-- Rustdoc: ref/doc/iced/widget/text/index.html
+Draw and interact with text.
 
 ## When to use
 
-Use this module when you need the widget family and related styling/state APIs grouped under iced::widget::text.
+Use this module when you need the widget family and related style/state APIs grouped under iced::widget::text.
 
-## Common workflow
+## Example References
 
-1. Start from the constructor function in iced::widget.
-2. Use this module docs for detailed types, catalogs, and style options.
-3. Cross-check with matching examples in ref/examples.
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/websocket/src/echo.rs
 
 ## Related
 
-- [Widgets Overview](/latest/reference/widgets-overview)
+- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
 - [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)

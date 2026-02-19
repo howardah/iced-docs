@@ -8,24 +8,21 @@ order: 102
 
 # Widget Module - iced::widget::checkbox
 
-This page tracks the module entrypoint defined in ref/doc/iced/widget/checkbox/index.html.
+Authoritative source: ref/doc/iced/widget/checkbox/index.html.
 
-## Overview
+## Rustdoc description
 
-- Module name: checkbox
-- Rustdoc: ref/doc/iced/widget/checkbox/index.html
+Checkboxes can be used to let users make binary choices.
 
 ## When to use
 
-Use this module when you need the widget family and related styling/state APIs grouped under iced::widget::checkbox.
+Use this module when you need the widget family and related style/state APIs grouped under iced::widget::checkbox.
 
-## Common workflow
+## Example References
 
-1. Start from the constructor function in iced::widget.
-2. Use this module docs for detailed types, catalogs, and style options.
-3. Cross-check with matching examples in ref/examples.
+- TODO(api-verify): add canonical example mapping for this item.
 
 ## Related
 
-- [Widgets Overview](/latest/reference/widgets-overview)
+- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
 - [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)

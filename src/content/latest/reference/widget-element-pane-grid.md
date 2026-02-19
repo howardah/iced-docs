@@ -10,26 +10,32 @@ order: 511
 
 Authoritative source: ref/doc/iced/widget/struct.PaneGrid.html.
 
-## Overview
+## Rustdoc summary
 
-PaneGrid is an element struct in the iced::widget API surface.
+A collection of panes distributed using either vertical or horizontal splits
+to completely fill the space available.
+
+## Verified type declaration
+
+```rust
+pub struct PaneGrid<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>where
+Theme: Catalog,
+Renderer: Renderer,{ /* private fields */ }
+```
 
 ## When to use
 
-Use this type when you need direct type-level control over the widget value returned by constructors/builders.
+Use this element struct when you need direct type-level control over a widget value.
 
-## Why this page exists
+## Why to use
 
-- To provide one reference page per exposed widget element type.
-- To keep navigation complete and version-aware.
+It enables strongly typed composition and explicit builder method flows.
 
-## API verification
+## Example References
 
-Inspect exact methods and trait impls in:
-
-- ref/doc/iced/widget/struct.PaneGrid.html
+- TODO(api-verify): add canonical example mapping for this item.
 
 ## Related
 
-- [Widgets Overview](/latest/reference/widgets-overview)
+- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
 - [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)

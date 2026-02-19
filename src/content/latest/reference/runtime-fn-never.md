@@ -1,37 +1,38 @@
 ---
 title: Runtime Function - never
-description: Use iced::never to bridge unreachable Infallible code paths.
+description: Detailed guidance for iced::never.
 version: latest
 last_updated: 2026-02-19
-order: 25
+order: 24
 ---
 
 # Runtime Function - iced::never
 
-Authoritative source: `ref/doc/iced/fn.never.html`.
+Authoritative source: ref/doc/iced/fn.never.html.
 
 ## Verified signature
 
 ```rust
 pub fn never<T>(never: Infallible) -> T
 ```
+## When to use it
 
-## What it is for
+Use it only for advanced unreachable `Infallible`-based branches in typed/generic code.
 
-`never` converts an `Infallible` value into any target type. Since `Infallible` has no values, this function is for unreachable branches in typed control flow.
+## Why to use it
 
-## When to use
+It allows impossible branches to satisfy type requirements safely.
 
-- Advanced generic or message-mapping code where an impossible case must still satisfy a type.
+## Example References
 
-## Why this exists
+- TODO(api-verify): add canonical example mapping for this item.
 
-It provides a standard helper for expressing unreachable logic without unsafe code.
+## API verification notes
 
-## Caution
-
-This is not a normal app-entry function and is rarely needed in day-to-day UI code.
+- Confirm full bounds and semantics in rustdoc before documenting advanced behavior.
+- Prefer rustdoc when examples and intuition differ.
 
 ## Related
 
 - [Runtime API](/latest/reference/runtime-api)
+- [Core Concepts](/latest/reference/core-concepts)
