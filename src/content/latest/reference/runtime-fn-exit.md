@@ -15,6 +15,7 @@ Authoritative source: ref/doc/iced/fn.exit.html.
 ```rust
 pub fn exit<T>() -> Task<T>
 ```
+
 ## When to use it
 
 Use it inside update logic when a message should trigger runtime shutdown.
@@ -25,8 +26,8 @@ It returns a Task so shutdown composes with the same side-effect model as other 
 
 ## Example References
 
-- ref/examples/multi_window/src/main.rs
 - ref/examples/changelog/src/main.rs
+- ref/examples/multi_window/src/main.rs
 
 ## API verification notes
 

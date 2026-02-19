@@ -15,6 +15,7 @@ Authoritative source: ref/doc/iced/fn.never.html.
 ```rust
 pub fn never<T>(never: Infallible) -> T
 ```
+
 ## When to use it
 
 Use it only for advanced unreachable Infallible-based branches in typed/generic code.

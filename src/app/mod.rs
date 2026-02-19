@@ -506,7 +506,7 @@ fn SidebarNav(selected_version: String, current_page: Option<DocPage>) -> Elemen
                                                     a {
                                                         class: if page.route_path == current_path { "active" } else { "" },
                                                         href: "{page.route_path}",
-                                                        "{page.frontmatter.title}"
+                                                        "{sidebar_display_title(page)}"
                                                     }
                                                 }
                                             }
@@ -522,7 +522,7 @@ fn SidebarNav(selected_version: String, current_page: Option<DocPage>) -> Elemen
                                             a {
                                                 class: if page.route_path == current_path { "active" } else { "" },
                                                 href: "{page.route_path}",
-                                                "{page.frontmatter.title}"
+                                                "{sidebar_display_title(page)}"
                                             }
                                         }
                                     }
@@ -602,13 +602,16 @@ fn build_catalog() -> DocsCatalog {
         .filter_map(|entry| {
             let relative = entry.path.trim_matches('/');
             let pieces: Vec<&str> = relative.split('/').collect();
-            if pieces.len() != 3 {
+            if pieces.len() < 3 {
                 return None;
             }
 
             let version = pieces[0].to_string();
             let section = pieces[1].to_string();
-            let slug = pieces[2].trim_end_matches(".md").to_string();
+            let mut slug_parts = pieces[2..].to_vec();
+            let last = slug_parts.pop()?;
+            slug_parts.push(last.trim_end_matches(".md"));
+            let slug = slug_parts.join("/");
             let frontmatter = parse_frontmatter(entry.content).ok()?;
 
             let route_path = slug_to_route_path(&version, &section, &slug);
@@ -936,7 +939,7 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
         };
         let slug = page.slug.as_str();
 
-        if slug.ends_with("-catalog") || slug.contains("catalog") {
+        if matches!(slug, "modules" | "constructors" | "elements") {
             continue;
         }
 
@@ -946,15 +949,15 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
         ) || slug.starts_with("runtime-fn-")
         {
             core_runtime.push(*index);
-        } else if slug.starts_with("widget-module-") {
+        } else if slug.starts_with("modules/") {
             modules.push(*index);
-        } else if slug.starts_with("widget-constructor-") {
+        } else if slug.starts_with("constructors/") {
             if split_half(&page.frontmatter.title) {
                 constructors_n_z.push(*index);
             } else {
                 constructors_a_m.push(*index);
             }
-        } else if slug.starts_with("widget-element-") {
+        } else if slug.starts_with("elements/") {
             if split_half(&page.frontmatter.title) {
                 elements_n_z.push(*index);
             } else {
@@ -967,7 +970,7 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
 
     let mut groups = Vec::new();
     push_group(&mut groups, "Runtime and Core", core_runtime);
-    push_group(&mut groups, "Widget Modules", modules);
+    push_group(&mut groups, "Modules", modules);
     push_group(&mut groups, "Constructors A-M", constructors_a_m);
     push_group(&mut groups, "Constructors N-Z", constructors_n_z);
     push_group(&mut groups, "Elements A-M", elements_a_m);
@@ -977,7 +980,11 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
 }
 
 fn split_half(title: &str) -> bool {
-    let ch = title
+    let candidate = title
+        .split_once(" - ")
+        .map(|(_, value)| value)
+        .unwrap_or(title);
+    let ch = candidate
         .chars()
         .find(|ch| ch.is_ascii_alphabetic())
         .unwrap_or('A')
@@ -992,13 +999,22 @@ fn push_group(groups: &mut Vec<(String, Vec<usize>)>, label: &str, indices: Vec<
     groups.push((label.to_string(), indices));
 }
 
+fn sidebar_display_title(page: &DocPage) -> String {
+    for prefix in ["Module - ", "Constructor - ", "Element - "] {
+        if let Some(rest) = page.frontmatter.title.strip_prefix(prefix) {
+            return rest.to_string();
+        }
+    }
+    page.frontmatter.title.clone()
+}
+
 fn subgroup_catalog_path(version: &str, label: &str) -> Option<String> {
     match label {
-        "Widget Modules" => Some(format!("/{}/reference/widget-modules", version)),
+        "Modules" => Some(format!("/{}/reference/modules", version)),
         "Constructors A-M" | "Constructors N-Z" => {
-            Some(format!("/{}/reference/widget-constructors", version))
+            Some(format!("/{}/reference/constructors", version))
         }
-        "Elements A-M" | "Elements N-Z" => Some(format!("/{}/reference/widget-elements", version)),
+        "Elements A-M" | "Elements N-Z" => Some(format!("/{}/reference/elements", version)),
         "Runtime and Core" => Some(format!("/{}/reference/runtime-api", version)),
         _ => None,
     }
@@ -1037,15 +1053,21 @@ fn canonical_route_path(version: &str, section: &str, group: Option<&str>, slug:
     }
 
     match group {
-        Some("widget-modules") => format!("/{}/{}/widget-modules/{}", version, section, slug),
-        Some("widget-constructors") => {
-            format!("/{}/{}/widget-constructors/{}", version, section, slug)
+        Some("modules" | "widget-modules") => {
+            format!("/{}/{}/modules/{}", version, section, slug)
         }
-        Some("widget-elements") => format!("/{}/{}/widget-elements/{}", version, section, slug),
+        Some("constructors" | "widget-constructors") => {
+            format!("/{}/{}/constructors/{}", version, section, slug)
+        }
+        Some("elements" | "widget-elements") => {
+            format!("/{}/{}/elements/{}", version, section, slug)
+        }
         _ => match slug {
-            "widget-modules" => format!("/{}/{}/widget-modules", version, section),
-            "widget-constructors" => format!("/{}/{}/widget-constructors", version, section),
-            "widget-elements" => format!("/{}/{}/widget-elements", version, section),
+            "modules" | "widget-modules" => format!("/{}/{}/modules", version, section),
+            "constructors" | "widget-constructors" => {
+                format!("/{}/{}/constructors", version, section)
+            }
+            "elements" | "widget-elements" => format!("/{}/{}/elements", version, section),
             _ => format!("/{}/{}/{}", version, section, slug),
         },
     }
@@ -1056,18 +1078,24 @@ fn slug_to_route_path(version: &str, section: &str, slug: &str) -> String {
         return format!("/{}/{}/{}", version, section, slug);
     }
 
-    if slug == "widget-modules-catalog" {
-        format!("/{}/{}/widget-modules", version, section)
+    if slug == "modules" || slug == "widget-modules-catalog" {
+        format!("/{}/{}/modules", version, section)
+    } else if let Some(tail) = slug.strip_prefix("modules/") {
+        format!("/{}/{}/modules/{}", version, section, tail)
     } else if let Some(tail) = slug.strip_prefix("widget-module-") {
-        format!("/{}/{}/widget-modules/{}", version, section, tail)
-    } else if slug == "widget-constructors-catalog" {
-        format!("/{}/{}/widget-constructors", version, section)
+        format!("/{}/{}/modules/{}", version, section, tail)
+    } else if slug == "constructors" || slug == "widget-constructors-catalog" {
+        format!("/{}/{}/constructors", version, section)
+    } else if let Some(tail) = slug.strip_prefix("constructors/") {
+        format!("/{}/{}/constructors/{}", version, section, tail)
     } else if let Some(tail) = slug.strip_prefix("widget-constructor-") {
-        format!("/{}/{}/widget-constructors/{}", version, section, tail)
-    } else if slug == "widget-elements-catalog" {
-        format!("/{}/{}/widget-elements", version, section)
+        format!("/{}/{}/constructors/{}", version, section, tail)
+    } else if slug == "elements" || slug == "widget-elements-catalog" {
+        format!("/{}/{}/elements", version, section)
+    } else if let Some(tail) = slug.strip_prefix("elements/") {
+        format!("/{}/{}/elements/{}", version, section, tail)
     } else if let Some(tail) = slug.strip_prefix("widget-element-") {
-        format!("/{}/{}/widget-elements/{}", version, section, tail)
+        format!("/{}/{}/elements/{}", version, section, tail)
     } else {
         format!("/{}/{}/{}", version, section, slug)
     }

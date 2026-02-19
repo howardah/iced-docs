@@ -354,3 +354,70 @@ Validation tests passing:
 - `app::tests::all_pages_have_required_frontmatter`
 - `app::tests::internal_links_resolve`
 - `app::tests::search_index_builds`
+
+## 2026-02-19 (Naming + Content Structure Pass)
+
+### Summary
+
+Updated reference naming and content organization to remove the `Widget` prefix from user-facing labels, cleaned item titles/menu labels, and migrated generated reference content into nested folder structure.
+
+### Implemented
+
+- Updated sidebar group labels in `src/app/mod.rs`:
+  - `Widget Modules` -> `Modules`
+  - Catalog submenu removed previously and retained
+  - Constructors/Elements groups preserved with A-M / N-Z split
+
+- Sidebar item label cleanup:
+  - Added `sidebar_display_title` so menu entries display concise names.
+  - Example: `Module - Combo Box` is shown in menu as `Combo Box`.
+
+- Page title cleanup in generated content:
+  - Module pages now use titles like `Module - Combo Box`
+  - Constructor pages use `Constructor - Bottom Right`
+  - Element pages use `Element - Vertical Slider`
+
+- Updated reference route naming conventions:
+  - `/latest/reference/modules`
+  - `/latest/reference/modules/<name>`
+  - `/latest/reference/constructors`
+  - `/latest/reference/constructors/<name>`
+  - `/latest/reference/elements`
+  - `/latest/reference/elements/<name>`
+
+- Updated canonical slug/path mapping logic in `src/app/mod.rs`:
+  - Supports new nested slugs (`modules/<name>`, `constructors/<name>`, `elements/<name>`)
+  - Keeps compatibility aliases for previous `widget-*` patterns in route mapping helpers.
+
+- Migrated generated content structure (under `/src/content`):
+  - From flat generated files like `.../widget-constructor-bottom_right.md`
+  - To nested structure:
+    - `src/content/latest/reference/modules/<name>.md`
+    - `src/content/latest/reference/constructors/<name>.md`
+    - `src/content/latest/reference/elements/<name>.md`
+  - Catalog/index files now:
+    - `src/content/latest/reference/modules.md`
+    - `src/content/latest/reference/constructors.md`
+    - `src/content/latest/reference/elements.md`
+
+- Reworked generator:
+  - `scripts/generate_reference_pages.sh`
+  - Emits new nested file paths, cleaned titles, simplified links, and regenerated all reference pages.
+
+- Updated overview links:
+  - `src/content/latest/reference/widgets-overview.md`
+
+### Build/Test Results
+
+Executed successfully after naming and structure refactor:
+
+- `cargo fmt`
+- `cargo check`
+- `cargo test`
+- `scripts/ci_quality_gates.sh`
+
+Validation tests passing:
+
+- `app::tests::all_pages_have_required_frontmatter`
+- `app::tests::internal_links_resolve`
+- `app::tests::search_index_builds`

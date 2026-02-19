@@ -23,6 +23,7 @@ Message: Send + MaybeDebug + MaybeClone + 'static,
 Theme: Base + 'static,
 Renderer: Renderer + 'static,
 ```
+
 ## When to use it
 
 Use it for straightforward apps where State: Default is acceptable and you want minimal startup wiring.
@@ -33,12 +34,12 @@ It is the shortest path from update/view logic to a running app.
 
 ## Example References
 
-- ref/examples/svg/src/main.rs
-- ref/examples/combo_box/src/main.rs
-- ref/examples/custom_widget/src/main.rs
 - ref/examples/counter/src/main.rs
-- ref/examples/lazy/src/main.rs
-- ref/examples/geometry/src/main.rs
+- ref/examples/custom_widget/src/main.rs
+- ref/examples/loupe/src/main.rs
+- ref/examples/tooltip/src/main.rs
+- ref/examples/custom_quad/src/main.rs
+- ref/examples/pick_list/src/main.rs
 
 ## API verification notes
 

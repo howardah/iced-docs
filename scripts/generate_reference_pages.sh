@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT="src/content/latest/reference"
 DATE="2026-02-19"
 
-mkdir -p "$ROOT"
+mkdir -p "$ROOT/modules" "$ROOT/constructors" "$ROOT/elements"
 
 widget_sidebar="ref/doc/iced/widget/sidebar-items.js"
 iced_sidebar="ref/doc/iced/sidebar-items.js"
@@ -19,6 +19,11 @@ extract_array() {
 kebab_from_pascal() {
     local value="$1"
     echo "$value" | sed -E 's/([a-z0-9])([A-Z])/\1-\2/g' | tr '[:upper:]' '[:lower:]'
+}
+
+titleize_name() {
+    local value="$1"
+    echo "$value" | sed 's/_/ /g; s/-/ /g' | awk '{for(i=1;i<=NF;i++){ $i=toupper(substr($i,1,1)) tolower(substr($i,2)); } print}'
 }
 
 clean_html_text() {
@@ -79,14 +84,10 @@ render_example_section() {
     done
 }
 
-# Clean old generated pages.
 rm -f "$ROOT"/runtime-fn-*.md
-rm -f "$ROOT"/widget-module-*.md
-rm -f "$ROOT"/widget-constructor-*.md
-rm -f "$ROOT"/widget-element-*.md
-rm -f "$ROOT"/widget-modules-catalog.md "$ROOT"/widget-constructors-catalog.md "$ROOT"/widget-elements-catalog.md
+rm -f "$ROOT"/widget-*.md
+rm -f "$ROOT"/modules/*.md "$ROOT"/constructors/*.md "$ROOT"/elements/*.md
 
-# Runtime function pages.
 runtime_order=20
 while read -r fn_name || [[ -n "$fn_name" ]]; do
     [[ -z "$fn_name" ]] && continue
@@ -103,7 +104,7 @@ while read -r fn_name || [[ -n "$fn_name" ]]; do
             ;;
         application)
             ex_files=( $(list_examples 'iced::application\(') )
-            when='Use it when you need runtime builder configuration (title/theme/window/subscription/font/presets) before run().'
+            when='Use it when you need runtime builder configuration (title/theme/window/subscription/font/presets) before run().' 
             why='It scales better for production apps with explicit startup and configuration needs.'
             ;;
         daemon)
@@ -148,6 +149,7 @@ PAGE
         echo "$sig"
         echo '```'
         cat <<PAGE
+
 ## When to use it
 
 ${when}
@@ -171,29 +173,28 @@ PAGE
 - [Core Concepts](/latest/reference/core-concepts)
 PAGE
     } > "$ROOT/runtime-fn-${fn_name}.md"
-
 done < <(extract_array "$iced_sidebar" "fn")
 
-# Module pages.
 module_order=100
 while read -r module_name || [[ -n "$module_name" ]]; do
     [[ -z "$module_name" ]] && continue
     module_order=$((module_order + 1))
 
+    display="$(titleize_name "$module_name")"
     description="$(extract_index_description mod "$module_name")"
     ex_files=( $(list_examples "widget::${module_name}") )
 
     {
         cat <<PAGE
 ---
-title: Widget Module - ${module_name}
+title: Module - ${display}
 description: Module-level reference for iced::widget::${module_name}.
 version: latest
 last_updated: ${DATE}
 order: ${module_order}
 ---
 
-# Widget Module - iced::widget::${module_name}
+# Module - ${display}
 
 Authoritative source: ref/doc/iced/widget/${module_name}/index.html.
 
@@ -211,19 +212,18 @@ PAGE
 
 ## Related
 
-- [Widget Modules Catalog](/latest/reference/widget-modules)
-- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Modules](/latest/reference/modules)
+- [Constructors](/latest/reference/constructors)
 PAGE
-    } > "$ROOT/widget-module-${module_name}.md"
-
+    } > "$ROOT/modules/${module_name}.md"
 done < <(extract_array "$widget_sidebar" "mod")
 
-# Constructor pages.
 constructor_order=300
 while read -r fn_name || [[ -n "$fn_name" ]]; do
     [[ -z "$fn_name" ]] && continue
     constructor_order=$((constructor_order + 1))
 
+    display="$(titleize_name "$fn_name")"
     sig="$(extract_signature "ref/doc/iced/widget/fn.${fn_name}.html")"
     description="$(extract_index_description fn "$fn_name")"
     ex_files=( $(list_examples "\\b${fn_name}\\(") )
@@ -231,14 +231,14 @@ while read -r fn_name || [[ -n "$fn_name" ]]; do
     {
         cat <<PAGE
 ---
-title: Widget Constructor - ${fn_name}
+title: Constructor - ${display}
 description: Function reference for iced::widget::${fn_name}.
 version: latest
 last_updated: ${DATE}
 order: ${constructor_order}
 ---
 
-# Widget Constructor - iced::widget::${fn_name}
+# Constructor - ${display}
 
 Authoritative source: ref/doc/iced/widget/fn.${fn_name}.html.
 
@@ -251,8 +251,8 @@ ${description:-TODO(api-verify)}
 \`\`\`rust
 PAGE
         echo "$sig"
+        echo '```'
         cat <<'PAGE'
-```
 
 ## When to use
 
@@ -268,19 +268,18 @@ PAGE
 
 ## Related
 
-- [Widget Constructors Catalog](/latest/reference/widget-constructors)
-- [Widget Elements Catalog](/latest/reference/widget-elements)
+- [Constructors](/latest/reference/constructors)
+- [Elements](/latest/reference/elements)
 PAGE
-    } > "$ROOT/widget-constructor-${fn_name}.md"
-
+    } > "$ROOT/constructors/${fn_name}.md"
 done < <(extract_array "$widget_sidebar" "fn")
 
-# Element struct pages.
 element_order=500
 while read -r struct_name || [[ -n "$struct_name" ]]; do
     [[ -z "$struct_name" ]] && continue
     element_order=$((element_order + 1))
     slug="$(kebab_from_pascal "$struct_name")"
+    display="$(titleize_name "$slug")"
 
     sig="$(extract_signature "ref/doc/iced/widget/struct.${struct_name}.html")"
     description="$(extract_index_description struct "$struct_name")"
@@ -289,14 +288,14 @@ while read -r struct_name || [[ -n "$struct_name" ]]; do
     {
         cat <<PAGE
 ---
-title: Widget Element - ${struct_name}
+title: Element - ${display}
 description: Struct reference for iced::widget::${struct_name}.
 version: latest
 last_updated: ${DATE}
 order: ${element_order}
 ---
 
-# Widget Element - iced::widget::${struct_name}
+# Element - ${display}
 
 Authoritative source: ref/doc/iced/widget/struct.${struct_name}.html.
 
@@ -309,8 +308,8 @@ ${description:-TODO(api-verify)}
 \`\`\`rust
 PAGE
         echo "$sig"
+        echo '```'
         cat <<'PAGE'
-```
 
 ## When to use
 
@@ -326,74 +325,72 @@ PAGE
 
 ## Related
 
-- [Widget Elements Catalog](/latest/reference/widget-elements)
-- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Elements](/latest/reference/elements)
+- [Constructors](/latest/reference/constructors)
 PAGE
-    } > "$ROOT/widget-element-${slug}.md"
-
+    } > "$ROOT/elements/${slug}.md"
 done < <(extract_array "$widget_sidebar" "struct")
 
-# Catalog pages.
-cat > "$ROOT/widget-modules-catalog.md" <<PAGE
+cat > "$ROOT/modules.md" <<PAGE
 ---
-title: Widget Modules Catalog
+title: Modules
 description: Index of all iced::widget modules exposed in rustdoc.
 version: latest
 last_updated: ${DATE}
 order: 90
 ---
 
-# Widget Modules Catalog
+# Modules
 
 Generated from ref/doc/iced/widget/sidebar-items.js.
 
-## Modules
+## Module Index
 
 PAGE
 while read -r module_name || [[ -n "$module_name" ]]; do
     [[ -z "$module_name" ]] && continue
-    echo "- [Widget Module - ${module_name}](/latest/reference/widget-modules/${module_name})" >> "$ROOT/widget-modules-catalog.md"
+    echo "- [$(titleize_name "$module_name")](/latest/reference/modules/${module_name})" >> "$ROOT/modules.md"
 done < <(extract_array "$widget_sidebar" "mod")
 
-cat > "$ROOT/widget-constructors-catalog.md" <<PAGE
+cat > "$ROOT/constructors.md" <<PAGE
 ---
-title: Widget Constructors Catalog
+title: Constructors
 description: Index of all iced::widget constructor/helper functions exposed in rustdoc.
 version: latest
 last_updated: ${DATE}
 order: 91
 ---
 
-# Widget Constructors Catalog
+# Constructors
 
 Generated from ref/doc/iced/widget/sidebar-items.js.
 
-## Constructors
+## Constructor Index
 
 PAGE
 while read -r fn_name || [[ -n "$fn_name" ]]; do
     [[ -z "$fn_name" ]] && continue
-    echo "- [Widget Constructor - ${fn_name}](/latest/reference/widget-constructors/${fn_name})" >> "$ROOT/widget-constructors-catalog.md"
+    echo "- [$(titleize_name "$fn_name")](/latest/reference/constructors/${fn_name})" >> "$ROOT/constructors.md"
 done < <(extract_array "$widget_sidebar" "fn")
 
-cat > "$ROOT/widget-elements-catalog.md" <<PAGE
+cat > "$ROOT/elements.md" <<PAGE
 ---
-title: Widget Elements Catalog
+title: Elements
 description: Index of all iced::widget element structs exposed in rustdoc.
 version: latest
 last_updated: ${DATE}
 order: 92
 ---
 
-# Widget Elements Catalog
+# Elements
 
 Generated from ref/doc/iced/widget/sidebar-items.js.
 
-## Elements
+## Element Index
 
 PAGE
 while read -r struct_name || [[ -n "$struct_name" ]]; do
     [[ -z "$struct_name" ]] && continue
     slug="$(kebab_from_pascal "$struct_name")"
-    echo "- [Widget Element - ${struct_name}](/latest/reference/widget-elements/${slug})" >> "$ROOT/widget-elements-catalog.md"
+    echo "- [$(titleize_name "$slug")](/latest/reference/elements/${slug})" >> "$ROOT/elements.md"
 done < <(extract_array "$widget_sidebar" "struct")

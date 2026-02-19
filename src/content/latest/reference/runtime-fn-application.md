@@ -23,6 +23,7 @@ Message: Send + 'static,
 Theme: Base,
 Renderer: Renderer,
 ```
+
 ## When to use it
 
 Use it when you need runtime builder configuration (title/theme/window/subscription/font/presets) before run().
@@ -34,11 +35,11 @@ It scales better for production apps with explicit startup and configuration nee
 ## Example References
 
 - ref/examples/clock/src/main.rs
-- ref/examples/editor/src/main.rs
-- ref/examples/scrollable/src/main.rs
-- ref/examples/changelog/src/main.rs
-- ref/examples/download_progress/src/main.rs
+- ref/examples/arc/src/main.rs
+- ref/examples/text/src/main.rs
 - ref/examples/ferris/src/main.rs
+- ref/examples/qr_code/src/main.rs
+- ref/examples/pokedex/src/main.rs
 
 ## API verification notes
 

@@ -23,6 +23,7 @@ Message: Send + 'static,
 Theme: Base,
 Renderer: Renderer,
 ```
+
 ## When to use it
 
 Use it for daemon-like or background-centric app lifecycles, including multi-window orchestration.
