@@ -293,78 +293,14 @@ fn render_doc(path: String) -> Element {
   const mount = document.getElementById("{mount_id}");
   if (!mount) return;
 
-  const slugify = (value) => {{
-    let out = "";
-    let prevDash = false;
-    for (const ch of value) {{
-      if ((ch >= "a" && ch <= "z") || (ch >= "A" && ch <= "Z") || (ch >= "0" && ch <= "9")) {{
-        out += ch.toLowerCase();
-        prevDash = false;
-      }} else if (!prevDash) {{
-        out += "-";
-        prevDash = true;
-      }}
-    }}
-    return out.replace(/^-+|-+$/g, "");
-  }};
-
-  const seenHeadings = new Map();
-  for (const heading of mount.querySelectorAll("h2, h3")) {{
-    const title = heading.textContent ? heading.textContent.trim() : "";
-    if (!title) continue;
-
-    const base = slugify(title);
-    if (!base) continue;
-    const count = seenHeadings.get(base) || 0;
-    seenHeadings.set(base, count + 1);
-    const id = count === 0 ? base : `${{base}}-${{count}}`;
-    heading.id = id;
-
-    let anchor = heading.querySelector("a.heading-link");
-    if (!anchor) {{
-      anchor = document.createElement("a");
-      anchor.className = "heading-link";
-      anchor.textContent = "#";
-      heading.prepend(anchor);
-    }}
-    anchor.setAttribute("href", `#${{id}}`);
-  }}
-
-  for (const pre of mount.querySelectorAll("pre")) {{
-    const parent = pre.parentElement;
-    if (!parent || parent.classList.contains("code-block")) continue;
-
-    const codeNode = pre.querySelector("code");
-    const text = codeNode ? codeNode.textContent || "" : pre.textContent || "";
-    const languageAttr = pre.getAttribute("data-lang");
-    const languageClass = codeNode
-      ? Array.from(codeNode.classList).find((name) => name.startsWith("language-"))
-      : null;
-    const language = languageAttr
-      || (languageClass ? languageClass.replace("language-", "") : "text");
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "code-block";
-
-    const head = document.createElement("div");
-    head.className = "code-head";
-
-    const lang = document.createElement("span");
-    lang.className = "code-lang";
-    lang.textContent = language;
-
-    const button = document.createElement("button");
-    button.className = "copy-btn";
-    button.type = "button";
-    button.textContent = "Copy";
+  for (const button of mount.querySelectorAll(".copy-btn")) {{
+    if (button.dataset.bound === "1") continue;
+    button.dataset.bound = "1";
     button.addEventListener("click", () => {{
+      const text = button.getAttribute("data-copy") || "";
       if (!navigator.clipboard || !navigator.clipboard.writeText) return;
       navigator.clipboard.writeText(text);
     }});
-
-    head.append(lang, button);
-    parent.insertBefore(wrapper, pre);
-    wrapper.append(head, pre);
   }}
 }})();
 "##,
@@ -877,9 +813,43 @@ fn render_markdown_html(markdown: &str) -> String {
     let mut html_out = String::new();
     let mut passthrough_events: Vec<Event<'_>> = Vec::new();
     let mut events = parser.into_iter();
+    let mut heading_seen = HashMap::<String, usize>::new();
 
     while let Some(event) = events.next() {
         match event {
+            Event::Start(Tag::Heading { level, .. })
+                if level == pulldown_cmark::HeadingLevel::H2
+                    || level == pulldown_cmark::HeadingLevel::H3 =>
+            {
+                if !passthrough_events.is_empty() {
+                    html::push_html(&mut html_out, passthrough_events.drain(..));
+                }
+
+                let mut heading_events: Vec<Event<'_>> = Vec::new();
+                for heading_event in events.by_ref() {
+                    if matches!(heading_event, Event::End(TagEnd::Heading(_))) {
+                        break;
+                    }
+                    heading_events.push(heading_event);
+                }
+
+                let heading_text = heading_plain_text(&heading_events);
+                let heading_id = stable_heading_id(&heading_text, &mut heading_seen);
+                let mut heading_inner = String::new();
+                html::push_html(&mut heading_inner, heading_events.into_iter());
+
+                let heading_tag = if level == pulldown_cmark::HeadingLevel::H2 {
+                    "h2"
+                } else {
+                    "h3"
+                };
+                html_out.push_str(&format!(
+                    "<{tag} id=\"{id}\"><a href=\"#{id}\" class=\"heading-link\">#</a> {inner}</{tag}>",
+                    tag = heading_tag,
+                    id = escape_html_attr(&heading_id),
+                    inner = heading_inner,
+                ));
+            }
             Event::Start(Tag::CodeBlock(kind)) => {
                 if !passthrough_events.is_empty() {
                     html::push_html(&mut html_out, passthrough_events.drain(..));
@@ -949,14 +919,21 @@ fn highlight_code_block_html(code: &str, language: &str) -> String {
         .find_syntax_by_token(&language)
         .unwrap_or_else(|| syntax_set.find_syntax_plain_text());
 
-    match highlighted_html_for_string(code, syntax_set, syntax, highlight_theme()) {
+    let pre_html = match highlighted_html_for_string(code, syntax_set, syntax, highlight_theme()) {
         Ok(rendered) => add_pre_attributes(rendered, &language),
         Err(_) => format!(
             "<pre data-lang=\"{}\"><code>{}</code></pre>",
-            language,
+            escape_html_attr(&language),
             escape_html(code)
         ),
-    }
+    };
+
+    format!(
+        "<div class=\"code-block\"><div class=\"code-head\"><span class=\"code-lang\">{lang}</span><button class=\"copy-btn\" type=\"button\" data-copy=\"{copy}\">Copy</button></div>{pre}</div>",
+        lang = escape_html(&language),
+        copy = escape_html_attr(code),
+        pre = pre_html,
+    )
 }
 
 fn add_pre_attributes(mut html_snippet: String, language: &str) -> String {
@@ -965,7 +942,10 @@ fn add_pre_attributes(mut html_snippet: String, language: &str) -> String {
             let insert_at = start + end;
             html_snippet.insert_str(
                 insert_at,
-                &format!(" data-lang=\"{}\" class=\"syntect\"", language),
+                &format!(
+                    " data-lang=\"{}\" class=\"syntect\"",
+                    escape_html_attr(language)
+                ),
             );
         }
     }
@@ -989,6 +969,43 @@ fn escape_html(value: &str) -> String {
         .replace('&', "&amp;")
         .replace('<', "&lt;")
         .replace('>', "&gt;")
+}
+
+fn escape_html_attr(value: &str) -> String {
+    escape_html(value)
+        .replace('"', "&quot;")
+        .replace('\n', "&#10;")
+}
+
+fn heading_plain_text(events: &[Event<'_>]) -> String {
+    let mut out = String::new();
+    for event in events {
+        match event {
+            Event::Text(text) | Event::Code(text) => out.push_str(text.as_ref()),
+            Event::SoftBreak | Event::HardBreak => out.push(' '),
+            _ => {}
+        }
+    }
+    out.split_whitespace().collect::<Vec<_>>().join(" ")
+}
+
+fn stable_heading_id(title: &str, seen: &mut HashMap<String, usize>) -> String {
+    let base = {
+        let slug = slugify(title);
+        if slug.is_empty() {
+            "section".to_string()
+        } else {
+            slug
+        }
+    };
+    let count = seen.entry(base.clone()).or_insert(0);
+    let id = if *count == 0 {
+        base
+    } else {
+        format!("{}-{}", base, *count)
+    };
+    *count += 1;
+    id
 }
 
 fn section_rank(section: &str) -> usize {

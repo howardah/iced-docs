@@ -690,3 +690,54 @@ Fixed `wasm32-unknown-unknown` build failures introduced by syntax-highlighting 
 - `cargo build --target wasm32-unknown-unknown` now succeeds.
 - `cargo check` succeeds.
 - `dx serve` could not be fully smoke-tested in the sandbox because binding `127.0.0.1:8080` is disallowed (`Operation not permitted`), but the prior compile error path is resolved.
+
+## 2026-02-19 (Load-Flash Removal for Anchors and Code Blocks)
+
+### Summary
+
+Removed initial UI flash on page load by moving heading-anchor and code-block container generation from runtime DOM mutation to markdown render-time HTML generation.
+
+### Root Cause
+
+- The previous implementation rendered plain markdown first, then used `document::eval` to:
+  - inject `h2/h3` heading anchors,
+  - wrap `<pre>` blocks with `.code-block/.code-head`,
+  - attach copy handlers.
+- That post-render mutation caused visible layout/content changes (flash) on initial paint.
+
+### Implemented
+
+- Updated markdown renderer in:
+- `src/app/mod.rs`
+  - `render_markdown_html` now emits final heading HTML for `h2/h3` with stable ids and anchor links directly at render time.
+  - Code blocks are now emitted directly as:
+    - `.code-block` wrapper
+    - `.code-head` language label
+    - `.copy-btn` with `data-copy`
+    - highlighted `<pre>` content
+
+- Added helpers in:
+- `src/app/mod.rs`
+  - `heading_plain_text`
+  - `stable_heading_id`
+  - `escape_html_attr`
+
+- Simplified runtime JS enhancement in `render_doc`:
+  - Removed all structural DOM rewrites.
+  - Kept only lightweight copy-button event binding (`.copy-btn`), with idempotent `data-bound` guard.
+
+### Result
+
+- No visible load flash for heading anchors or code block containers.
+- Deep links remain stable and match TOC ids.
+- Click-to-copy remains functional.
+- Syntax highlighting remains intact.
+
+### Build/Test Results
+
+Executed successfully after flash-removal refactor:
+
+- `cargo fmt`
+- `cargo check`
+- `cargo test`
+- `cargo build --target wasm32-unknown-unknown`
