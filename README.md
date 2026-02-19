@@ -2,6 +2,10 @@
 
 Beginner-friendly, documentation website for the Rust GUI crate `iced`, built with **Dioxus 0.7** and **Tailwind CSS**.
 
+## Reason for this project
+
+The iced crate is a powerful and flexible GUI library for Rust, but other than the rustdocs and examples in the github repo, there doesn't seem to be any complete docs. There is an (official site with the start of some documentation)[https://book.iced.rs/] but it's very far from completely and doesn't seem to have been updated at all in the last year.
+
 ## A Disclaimer About AI Usage
 
 This project was initialized with the use of an AI coding agent. This means that it's likely that some of the content is wrong, unhelpful, or incomplete. I tried to get the AI to ground all information with references to the rustdocs and official examples, but only time will tell how well it did with that.
