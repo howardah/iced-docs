@@ -34,6 +34,7 @@ It enables strongly typed composition and explicit builder method flows.
 
 - ref/examples/sandpiles/src/main.rs
 - ref/examples/game_of_life/src/main.rs
+- ref/examples/gallery/src/main.rs
 
 ## Related
 

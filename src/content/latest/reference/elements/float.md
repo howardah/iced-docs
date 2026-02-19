@@ -32,6 +32,7 @@ It enables strongly typed composition and explicit builder method flows.
 ## Example References
 
 - ref/examples/custom_shader/src/scene/pipeline.rs
+- ref/examples/gallery/src/main.rs
 
 ## Related
 

@@ -464,3 +464,55 @@ Validation tests passing:
 - `app::tests::all_pages_have_required_frontmatter`
 - `app::tests::internal_links_resolve`
 - `app::tests::search_index_builds`
+
+## 2026-02-19 (Example Map Expansion Across ref/examples)
+
+### Summary
+
+Expanded `src/docs-meta/example_map.tsv` by scanning all Rust files under `ref/examples` and mapping each example to runtime/module/constructor/element items it uses. Generation now preserves and grows example references instead of dropping curated entries.
+
+### Implemented
+
+- Added new map expansion script:
+- `scripts/expand_example_map.sh`
+
+- Script behavior:
+- Scans all `ref/examples/**/*.rs` files.
+- Detects runtime usage (`run`, `application`, `daemon`, `exit`, `never` when present).
+- Detects constructors by function-call usage.
+- Detects modules by explicit `widget::<module>` references plus constructor-to-module inference.
+- Detects element entries by explicit type references plus constructor-to-element inference.
+- Merges discovered data with existing manual map entries.
+- Rewrites `src/docs-meta/example_map.tsv` deterministically (sorted, de-duplicated).
+
+- Updated generator integration:
+- `scripts/generate_reference_pages.sh` now consumes the expanded map and merges it with automatic discovery and directory inference.
+
+- Regenerated reference content so expanded example references are reflected in pages.
+
+### Coverage Snapshot
+
+From expanded `src/docs-meta/example_map.tsv`:
+
+- runtime entries: 4
+- module entries: 24
+- constructor entries: 38
+- element entries: 27
+
+Remaining pages with TODO example placeholder after expansion: 13.
+
+### Build/Test Results
+
+Executed successfully after map expansion and regeneration:
+
+- `scripts/expand_example_map.sh`
+- `scripts/generate_reference_pages.sh`
+- `cargo check`
+- `cargo test`
+- `scripts/ci_quality_gates.sh`
+
+Validation tests passing:
+
+- `app::tests::all_pages_have_required_frontmatter`
+- `app::tests::internal_links_resolve`
+- `app::tests::search_index_builds`

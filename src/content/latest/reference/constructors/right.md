@@ -37,9 +37,9 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/bezier_tool/src/main.rs
-- ref/examples/text/src/main.rs
 - ref/examples/markdown/src/main.rs
+- ref/examples/text/src/main.rs
+- ref/examples/bezier_tool/src/main.rs
 
 ## Related
 

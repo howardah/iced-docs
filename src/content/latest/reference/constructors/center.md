@@ -38,10 +38,10 @@ It gives explicit widget construction with compile-time type checking and builde
 ## Example References
 
 - ref/examples/clock/src/main.rs
-- ref/examples/loupe/src/main.rs
-- ref/examples/text/src/main.rs
-- ref/examples/pokedex/src/main.rs
-- ref/examples/sandpiles/src/main.rs
+- ref/examples/exit/src/main.rs
+- ref/examples/websocket/src/main.rs
+- ref/examples/multi_window/src/main.rs
+- ref/examples/svg/src/main.rs
 - ref/examples/custom_widget/src/main.rs
 
 ## Related

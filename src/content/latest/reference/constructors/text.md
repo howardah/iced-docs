@@ -37,11 +37,11 @@ It gives explicit widget construction with compile-time type checking and builde
 ## Example References
 
 - ref/examples/editor/src/main.rs
+- ref/examples/loupe/src/main.rs
 - ref/examples/scrollable/src/main.rs
-- ref/examples/tour/src/main.rs
+- ref/examples/ferris/src/main.rs
 - ref/examples/integration/src/controls.rs
-- ref/examples/modal/src/main.rs
-- ref/examples/lazy/src/main.rs
+- ref/examples/events/src/main.rs
 
 ## Related
 

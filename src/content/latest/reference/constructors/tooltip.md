@@ -44,8 +44,8 @@ It gives explicit widget construction with compile-time type checking and builde
 ## Example References
 
 - ref/examples/editor/src/main.rs
-- ref/examples/tooltip/src/main.rs
 - ref/examples/table/src/main.rs
+- ref/examples/tooltip/src/main.rs
 
 ## Related
 

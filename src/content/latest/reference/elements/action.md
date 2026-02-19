@@ -30,12 +30,12 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
-- ref/examples/game_of_life/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/multitouch/src/main.rs
 - ref/examples/markdown/src/main.rs
-- ref/examples/sandpiles/src/main.rs
+- ref/examples/multitouch/src/main.rs
+- ref/examples/game_of_life/src/main.rs
 - ref/examples/bezier_tool/src/main.rs
+- ref/examples/sierpinski_triangle/src/main.rs
 
 ## Related
 

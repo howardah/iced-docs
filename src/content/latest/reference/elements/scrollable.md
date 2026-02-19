@@ -35,6 +35,10 @@ It enables strongly typed composition and explicit builder method flows.
 
 - ref/examples/scrollable/src/main.rs
 - ref/examples/tour/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/combo_box/src/main.rs
+- ref/examples/delineate/src/main.rs
+- ref/examples/gallery/src/main.rs
 
 ## Related
 

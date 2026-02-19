@@ -36,12 +36,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
+- ref/examples/markdown/src/main.rs
+- ref/examples/websocket/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/loupe/src/main.rs
-- ref/examples/system_information/src/main.rs
-- ref/examples/pokedex/src/main.rs
-- ref/examples/gallery/src/main.rs
-- ref/examples/toast/src/main.rs
+- ref/examples/lazy/src/main.rs
+- ref/examples/download_progress/src/main.rs
+- ref/examples/todos/src/main.rs
 
 ## Related
 

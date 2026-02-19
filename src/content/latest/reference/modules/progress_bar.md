@@ -21,6 +21,10 @@ Use this module when you need the widget family and related style/state APIs gro
 ## Example References
 
 - ref/examples/progress_bar/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/download_progress/src/main.rs
+- ref/examples/scrollable/src/main.rs
+- ref/examples/styling/src/main.rs
 
 ## Related
 

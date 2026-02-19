@@ -21,6 +21,11 @@ Use this module when you need the widget family and related style/state APIs gro
 ## Example References
 
 - ref/examples/checkbox/src/main.rs
+- ref/examples/custom_shader/src/main.rs
+- ref/examples/events/src/main.rs
+- ref/examples/ferris/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/gradient/src/main.rs
 
 ## Related
 

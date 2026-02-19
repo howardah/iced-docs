@@ -20,7 +20,8 @@ Use this module when you need the widget family and related style/state APIs gro
 
 ## Example References
 
-- TODO(api-verify): add canonical example mapping for this item.
+- ref/examples/progress_bar/src/main.rs
+- ref/examples/slider/src/main.rs
 
 ## Related
 

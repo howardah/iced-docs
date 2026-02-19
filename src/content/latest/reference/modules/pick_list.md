@@ -21,6 +21,11 @@ Use this module when you need the widget family and related style/state APIs gro
 ## Example References
 
 - ref/examples/pick_list/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/editor/src/main.rs
+- ref/examples/ferris/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/layout/src/main.rs
 
 ## Related
 

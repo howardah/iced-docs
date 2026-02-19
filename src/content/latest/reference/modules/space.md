@@ -20,7 +20,12 @@ Use this module when you need the widget family and related style/state APIs gro
 
 ## Example References
 
-- TODO(api-verify): add canonical example mapping for this item.
+- ref/examples/combo_box/src/main.rs
+- ref/examples/delineate/src/main.rs
+- ref/examples/gallery/src/main.rs
+- ref/examples/gradient/src/main.rs
+- ref/examples/markdown/src/main.rs
+- ref/examples/multi_window/src/main.rs
 
 ## Related
 

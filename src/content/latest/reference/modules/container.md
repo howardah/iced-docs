@@ -21,6 +21,11 @@ Use this module when you need the widget family and related style/state APIs gro
 ## Example References
 
 - ref/examples/pane_grid/src/main.rs
+- ref/examples/arc/src/main.rs
+- ref/examples/bezier_tool/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/checkbox/src/main.rs
+- ref/examples/clock/src/main.rs
 
 ## Related
 

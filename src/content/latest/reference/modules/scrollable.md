@@ -21,6 +21,11 @@ Use this module when you need the widget family and related style/state APIs gro
 ## Example References
 
 - ref/examples/scrollable/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/combo_box/src/main.rs
+- ref/examples/delineate/src/main.rs
+- ref/examples/gallery/src/main.rs
+- ref/examples/geometry/src/main.rs
 
 ## Related
 

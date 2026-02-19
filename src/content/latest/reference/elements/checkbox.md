@@ -33,6 +33,11 @@ It enables strongly typed composition and explicit builder method flows.
 ## Example References
 
 - ref/examples/checkbox/src/main.rs
+- ref/examples/custom_shader/src/main.rs
+- ref/examples/events/src/main.rs
+- ref/examples/ferris/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/gradient/src/main.rs
 
 ## Related
 

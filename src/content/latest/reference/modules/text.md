@@ -20,9 +20,12 @@ Use this module when you need the widget family and related style/state APIs gro
 
 ## Example References
 
-- ref/examples/game_of_life/src/main.rs
 - ref/examples/websocket/src/echo.rs
+- ref/examples/game_of_life/src/main.rs
 - ref/examples/text/src/main.rs
+- ref/examples/changelog/src/icon.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/color_palette/src/main.rs
 
 ## Related
 

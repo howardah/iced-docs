@@ -21,6 +21,8 @@ Use this module when you need the widget family and related style/state APIs gro
 ## Example References
 
 - ref/examples/tooltip/src/main.rs
+- ref/examples/editor/src/main.rs
+- ref/examples/table/src/main.rs
 
 ## Related
 

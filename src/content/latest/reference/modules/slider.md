@@ -21,6 +21,11 @@ Use this module when you need the widget family and related style/state APIs gro
 ## Example References
 
 - ref/examples/slider/src/main.rs
+- ref/examples/color_palette/src/main.rs
+- ref/examples/custom_quad/src/main.rs
+- ref/examples/custom_shader/src/main.rs
+- ref/examples/custom_widget/src/main.rs
+- ref/examples/ferris/src/main.rs
 
 ## Related
 

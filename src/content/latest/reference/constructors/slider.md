@@ -39,12 +39,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/progress_bar/src/main.rs
-- ref/examples/tour/src/main.rs
-- ref/examples/custom_widget/src/main.rs
-- ref/examples/styling/src/main.rs
 - ref/examples/table/src/main.rs
+- ref/examples/custom_widget/src/main.rs
+- ref/examples/integration/src/controls.rs
+- ref/examples/vectorial_text/src/main.rs
 - ref/examples/ferris/src/main.rs
+- ref/examples/styling/src/main.rs
 
 ## Related
 
