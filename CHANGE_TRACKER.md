@@ -321,3 +321,36 @@ Validation tests passing:
 - `app::tests::all_pages_have_required_frontmatter`
 - `app::tests::internal_links_resolve`
 - `app::tests::search_index_builds`
+
+## 2026-02-19 (UI Pass - Catalog Header Link Behavior)
+
+### Summary
+
+Adjusted reference sidebar subgroup behavior so catalog pages are reached by clicking subgroup header text, while clicking elsewhere on the subgroup header row toggles collapse.
+
+### Implemented
+
+- Removed separate `Catalogs` subgroup from reference sidebar grouping.
+- Updated reference subgroup rendering in `src/app/mod.rs`:
+  - Subgroup label text is now a link to the relevant catalog route.
+  - Count badge and non-link header area retain toggle behavior.
+- Catalog-link mapping added:
+  - `Widget Modules` -> `/{version}/reference/widget-modules`
+  - `Constructors A-M` / `Constructors N-Z` -> `/{version}/reference/widget-constructors`
+  - `Elements A-M` / `Elements N-Z` -> `/{version}/reference/widget-elements`
+  - `Runtime and Core` -> `/{version}/reference/runtime-api`
+- Added `.subgroup-link` styling in `assets/main.css`.
+
+### Build/Test Results
+
+Executed successfully after sidebar behavior update:
+
+- `cargo fmt`
+- `cargo check`
+- `cargo test`
+
+Validation tests passing:
+
+- `app::tests::all_pages_have_required_frontmatter`
+- `app::tests::internal_links_resolve`
+- `app::tests::search_index_builds`

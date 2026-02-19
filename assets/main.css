@@ -212,6 +212,15 @@ a {
     font-weight: 700;
 }
 
+.subgroup-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.subgroup-link:hover {
+    text-decoration: underline;
+}
+
 .section-title {
     min-width: 0;
 }

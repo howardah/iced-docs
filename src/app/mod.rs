@@ -444,7 +444,12 @@ fn SidebarNav(selected_version: String, current_page: Option<DocPage>) -> Elemen
         }
     }
 
-    let nav_sections: Vec<(String, Vec<usize>, bool, Vec<(String, Vec<usize>, bool)>)> = sections
+    let nav_sections: Vec<(
+        String,
+        Vec<usize>,
+        bool,
+        Vec<(String, Vec<usize>, bool, Option<String>)>,
+    )> = sections
         .into_iter()
         .map(|(section, indices)| {
             let is_open = section_has_active_page(&indices, &current_path, &catalog.pages);
@@ -454,7 +459,8 @@ fn SidebarNav(selected_version: String, current_page: Option<DocPage>) -> Elemen
                     .map(|(label, group_indices)| {
                         let is_group_open =
                             section_has_active_page(&group_indices, &current_path, &catalog.pages);
-                        (label, group_indices, is_group_open)
+                        let catalog_link = subgroup_catalog_path(&selected_version, &label);
+                        (label, group_indices, is_group_open, catalog_link)
                     })
                     .collect()
             } else {
@@ -476,12 +482,21 @@ fn SidebarNav(selected_version: String, current_page: Option<DocPage>) -> Elemen
                     }
                     section { class: "sidebar-group",
                         if section == "reference" {
-                            for (label, group_indices, is_group_open) in subgroups {
+                            for (label, group_indices, is_group_open, catalog_link) in subgroups {
                                 details {
                                     class: "sidebar-subgroup",
                                     open: is_group_open,
                                     summary {
-                                        span { "{label}" }
+                                        if let Some(link) = catalog_link {
+                                            a {
+                                                class: "subgroup-link",
+                                                href: "{link}",
+                                                onclick: move |event| event.stop_propagation(),
+                                                "{label}"
+                                            }
+                                        } else {
+                                            span { "{label}" }
+                                        }
                                         span { class: "section-count", "{group_indices.len()}" }
                                     }
                                     ul {
@@ -908,7 +923,6 @@ fn section_has_active_page(indices: &[usize], current_path: &str, pages: &[DocPa
 
 fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec<usize>)> {
     let mut core_runtime = Vec::new();
-    let mut catalogs = Vec::new();
     let mut modules = Vec::new();
     let mut constructors_a_m = Vec::new();
     let mut constructors_n_z = Vec::new();
@@ -922,14 +936,16 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
         };
         let slug = page.slug.as_str();
 
+        if slug.ends_with("-catalog") || slug.contains("catalog") {
+            continue;
+        }
+
         if matches!(
             slug,
             "core-concepts" | "runtime-api" | "tasks-subscriptions" | "widgets-overview"
         ) || slug.starts_with("runtime-fn-")
         {
             core_runtime.push(*index);
-        } else if slug.ends_with("-catalog") || slug.contains("catalog") {
-            catalogs.push(*index);
         } else if slug.starts_with("widget-module-") {
             modules.push(*index);
         } else if slug.starts_with("widget-constructor-") {
@@ -951,7 +967,6 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
 
     let mut groups = Vec::new();
     push_group(&mut groups, "Runtime and Core", core_runtime);
-    push_group(&mut groups, "Catalogs", catalogs);
     push_group(&mut groups, "Widget Modules", modules);
     push_group(&mut groups, "Constructors A-M", constructors_a_m);
     push_group(&mut groups, "Constructors N-Z", constructors_n_z);
@@ -975,6 +990,18 @@ fn push_group(groups: &mut Vec<(String, Vec<usize>)>, label: &str, indices: Vec<
         return;
     }
     groups.push((label.to_string(), indices));
+}
+
+fn subgroup_catalog_path(version: &str, label: &str) -> Option<String> {
+    match label {
+        "Widget Modules" => Some(format!("/{}/reference/widget-modules", version)),
+        "Constructors A-M" | "Constructors N-Z" => {
+            Some(format!("/{}/reference/widget-constructors", version))
+        }
+        "Elements A-M" | "Elements N-Z" => Some(format!("/{}/reference/widget-elements", version)),
+        "Runtime and Core" => Some(format!("/{}/reference/runtime-api", version)),
+        _ => None,
+    }
 }
 
 fn plain_text(markdown: &str) -> String {
