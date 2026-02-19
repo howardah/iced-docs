@@ -451,14 +451,67 @@ fn SidebarNav(selected_version: String, current_page: Option<DocPage>) -> Elemen
                                         }
                                         span { class: "section-count", "{group_indices.len()}" }
                                     }
-                                    ul {
-                                        for index in group_indices {
-                                            if let Some(page) = catalog.pages.get(index) {
-                                                li {
-                                                    a {
-                                                        class: if page.route_path == current_path { "active" } else { "" },
-                                                        href: "{page.route_path}",
-                                                        "{sidebar_display_title(page)}"
+                                    if label == "Widgets" {
+                                        for (family_title, family_path, module_path, constructor_path, element_path, family_open, item_count) in
+                                            widget_family_menu_items(&group_indices, &catalog.pages, &current_path)
+                                        {
+                                            details {
+                                                class: "sidebar-subgroup widget-family",
+                                                open: family_open,
+                                                summary {
+                                                    if let Some(path) = family_path.clone() {
+                                                        a {
+                                                            class: "subgroup-link",
+                                                            href: "{path}",
+                                                            onclick: move |event| event.stop_propagation(),
+                                                            "{family_title}"
+                                                        }
+                                                    } else {
+                                                        span { "{family_title}" }
+                                                    }
+                                                    span { class: "section-count", "{item_count}" }
+                                                }
+                                                ul {
+                                                    if let Some(path) = module_path {
+                                                        li {
+                                                            a {
+                                                                class: if path == current_path { "active" } else { "" },
+                                                                href: "{path}",
+                                                                "Module"
+                                                            }
+                                                        }
+                                                    }
+                                                    if let Some(path) = constructor_path {
+                                                        li {
+                                                            a {
+                                                                class: if path == current_path { "active" } else { "" },
+                                                                href: "{path}",
+                                                                "Constructor"
+                                                            }
+                                                        }
+                                                    }
+                                                    if let Some(path) = element_path {
+                                                        li {
+                                                            a {
+                                                                class: if path == current_path { "active" } else { "" },
+                                                                href: "{path}",
+                                                                "Element"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        ul {
+                                            for index in group_indices {
+                                                if let Some(page) = catalog.pages.get(index) {
+                                                    li {
+                                                        a {
+                                                            class: if page.route_path == current_path { "active" } else { "" },
+                                                            href: "{page.route_path}",
+                                                            "{sidebar_display_title(page)}"
+                                                        }
                                                     }
                                                 }
                                             }
@@ -1034,9 +1087,6 @@ fn section_has_active_page(indices: &[usize], current_path: &str, pages: &[DocPa
 fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec<usize>)> {
     let mut core_runtime = Vec::new();
     let mut widgets = Vec::new();
-    let mut modules = Vec::new();
-    let mut constructors = Vec::new();
-    let mut elements = Vec::new();
     let mut other = Vec::new();
 
     for index in indices {
@@ -1055,14 +1105,16 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
         ) || slug.starts_with("runtime-fn-")
         {
             core_runtime.push(*index);
-        } else if slug == "modules" || slug.starts_with("modules/") {
-            modules.push(*index);
-        } else if slug == "families" || slug.starts_with("families/") {
+        } else if slug == "families"
+            || slug.starts_with("families/")
+            || slug == "modules"
+            || slug.starts_with("modules/")
+            || slug == "constructors"
+            || slug.starts_with("constructors/")
+            || slug == "elements"
+            || slug.starts_with("elements/")
+        {
             widgets.push(*index);
-        } else if slug.starts_with("constructors/") {
-            constructors.push(*index);
-        } else if slug.starts_with("elements/") {
-            elements.push(*index);
         } else {
             other.push(*index);
         }
@@ -1071,9 +1123,6 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
     let mut groups = Vec::new();
     push_group(&mut groups, "Runtime and Core", core_runtime);
     push_group(&mut groups, "Widgets", widgets);
-    push_group(&mut groups, "Modules", modules);
-    push_group(&mut groups, "Constructors", constructors);
-    push_group(&mut groups, "Elements", elements);
     push_group(&mut groups, "Other", other);
     groups
 }
@@ -1097,12 +1146,137 @@ fn sidebar_display_title(page: &DocPage) -> String {
 fn subgroup_catalog_path(version: &str, label: &str) -> Option<String> {
     match label {
         "Widgets" => Some(format!("/{}/reference/families", version)),
-        "Modules" => Some(format!("/{}/reference/modules", version)),
-        "Constructors" => Some(format!("/{}/reference/constructors", version)),
-        "Elements" => Some(format!("/{}/reference/elements", version)),
         "Runtime and Core" => Some(format!("/{}/reference/runtime-api", version)),
         _ => None,
     }
+}
+
+fn widget_family_slug(page: &DocPage) -> Option<String> {
+    let slug = page.slug.as_str();
+    if slug == "families" || slug == "modules" || slug == "constructors" || slug == "elements" {
+        return None;
+    }
+    if let Some(value) = slug.strip_prefix("families/") {
+        return Some(value.to_string());
+    }
+    if let Some(value) = slug.strip_prefix("modules/") {
+        return Some(value.replace('_', "-"));
+    }
+    if let Some(value) = slug.strip_prefix("constructors/") {
+        return Some(value.replace('_', "-"));
+    }
+    if let Some(value) = slug.strip_prefix("elements/") {
+        return Some(value.to_string());
+    }
+    None
+}
+
+fn humanize_slug(slug: &str) -> String {
+    slug.split(['-', '_'])
+        .filter(|part| !part.is_empty())
+        .map(|part| {
+            let mut chars = part.chars();
+            match chars.next() {
+                Some(first) => format!("{}{}", first.to_uppercase(), chars.as_str()),
+                None => String::new(),
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(" ")
+}
+
+fn widget_family_menu_items(
+    indices: &[usize],
+    pages: &[DocPage],
+    current_path: &str,
+) -> Vec<(
+    String,
+    Option<String>,
+    Option<String>,
+    Option<String>,
+    Option<String>,
+    bool,
+    usize,
+)> {
+    let mut families: HashMap<
+        String,
+        (Option<usize>, Option<usize>, Option<usize>, Option<usize>),
+    > = HashMap::new();
+
+    for index in indices {
+        let Some(page) = pages.get(*index) else {
+            continue;
+        };
+        let Some(family_slug) = widget_family_slug(page) else {
+            continue;
+        };
+        let entry = families
+            .entry(family_slug)
+            .or_insert((None, None, None, None));
+        if page.slug.starts_with("families/") {
+            entry.0 = Some(*index);
+        } else if page.slug.starts_with("modules/") {
+            entry.1 = Some(*index);
+        } else if page.slug.starts_with("constructors/") {
+            entry.2 = Some(*index);
+        } else if page.slug.starts_with("elements/") {
+            entry.3 = Some(*index);
+        }
+    }
+
+    let mut out = Vec::new();
+    for (family_slug, (family_idx, module_idx, constructor_idx, element_idx)) in families {
+        let title = family_idx
+            .and_then(|index| pages.get(index))
+            .and_then(|page| page.frontmatter.title.strip_prefix("Family - "))
+            .map(ToString::to_string)
+            .unwrap_or_else(|| humanize_slug(&family_slug));
+
+        let family_path = family_idx
+            .and_then(|index| pages.get(index))
+            .map(|page| page.route_path.clone());
+        let module_path = module_idx
+            .and_then(|index| pages.get(index))
+            .map(|page| page.route_path.clone());
+        let constructor_path = constructor_idx
+            .and_then(|index| pages.get(index))
+            .map(|page| page.route_path.clone());
+        let element_path = element_idx
+            .and_then(|index| pages.get(index))
+            .map(|page| page.route_path.clone());
+
+        let item_count = [
+            family_path.as_ref(),
+            module_path.as_ref(),
+            constructor_path.as_ref(),
+            element_path.as_ref(),
+        ]
+        .iter()
+        .filter(|path| path.is_some())
+        .count();
+        let is_open = [
+            family_path.as_ref(),
+            module_path.as_ref(),
+            constructor_path.as_ref(),
+            element_path.as_ref(),
+        ]
+        .iter()
+        .filter_map(|path| path.as_ref())
+        .any(|path| path.as_str() == current_path);
+
+        out.push((
+            title,
+            family_path,
+            module_path,
+            constructor_path,
+            element_path,
+            is_open,
+            item_count,
+        ));
+    }
+
+    out.sort_by(|a, b| a.0.cmp(&b.0));
+    out
 }
 
 fn plain_text(markdown: &str) -> String {

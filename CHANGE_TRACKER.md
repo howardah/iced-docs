@@ -952,3 +952,43 @@ Runtime/Core grouping remains unchanged.
 - `cargo fmt`
 - `cargo check`
 - `cargo test`
+
+## 2026-02-19 (Nested Widget Sidebar Menu)
+
+### Summary
+
+Refined the Reference sidebar so widget-related pages are nested by widget family under `Widgets`, instead of listing Families/Constructors/Elements as separate top-level sibling groups.
+
+### Implemented
+
+- Sidebar structure update in:
+- `src/app/mod.rs`
+
+- Reference subgroup behavior:
+  - `Widgets` now aggregates:
+    - families catalog/items
+    - module pages
+    - constructor pages
+    - element pages
+  - `Modules`, `Constructors`, and `Elements` are no longer separate sibling submenu groups under Reference.
+
+- Nested family menu rendering:
+  - Added per-family collapsible submenu entries under `Widgets`.
+  - Each family entry links to its family page (header text click).
+  - Each family submenu includes direct links to available:
+    - `Module`
+    - `Constructor`
+    - `Element`
+  - Open-state is driven by current route for any linked family surface.
+
+- New helper functions in:
+- `src/app/mod.rs`
+  - `widget_family_slug`
+  - `humanize_slug`
+  - `widget_family_menu_items`
+
+### Verification
+
+- `cargo fmt`
+- `cargo check`
+- `cargo test`
