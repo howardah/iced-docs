@@ -1034,6 +1034,7 @@ fn section_has_active_page(indices: &[usize], current_path: &str, pages: &[DocPa
 fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec<usize>)> {
     let mut core_runtime = Vec::new();
     let mut widgets = Vec::new();
+    let mut modules = Vec::new();
     let mut constructors = Vec::new();
     let mut elements = Vec::new();
     let mut other = Vec::new();
@@ -1054,6 +1055,8 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
         ) || slug.starts_with("runtime-fn-")
         {
             core_runtime.push(*index);
+        } else if slug == "modules" || slug.starts_with("modules/") {
+            modules.push(*index);
         } else if slug == "families" || slug.starts_with("families/") {
             widgets.push(*index);
         } else if slug.starts_with("constructors/") {
@@ -1068,6 +1071,7 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
     let mut groups = Vec::new();
     push_group(&mut groups, "Runtime and Core", core_runtime);
     push_group(&mut groups, "Widgets", widgets);
+    push_group(&mut groups, "Modules", modules);
     push_group(&mut groups, "Constructors", constructors);
     push_group(&mut groups, "Elements", elements);
     push_group(&mut groups, "Other", other);
@@ -1093,6 +1097,7 @@ fn sidebar_display_title(page: &DocPage) -> String {
 fn subgroup_catalog_path(version: &str, label: &str) -> Option<String> {
     match label {
         "Widgets" => Some(format!("/{}/reference/families", version)),
+        "Modules" => Some(format!("/{}/reference/modules", version)),
         "Constructors" => Some(format!("/{}/reference/constructors", version)),
         "Elements" => Some(format!("/{}/reference/elements", version)),
         "Runtime and Core" => Some(format!("/{}/reference/runtime-api", version)),
