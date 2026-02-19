@@ -8,7 +8,42 @@ order: 93
 
 # Families
 
-Generated from ref/doc/iced/widget/sidebar-items.js by normalizing related module/function/struct names into family slugs.
+Family pages are the best starting point for most widgets. Each family groups the module, constructor, and element pages for one concept.
+
+## Use this when...
+
+- You are learning a widget and want all relevant API surfaces together.
+- You need to move from basic usage to deeper customization.
+- You want direct links between constructor/module/element docs.
+
+## Minimal example
+
+```rust
+// Typical workflow:
+// 1) Start with constructor docs.
+// 2) Move to module docs for style/state details.
+// 3) Use element docs for type-level specifics.
+```
+
+## How it works
+
+Most families correspond to one widget domain (for example, `button`, `text_input`, `scrollable`). Layout helpers and utility families are included too.
+
+## Common patterns
+
+```rust
+let content = iced::widget::column![
+    iced::widget::text_input("Search", &state.query).on_input(Message::QueryChanged),
+    iced::widget::button("Run").on_press(Message::Run),
+    iced::widget::scrollable(state.results_view()),
+];
+```
+
+## Gotchas / tips
+
+- Family names are normalized; paths may use hyphens or underscores depending on surface.
+- Use family pages first when you are unsure where an API belongs.
+- If one surface lacks detail, follow linked sibling pages in the same family.
 
 ## Family Index
 
@@ -63,3 +98,8 @@ Generated from ref/doc/iced/widget/sidebar-items.js by normalizing related modul
 - [Tooltip](/latest/reference/families/tooltip)
 - [Value](/latest/reference/families/value)
 - [Vertical Slider](/latest/reference/families/vertical-slider)
+
+## Related
+
+- [Widgets Overview](/latest/reference/widgets-overview)
+- [Core Concepts](/latest/reference/core-concepts)

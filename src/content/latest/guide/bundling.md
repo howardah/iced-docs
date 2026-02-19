@@ -8,31 +8,45 @@ order: 5
 
 # Bundling
 
-Use the application builder when you need explicit runtime configuration.
+Bundling starts with stable runtime configuration. In Iced, that usually means switching to `iced::application(...)` and configuring behavior through builder methods.
 
-## Verified API
+## Use this when...
 
-`ref/doc/iced/fn.application.html` documents:
+- You are moving from prototype to distributable app.
+- You need explicit window/theme/subscription setup.
+- You want startup behavior to be deterministic across environments.
+
+## Minimal example
 
 ```rust
-pub fn application<State, Message, Theme, Renderer>(
-    boot: impl BootFn<State, Message>,
-    update: impl UpdateFn<State, Message>,
-    view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer>,
-) -> Application<impl Program<State = State, Message = Message, Theme = Theme>>
+pub fn main() -> iced::Result {
+    iced::application(App::new, App::update, App::view)
+        .title("My App")
+        .window_size((1024.0, 720.0))
+        .run()
+}
 ```
 
-## Common builder configuration
+## How it works
 
-Official examples use methods like:
+Bundling quality depends on consistent runtime config and asset handling. The builder API keeps these settings visible and testable.
 
-- `.title(...)`
-- `.window_size((w, h))`
-- `.subscription(...)`
-- `.theme(...)`
-- `.run()`
+## Common patterns
+
+```rust
+iced::application(App::new, App::update, App::view)
+    .theme(App::theme)
+    .subscription(App::subscription)
+    .run()
+```
+
+## Gotchas / tips
+
+- Test release builds early; debug behavior can hide timing/perf issues.
+- Keep assets/fonts in known paths and verify they are included by packaging steps.
+- Prefer explicit runtime config over scattered defaults.
 
 ## Related
 
 - [Distribution](/latest/guide/distribution)
-- [Reference: Runtime API](/latest/reference/runtime-api)
+- [Runtime API](/latest/reference/runtime-api)

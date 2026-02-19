@@ -8,41 +8,56 @@ order: 4
 
 # Tasks and Subscriptions
 
-Rustdoc defines:
+`Task<T>` and `Subscription<T>` are the two runtime-side tools that keep Iced apps reactive without giving up typed message flow.
 
-- `Task<T>` as concurrent actions performed by the iced runtime
-- `Subscription<T>` as requests to listen to external events
+## Use this when...
 
-## Task
+- You need to run async work and deliver results as messages.
+- You need ongoing streams (time ticks, events, sockets, window updates).
+- You are deciding whether an effect is one-shot (`Task`) or continuous (`Subscription`).
 
-`Task` is used heavily in async flows like the `todos` example.
+## Minimal example
 
-Practical methods to know (verify exact bounds in rustdoc):
+```rust
+fn update(state: &mut App, message: Message) -> iced::Task<Message> {
+    match message {
+        Message::Refresh => iced::Task::perform(load(), Message::Loaded),
+        Message::Loaded(items) => {
+            state.items = items;
+            iced::Task::none()
+        }
+    }
+}
+```
 
-- `Task::none`
-- `Task::perform`
-- `Task::batch`
-- `Task::map`
-- `Task::chain`
-- `Task::abortable`
+## How it works
 
-## Subscription
+A `Task` is created from `update` and resolves to one or more messages over time. A `Subscription` is declared from state and tells Iced what ongoing event sources you want active right now.
 
-Common composition methods:
+The key rule is: both should always map back into your app's `Message` enum.
 
-- `Subscription::none`
-- `Subscription::run`
-- `Subscription::run_with`
-- `Subscription::batch`
-- `Subscription::map`
+## Common patterns
 
-## Usage guidance
+Official examples like `events`, `clock`, `websocket`, and `gallery` keep subscriptions centralized:
 
-- Prefer `Task` for finite async work (HTTP request, file IO)
-- Prefer `Subscription` for ongoing streams (input/events/time)
-- Keep all outputs mapped into your main `Message` enum
+```rust
+fn subscription(state: &App) -> iced::Subscription<Message> {
+    if state.live_mode {
+        iced::time::every(std::time::Duration::from_millis(16)).map(Message::Tick)
+    } else {
+        iced::Subscription::none()
+    }
+}
+```
+
+## Gotchas / tips
+
+- Do not spawn unmanaged async side effects from `view`; return tasks from `update`.
+- Use `Task::batch` when several one-off effects should start together.
+- Gate subscriptions by state so expensive streams only run when needed.
 
 ## Related
 
 - [Runtime API](/latest/reference/runtime-api)
-- [Tutorial 3 - Async Tasks](/latest/tutorial/async-tasks)
+- [Struct - Task](/latest/reference/structs/task)
+- [Struct - Subscription](/latest/reference/structs/subscription)

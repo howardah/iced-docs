@@ -8,7 +8,38 @@ order: 95
 
 # Structs
 
-Generated from ref/doc/iced/sidebar-items.js.
+Crate-level structs include geometry/style primitives (`Point`, `Size`, `Color`, `Border`) and runtime building blocks (`Task`, `Subscription`, `Settings`).
+
+## Use this when...
+
+- You need explicit Iced types in app state or helper APIs.
+- You are configuring runtime/layout/styling with strongly typed values.
+- You want to understand trait bounds and ownership of core runtime types.
+
+## Minimal example
+
+```rust
+let padding = iced::Padding::from(12);
+let color = iced::Color::from_rgb8(0x33, 0x66, 0x99);
+```
+
+## How it works
+
+These types are used across many modules, so understanding them improves all widget/runtime work. Runtime structs (`Task`, `Subscription`, `Settings`) are especially important for app architecture.
+
+## Common patterns
+
+```rust
+fn refresh() -> iced::Task<Message> {
+    iced::Task::perform(load(), Message::Loaded)
+}
+```
+
+## Gotchas / tips
+
+- Use Iced structs directly instead of loosely typed primitives when available.
+- Keep runtime structs near app bootstrap/update logic, not deeply buried in UI helpers.
+- Geometry/style structs are cheap clarity wins for maintainability.
 
 ## Struct Index
 
@@ -30,3 +61,8 @@ Generated from ref/doc/iced/sidebar-items.js.
 - [Task](/latest/reference/structs/task)
 - [Transformation](/latest/reference/structs/transformation)
 - [Vector](/latest/reference/structs/vector)
+
+## Related
+
+- [Enums](/latest/reference/enums)
+- [Tasks and Subscriptions](/latest/reference/tasks-subscriptions)

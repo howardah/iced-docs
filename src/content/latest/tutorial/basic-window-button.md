@@ -8,9 +8,15 @@ order: 1
 
 # Tutorial 1 - Basic Window and Button
 
-This follows the same pattern used in `ref/examples/counter`.
+This tutorial matches the architecture used in `ref/examples/counter`: typed messages, a small state struct, and a `view` that emits events.
 
-## Define state and messages
+## Use this when...
+
+- You want your first complete message-flow app.
+- You need a concrete pattern for button interactions.
+- You are learning where state updates belong.
+
+## Minimal example
 
 ```rust
 #[derive(Default)]
@@ -25,28 +31,35 @@ enum Message {
 }
 ```
 
-## Wire button interactions
+## How it works
+
+Each button maps a click to a message. `update` handles those messages and mutates state. `view` is called again and renders the new value.
+
+## Common patterns
 
 ```rust
-button("Increment").on_press(Message::Increment)
-button("Decrement").on_press(Message::Decrement)
-```
+use iced::widget::{button, column, text};
 
-## Run the app
+fn view(state: &Counter) -> iced::widget::Column<'_, Message> {
+    column![
+        button("Increment").on_press(Message::Increment),
+        text(state.value),
+        button("Decrement").on_press(Message::Decrement),
+    ]
+}
 
-```rust
 pub fn main() -> iced::Result {
     iced::run(Counter::update, Counter::view)
 }
 ```
 
-## What you learned
+## Gotchas / tips
 
-- `iced::run` is the shortest path to a working app
-- Buttons emit typed messages
-- `update` mutates state and `view` renders UI from state
+- Keep button message handlers explicit; avoid generic catch-all variants.
+- Let `view` read from state only; do not mutate in rendering code.
+- Start simple (`run`) before introducing builder/runtime complexity.
 
 ## Next
 
 - [Tutorial 2 - Layout and Input](/latest/tutorial/layout-input)
-- [Reference: Runtime API](/latest/reference/runtime-api)
+- [Runtime API](/latest/reference/runtime-api)

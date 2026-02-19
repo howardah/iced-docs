@@ -8,33 +8,51 @@ order: 3
 
 # Tutorial 3 - Async Tasks
 
-`ref/examples/todos` demonstrates async loading and saving with `Task::perform`.
+Official examples (`todos`, `events`, `clock`, `websocket`) show the same rule: async and external events still flow through typed messages.
 
-## Async action pattern
+## Use this when...
 
-```rust
-Command::perform(SavedState::load(), Message::Loaded)
-```
+- You need API/file/network work that should not block UI.
+- You need periodic or external event streams.
+- You want predictable side effects in a reactive app.
 
-In iced 0.14 docs, `Task` is the runtime async action type.
-
-## Runtime events with subscriptions
-
-`Todos::application()` in the example sets:
+## Minimal example
 
 ```rust
-.subscription(Todos::subscription)
+fn update(state: &mut App, message: Message) -> iced::Task<Message> {
+    match message {
+        Message::LoadRequested => iced::Task::perform(load_data(), Message::Loaded),
+        Message::Loaded(data) => {
+            state.data = data;
+            iced::Task::none()
+        }
+    }
+}
 ```
 
-Use subscriptions when the app needs passive event streams (keyboard, windows, timers, etc.).
+## How it works
 
-## What you learned
+`Task` is for one-shot effects started by user/runtime events. `Subscription` is for continuous streams you want active while a state condition is true.
 
-- `Task` is for async actions returning messages
-- `Subscription` is for continuous external events
-- Both compose with the same message type architecture
+## Common patterns
+
+```rust
+fn subscription(state: &App) -> iced::Subscription<Message> {
+    if state.live_updates {
+        iced::time::every(std::time::Duration::from_secs(1)).map(Message::Tick)
+    } else {
+        iced::Subscription::none()
+    }
+}
+```
+
+## Gotchas / tips
+
+- Always map async outcomes into your `Message` enum.
+- Disable subscriptions when not needed to avoid extra work.
+- Keep task creation in `update`; do not trigger effects directly from `view`.
 
 ## Next
 
 - [Tutorial 4 - Theming and Components](/latest/tutorial/theming-components)
-- [Reference: Tasks and Subscriptions](/latest/reference/tasks-subscriptions)
+- [Tasks and Subscriptions](/latest/reference/tasks-subscriptions)

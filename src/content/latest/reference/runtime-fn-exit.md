@@ -16,26 +16,56 @@ Authoritative source: `ref/doc/iced/fn.exit.html`.
 pub fn exit<T>() -> Task<T>
 ```
 
-## When to use it
+## Use this when...
 
-Use it inside update logic when a message should trigger runtime shutdown.
+- A user action should close the app.
+- Business logic decides runtime should stop.
+- You want shutdown to stay inside normal task/message flow.
 
-## Why to use it
+## Minimal example
 
-It returns a Task so shutdown composes with the same side-effect model as other runtime actions.
+```rust
+fn update(_state: &mut App, message: Message) -> iced::Task<Message> {
+    match message {
+        Message::QuitConfirmed => iced::exit(),
+        _ => iced::Task::none(),
+    }
+}
+```
 
-## Example References
+## How it works
 
-- ref/examples/multi_window/src/main.rs
-- ref/examples/changelog/src/main.rs
+`exit` returns a task instead of terminating immediately. This keeps shutdown behavior aligned with Iced's side-effect model.
 
+## Common patterns
 
-## API verification notes
+```rust
+match message {
+    Message::ExitClicked => {
+        state.show_confirm = true;
+        iced::Task::none()
+    }
+    Message::ExitConfirmed => iced::exit(),
+    Message::ExitCanceled => {
+        state.show_confirm = false;
+        iced::Task::none()
+    }
+}
+```
 
-- Confirm full bounds and semantics in rustdoc before documenting advanced behavior.
-- Prefer rustdoc when examples and intuition differ.
+## Gotchas / tips
+
+- Call `exit` from `update`, not from `view`.
+- Consider confirmation UI before shutdown for destructive workflows.
+- Keep cleanup-triggering messages explicit so behavior is testable.
+
+## Example references
+
+- `ref/examples/exit/src/main.rs`
+- `ref/examples/changelog/src/main.rs`
+- `ref/examples/multi_window/src/main.rs`
 
 ## Related
 
 - [Runtime API](/latest/reference/runtime-api)
-- [Core Concepts](/latest/reference/core-concepts)
+- [Runtime Function - daemon](/latest/reference/runtime-fn-daemon)

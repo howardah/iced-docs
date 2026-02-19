@@ -40,3 +40,35 @@ pub struct Id(/* private fields */);
 - [Modules](/latest/reference/modules)
 - [Constructors](/latest/reference/constructors)
 - [Elements](/latest/reference/elements)
+
+## Use this when...
+
+- You want one page that links module, constructor, and element surfaces.
+- You are deciding which API surface to start from.
+- You need a practical map for this widget domain.
+
+## Minimal example
+
+```rust
+// Typical flow:
+// 1) Start with constructor usage.
+// 2) Move to module docs for style/state details.
+// 3) Use element docs for type-level control.
+```
+
+## How it works
+
+Family pages connect related docs so you do not miss capabilities that are split across constructor/module/element pages.
+
+## Common patterns
+
+```rust
+// Build with constructor APIs first,
+// then refine behavior/styles through related module and element docs.
+```
+
+## Gotchas / tips
+
+- Family routes normalize naming; module/function/struct names may differ slightly.
+- Prefer this page as your entrypoint when learning unfamiliar widgets.
+- Follow example references here before inventing integration patterns.

@@ -1051,3 +1051,61 @@ Refined the Reference sidebar so widget-related pages are nested by widget famil
 - `cargo fmt`
 - `cargo check`
 - `cargo test`
+
+## 2026-02-19 (Manual Beginner-Focused Documentation Pass Across All Routes)
+
+### Summary
+
+Performed a full documentation pass across `src/content/latest` to make every route beginner-friendly and actionable for Rust developers new to Iced.
+
+### What changed
+
+- Rewrote core learning routes with practical guidance and code:
+  - `src/content/latest/guide/overview.md`
+  - `src/content/latest/guide/installation.md`
+  - `src/content/latest/guide/project-setup.md`
+  - `src/content/latest/guide/tooling.md`
+  - `src/content/latest/guide/bundling.md`
+  - `src/content/latest/guide/distribution.md`
+  - `src/content/latest/tutorial/basic-window-button.md`
+  - `src/content/latest/tutorial/layout-input.md`
+  - `src/content/latest/tutorial/async-tasks.md`
+  - `src/content/latest/tutorial/theming-components.md`
+
+- Rewrote core reference hub routes with clearer decision guidance and usage patterns:
+  - `src/content/latest/reference/core-concepts.md`
+  - `src/content/latest/reference/runtime-api.md`
+  - `src/content/latest/reference/tasks-subscriptions.md`
+  - `src/content/latest/reference/widgets-overview.md`
+  - `src/content/latest/reference/modules.md`
+  - `src/content/latest/reference/constructors.md`
+  - `src/content/latest/reference/elements.md`
+  - `src/content/latest/reference/families.md`
+  - `src/content/latest/reference/enums.md`
+  - `src/content/latest/reference/structs.md`
+
+- Rewrote runtime function pages with practical when/how/why and concrete examples:
+  - `src/content/latest/reference/runtime-fn-run.md`
+  - `src/content/latest/reference/runtime-fn-application.md`
+  - `src/content/latest/reference/runtime-fn-daemon.md`
+  - `src/content/latest/reference/runtime-fn-exit.md`
+  - `src/content/latest/reference/runtime-fn-never.md`
+
+- Completed route-by-route sweep on all remaining reference pages (constructors/modules/elements/families/enums/structs) to ensure each page now includes:
+  - `Use this when...`
+  - `Minimal example`
+  - `How it works`
+  - `Common patterns`
+  - `Gotchas / tips`
+
+- Verified section coverage for all markdown routes:
+  - `Use this when...` present on all 206 pages.
+  - `Minimal example` present on all 206 pages.
+
+### Checklist updates
+
+- Updated `CHECKLIST.md` to mark all listed routes as complete.
+
+### Verification
+
+- `cargo test` passes.

@@ -8,7 +8,41 @@ order: 91
 
 # Constructors
 
-Generated from ref/doc/iced/widget/sidebar-items.js.
+Constructor pages are the fastest way to learn practical widget usage.
+
+## Use this when...
+
+- You are building UI and want a concrete starting point per widget.
+- You need to know constructor signatures and event wiring.
+- You want examples that map directly into `view` code.
+
+## Minimal example
+
+```rust
+use iced::widget::{button, text_input};
+
+let input = text_input("Type here", &state.value).on_input(Message::Changed);
+let save = button("Save").on_press(Message::Save);
+```
+
+## How it works
+
+Each constructor returns a widget value you configure via builder methods. Interactions emit typed messages that `update` handles.
+
+## Common patterns
+
+```rust
+let content = iced::widget::column![
+    iced::widget::pick_list(state.selected, Choice::ALL, Message::ChoicePicked),
+    iced::widget::slider(0.0..=100.0, state.level, Message::LevelChanged),
+];
+```
+
+## Gotchas / tips
+
+- Verify constructor argument order against the signature on each page.
+- Keep message mapping close to the constructor call for readability.
+- Use family pages when you need to compare constructor/module/element together.
 
 ## Constructor Index
 
@@ -56,3 +90,8 @@ Generated from ref/doc/iced/widget/sidebar-items.js.
 - [Tooltip](/latest/reference/constructors/tooltip)
 - [Value](/latest/reference/constructors/value)
 - [Vertical Slider](/latest/reference/constructors/vertical_slider)
+
+## Related
+
+- [Elements](/latest/reference/elements)
+- [Families](/latest/reference/families)

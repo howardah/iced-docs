@@ -16,23 +16,42 @@ Authoritative source: `ref/doc/iced/fn.never.html`.
 pub fn never<T>(never: Infallible) -> T
 ```
 
-## When to use it
+## Use this when...
 
-Use it only for advanced unreachable Infallible-based branches in typed/generic code.
+- You are working with advanced generic code involving `Infallible`.
+- You must satisfy type constraints for an unreachable branch.
+- You need a compile-time proof that a code path cannot happen.
 
-## Why to use it
+## Minimal example
 
-It allows impossible branches to satisfy type requirements safely.
+```rust
+use std::convert::Infallible;
 
-## Example References
+fn impossible(value: Infallible) -> i32 {
+    iced::never(value)
+}
+```
 
-- TODO(api-verify): add canonical example mapping for this item.
+## How it works
 
+`never` converts an `Infallible` value into any type because such a value can never exist at runtime. This is mainly useful in generic/adaptor code.
 
-## API verification notes
+## Common patterns
 
-- Confirm full bounds and semantics in rustdoc before documenting advanced behavior.
-- Prefer rustdoc when examples and intuition differ.
+```rust
+fn map_result<T>(result: Result<T, Infallible>) -> T {
+    match result {
+        Ok(value) => value,
+        Err(never) => iced::never(never),
+    }
+}
+```
+
+## Gotchas / tips
+
+- This is an advanced utility; most app code never needs it.
+- Prefer clearer APIs over introducing `Infallible` unless generics demand it.
+- If unsure, avoid using this function and simplify the type flow first.
 
 ## Related
 

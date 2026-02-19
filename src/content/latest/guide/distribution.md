@@ -8,26 +8,38 @@ order: 6
 
 # Distribution
 
-Distribution strategy depends on your target platform, but keep one core app architecture.
+Distribution is mostly operational, but architecture choices in your Iced app (state shape, runtime setup, asset loading) strongly affect release stability.
 
-## Native checklist
+## Use this when...
 
-- Build with release profile: `cargo build --release`
-- Verify window defaults (size/title/mode) before packaging
-- Package executable with platform-specific installer tooling
+- You are preparing native installers or web deployment artifacts.
+- You need a practical checklist before shipping.
+- You want to reduce release-only regressions.
 
-## Web checklist
+## Minimal example
 
-- Build static assets with your web pipeline (for example, Trunk)
-- Validate asset paths and routing behavior
-- Test in production-like hosting setup
+```sh
+cargo build --release
+```
 
-## Pitfalls
+## How it works
 
-- Target-specific code paths not guarded by `cfg`
-- Missing fonts/icons/assets from final bundle
-- Runtime settings only tested in debug profile
+Build and validate on each target you plan to support. Keep runtime configuration explicit so startup, theme, subscriptions, and window behavior are predictable in release builds.
+
+## Common patterns
+
+```sh
+cargo build --release
+cargo test
+```
+
+## Gotchas / tips
+
+- Guard target-specific code with `cfg` checks.
+- Verify assets (fonts/images/icons) in packaged output, not just dev runs.
+- Run smoke tests for navigation, input, and async flows in release mode.
 
 ## Related
 
-- [Reference: Widgets Overview](/latest/reference/widgets-overview)
+- [Bundling](/latest/guide/bundling)
+- [Widgets Overview](/latest/reference/widgets-overview)

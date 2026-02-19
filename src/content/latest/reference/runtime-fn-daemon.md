@@ -25,25 +25,44 @@ where
     Renderer: Renderer,
 ```
 
-## When to use it
+## Use this when...
 
-Use it for daemon-like or background-centric app lifecycles, including multi-window orchestration.
+- Your app behaves like a background/utility process.
+- You need daemon-style lifecycle and often multi-window orchestration.
+- You still want typed Iced message flow and UI composition.
 
-## Why to use it
+## Minimal example
 
-It provides the daemon runtime builder counterpart to application.
+```rust
+pub fn main() -> iced::Result {
+    iced::daemon(App::new, App::update, App::view).run()
+}
+```
 
-## Example References
+## How it works
 
-- ref/examples/multi_window/src/main.rs
+`daemon` mirrors `application` but targets daemon-like behavior. You still use boot/update/view, tasks, and subscriptions, but lifecycle choices fit background-centric apps.
 
+## Common patterns
 
-## API verification notes
+```rust
+// From multi-window style apps:
+// - create window/task on message
+// - handle close/exit messages centrally in update
+// - keep subscriptions active for window events
+```
 
-- Confirm full bounds and semantics in rustdoc before documenting advanced behavior.
-- Prefer rustdoc when examples and intuition differ.
+## Gotchas / tips
+
+- Use this only when daemon semantics are actually needed; otherwise `application` is simpler.
+- Keep window-creation and shutdown messages explicit in your `Message` enum.
+- Validate exit paths carefully, especially when multiple windows/resources exist.
+
+## Example references
+
+- `ref/examples/multi_window/src/main.rs`
 
 ## Related
 
 - [Runtime API](/latest/reference/runtime-api)
-- [Core Concepts](/latest/reference/core-concepts)
+- [Runtime Function - exit](/latest/reference/runtime-fn-exit)

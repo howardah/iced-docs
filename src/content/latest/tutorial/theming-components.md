@@ -8,29 +8,45 @@ order: 4
 
 # Tutorial 4 - Theming and Components
 
-When apps grow, keep business state in one place and extract reusable view helpers.
+As your app grows, extracting reusable widget builders and centralizing theme choices keeps `view` code readable.
 
-## Reusable component function
+## Use this when...
+
+- Your `view` function is getting too large.
+- You need consistent button/field styling.
+- You want runtime-level theme decisions.
+
+## Minimal example
 
 ```rust
-fn padded_button<'a>(label: &'a str) -> Button<'a, Message> {
-    button(text(label).align_x(Center)).padding(12)
+use iced::widget::{button, text};
+
+fn padded_button<'a>(label: &'a str) -> iced::widget::Button<'a, Message> {
+    button(text(label)).padding([12, 24])
 }
 ```
 
-This pattern appears in `ref/examples/tour/src/main.rs`.
+## How it works
 
-## Theme and style hooks
+Component extraction in Iced is usually just Rust functions returning widgets or `Element<Message>`. Theme selection often lives at app boot (`application(...).theme(...)`) and style details live near widget construction.
 
-Use builder methods like `.theme(...)` on application setup when you need custom theme selection.
+## Common patterns
 
-## What you learned
+```rust
+pub fn main() -> iced::Result {
+    iced::application(App::new, App::update, App::view)
+        .theme(App::theme)
+        .run()
+}
+```
 
-- Decompose large `view` trees into helper functions
-- Keep messages explicit between parent and child UI pieces
-- Centralize theming decisions at app configuration boundaries
+## Gotchas / tips
+
+- Keep extracted UI helpers message-typed so event flow remains obvious.
+- Prefer small reusable builders over deeply nested giant `view` trees.
+- Set theme in one place to avoid style drift.
 
 ## Continue
 
 - [Guide: Distribution](/latest/guide/distribution)
-- [Reference: Core Concepts](/latest/reference/core-concepts)
+- [Core Concepts](/latest/reference/core-concepts)

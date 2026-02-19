@@ -25,57 +25,49 @@ where
     Renderer: Renderer,
 ```
 
-## When to use it
+## Use this when...
 
-Use it when you need runtime builder configuration (title/theme/window/subscription/font/presets) before run().
+- You need explicit app boot + runtime configuration.
+- You want to configure window settings, theme, fonts, subscriptions, or title.
+- You are building production-oriented app startup behavior.
 
-## Why to use it
-
-It scales better for production apps with explicit startup and configuration needs.
-
-## Example References
-
-- ref/examples/modal/src/main.rs
-- ref/examples/color_palette/src/main.rs
-- ref/examples/table/src/main.rs
-- ref/examples/editor/src/main.rs
-- ref/examples/layout/src/main.rs
-- ref/examples/clock/src/main.rs
-
-## Inline Examples (from rustdoc)
+## Minimal example
 
 ```rust
-use iced::widget::{button, column, text, Column};
-
 pub fn main() -> iced::Result {
-    iced::application(u64::default, update, view).run()
-}
-
-#[derive(Debug, Clone)]
-enum Message {
-    Increment,
-}
-
-fn update(value: &mut u64, message: Message) {
-    match message {
-        Message::Increment => *value += 1,
-    }
-}
-
-fn view(value: &u64) -> Column<Message> {
-    column![
-        text(value),
-        button("+").on_press(Message::Increment),
-    ]
+    iced::application(App::new, App::update, App::view).run()
 }
 ```
 
-## API verification notes
+## How it works
 
-- Confirm full bounds and semantics in rustdoc before documenting advanced behavior.
-- Prefer rustdoc when examples and intuition differ.
+`application` returns a builder. You define boot/update/view once, then layer runtime concerns with chainable methods before `.run()`.
+
+## Common patterns
+
+```rust
+pub fn main() -> iced::Result {
+    iced::application(App::new, App::update, App::view)
+        .title("Editor")
+        .subscription(App::subscription)
+        .theme(App::theme)
+        .run()
+}
+```
+
+## Gotchas / tips
+
+- Keep boot-time state initialization in `boot`/`new`, not in `view`.
+- Add subscriptions from builder or app methods to keep lifecycle clear.
+- Prefer `application` over `run` once startup behavior is non-trivial.
+
+## Example references
+
+- `ref/examples/editor/src/main.rs`
+- `ref/examples/layout/src/main.rs`
+- `ref/examples/modal/src/main.rs`
 
 ## Related
 
 - [Runtime API](/latest/reference/runtime-api)
-- [Core Concepts](/latest/reference/core-concepts)
+- [Tasks and Subscriptions](/latest/reference/tasks-subscriptions)

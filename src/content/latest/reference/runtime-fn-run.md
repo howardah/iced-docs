@@ -24,57 +24,59 @@ where
     Renderer: Renderer + 'static,
 ```
 
-## When to use it
+## Use this when...
 
-Use it for straightforward apps where State: Default is acceptable and you want minimal startup wiring.
+- You want the shortest path to a working app.
+- `State: Default` is acceptable.
+- You do not need heavy runtime builder configuration yet.
 
-## Why to use it
-
-It is the shortest path from update/view logic to a running app.
-
-## Example References
-
-- ref/examples/custom_widget/src/main.rs
-- ref/examples/exit/src/main.rs
-- ref/examples/geometry/src/main.rs
-- ref/examples/svg/src/main.rs
-- ref/examples/progress_bar/src/main.rs
-- ref/examples/counter/src/main.rs
-
-## Inline Examples (from rustdoc)
+## Minimal example
 
 ```rust
-use iced::widget::{button, column, text, Column};
-
 pub fn main() -> iced::Result {
-    iced::run(update, view)
-}
-
-#[derive(Debug, Clone)]
-enum Message {
-    Increment,
-}
-
-fn update(value: &mut u64, message: Message) {
-    match message {
-        Message::Increment => *value += 1,
-    }
-}
-
-fn view(value: &u64) -> Column<Message> {
-    column![
-        text(value),
-        button("+").on_press(Message::Increment),
-    ]
+    iced::run(App::update, App::view)
 }
 ```
 
-## API verification notes
+## How it works
 
-- Confirm full bounds and semantics in rustdoc before documenting advanced behavior.
-- Prefer rustdoc when examples and intuition differ.
+`run` wires your `update` and `view` functions into Iced's event loop. User input creates messages, `update` mutates state, and `view` rebuilds widgets from that state.
+
+## Common patterns
+
+```rust
+use iced::widget::{button, column, text};
+
+#[derive(Default)]
+struct App { value: u64 }
+
+#[derive(Debug, Clone)]
+enum Message { Increment }
+
+impl App {
+    fn update(&mut self, message: Message) {
+        match message { Message::Increment => self.value += 1 }
+    }
+
+    fn view(&self) -> iced::widget::Column<'_, Message> {
+        column![text(self.value), button("+").on_press(Message::Increment)]
+    }
+}
+```
+
+## Gotchas / tips
+
+- `run` requires default-initializable state; use `application` when bootstrapping is custom.
+- Keep `view` side-effect free; perform async work via tasks in `update`.
+- If startup config grows, migrate to `iced::application(...)` rather than overloading state defaults.
+
+## Example references
+
+- `ref/examples/counter/src/main.rs`
+- `ref/examples/progress_bar/src/main.rs`
+- `ref/examples/exit/src/main.rs`
 
 ## Related
 
 - [Runtime API](/latest/reference/runtime-api)
-- [Core Concepts](/latest/reference/core-concepts)
+- [Runtime Function - application](/latest/reference/runtime-fn-application)

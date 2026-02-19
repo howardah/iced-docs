@@ -8,7 +8,44 @@ order: 92
 
 # Elements
 
-Generated from ref/doc/iced/widget/sidebar-items.js.
+Element pages document the underlying widget struct types. Use them when constructor-level documentation is not enough.
+
+## Use this when...
+
+- You need explicit widget types in signatures or helper APIs.
+- You are reading trait bounds and advanced builder behavior.
+- You need exact struct-level docs from rustdoc.
+
+## Minimal example
+
+```rust
+use iced::widget::button;
+
+let action: iced::widget::Button<'_, Message> = button("Run").on_press(Message::Run);
+```
+
+## How it works
+
+Constructors usually produce these element structs. You can often stay at constructor level, then move here for deeper control or type-level integration.
+
+## Common patterns
+
+```rust
+fn toolbar<'a>() -> iced::Element<'a, Message> {
+    iced::widget::row![
+        iced::widget::button("Open").on_press(Message::Open),
+        iced::widget::button("Save").on_press(Message::Save),
+    ]
+    .spacing(8)
+    .into()
+}
+```
+
+## Gotchas / tips
+
+- You rarely need to name element struct types directly in early code.
+- When type errors are confusing, check these pages for full generic bounds.
+- Prefer constructors in app code and element types in reusable abstractions.
 
 ## Element Index
 
@@ -42,3 +79,8 @@ Generated from ref/doc/iced/widget/sidebar-items.js.
 - [Toggler](/latest/reference/elements/toggler)
 - [Tooltip](/latest/reference/elements/tooltip)
 - [Vertical Slider](/latest/reference/elements/vertical-slider)
+
+## Related
+
+- [Constructors](/latest/reference/constructors)
+- [Families](/latest/reference/families)

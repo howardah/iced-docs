@@ -8,23 +8,41 @@ order: 1
 
 # Guide Overview
 
-The Guide track is organized to move from first install to a shippable app.
+This guide is a practical path from a fresh Rust environment to a packaged Iced app.
 
-## What this guide covers
+## Use this when...
 
-- Installation and prerequisites
-- Project setup and baseline app structure
-- Day-to-day tooling
-- Bundling and distribution checklists
+- You are new to Iced and want a step-by-step adoption path.
+- You need to set up a reliable local workflow.
+- You are preparing to ship desktop or web builds.
 
-## Source-of-truth policy
+## Minimal example
 
-This site treats the following as authoritative:
+```rust
+pub fn main() -> iced::Result {
+    iced::run(App::update, App::view)
+}
+```
 
-- Rustdoc under `ref/doc/iced`
-- Official examples under `ref/examples`
+## How it works
 
-If a behavior is unclear, verify rustdoc first and examples second.
+Start with installation and project setup so message flow is clear early. Then add tooling and runtime configuration. Finally, package and validate target-specific output.
+
+## Common patterns
+
+A realistic development loop:
+
+```sh
+cargo run --package counter
+cargo check
+cargo test
+```
+
+## Gotchas / tips
+
+- Verify behavior against official examples before introducing custom architecture.
+- Keep app state/message structure simple early; complexity compounds quickly.
+- Separate UI rendering from side effects from day one.
 
 ## Continue
 

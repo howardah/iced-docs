@@ -8,7 +8,44 @@ order: 90
 
 # Modules
 
-Generated from ref/doc/iced/widget/sidebar-items.js.
+Module pages document widget namespaces like `iced::widget::button`, including family-specific style and helper APIs.
+
+## Use this when...
+
+- You need deeper APIs than the free constructor call.
+- You want to discover module-level style/state types.
+- You are building reusable abstractions around one widget family.
+
+## Minimal example
+
+```rust
+use iced::widget::button;
+
+let save = button("Save").on_press(Message::Save);
+```
+
+## How it works
+
+In practice, you often start from constructors and then come back to module pages for advanced options (theme/style catalogs, helper types, and integration points).
+
+## Common patterns
+
+```rust
+use iced::widget::{button, container, text_input};
+
+let form = container(
+    iced::widget::column![
+        text_input("Name", &state.name).on_input(Message::NameChanged),
+        button("Submit").on_press(Message::Submit),
+    ]
+);
+```
+
+## Gotchas / tips
+
+- Constructor and module names can differ slightly (`combo_box`, `text_input`, etc.).
+- If a constructor page seems sparse, check its module page for richer context.
+- Keep imports explicit while learning; it clarifies which API surface you are using.
 
 ## Module Index
 
@@ -40,3 +77,8 @@ Generated from ref/doc/iced/widget/sidebar-items.js.
 - [Toggler](/latest/reference/modules/toggler)
 - [Tooltip](/latest/reference/modules/tooltip)
 - [Vertical Slider](/latest/reference/modules/vertical_slider)
+
+## Related
+
+- [Families](/latest/reference/families)
+- [Constructors](/latest/reference/constructors)
