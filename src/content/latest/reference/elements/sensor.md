@@ -17,7 +17,7 @@ A widget that can generate messages when its content pops in and out of view.
 ## Verified type declaration
 
 ```rust
-pub struct Sensor<'a, Key, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>> { /* private fields */ }
+pub struct Sensor<'a, Key, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>> {/* private fields */}
 ```
 
 ## When to use

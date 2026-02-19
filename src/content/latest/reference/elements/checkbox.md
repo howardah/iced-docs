@@ -17,9 +17,10 @@ A box that can be checked.
 ## Verified type declaration
 
 ```rust
-pub struct Checkbox<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>where
-Renderer: Renderer,
-Theme: Catalog,{ /* private fields */ }
+pub struct Checkbox<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
+where
+    Renderer: Renderer,
+    Theme: Catalog, {/* private fields */}
 ```
 
 ## When to use

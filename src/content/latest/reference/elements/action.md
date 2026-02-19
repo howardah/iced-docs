@@ -17,7 +17,7 @@ A runtime action that can be performed by some widgets.
 ## Verified type declaration
 
 ```rust
-pub struct Action<Message> { /* private fields */ }
+pub struct Action<Message> {/* private fields */}
 ```
 
 ## When to use

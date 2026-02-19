@@ -17,9 +17,10 @@ A widget for searching and selecting a single value from a list of options.
 ## Verified type declaration
 
 ```rust
-pub struct ComboBox<'a, T, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>where
-Theme: Catalog,
-Renderer: Renderer,{ /* private fields */ }
+pub struct ComboBox<'a, T, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
+where
+    Theme: Catalog,
+    Renderer: Renderer, {/* private fields */}
 ```
 
 ## When to use

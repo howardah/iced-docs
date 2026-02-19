@@ -17,9 +17,10 @@ A circular button representing a choice.
 ## Verified type declaration
 
 ```rust
-pub struct Radio<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>where
-Theme: Catalog,
-Renderer: Renderer,{ /* private fields */ }
+pub struct Radio<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
+where
+    Theme: Catalog,
+    Renderer: Renderer, {/* private fields */}
 ```
 
 ## When to use

@@ -19,7 +19,7 @@ widget with the provided content.
 ## Verified type declaration
 
 ```rust
-pub struct Stack<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>> { /* private fields */ }
+pub struct Stack<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>> {/* private fields */}
 ```
 
 ## When to use

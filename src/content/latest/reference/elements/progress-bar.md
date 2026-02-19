@@ -17,8 +17,9 @@ A bar that displays progress.
 ## Verified type declaration
 
 ```rust
-pub struct ProgressBar<'a, Theme = Theme>where
-Theme: Catalog,{ /* private fields */ }
+pub struct ProgressBar<'a, Theme = Theme>
+where
+    Theme: Catalog, {/* private fields */}
 ```
 
 ## When to use

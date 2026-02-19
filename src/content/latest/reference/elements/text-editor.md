@@ -17,10 +17,16 @@ A multi-line text input.
 ## Verified type declaration
 
 ```rust
-pub struct TextEditor<'a, Highlighter, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>where
-Highlighter: Highlighter,
-Theme: Catalog,
-Renderer: Renderer,{ /* private fields */ }
+pub struct TextEditor<
+    'a,
+    Highlighter,
+    Message,
+    Theme = Theme,
+    Renderer = Renderer<Renderer, Renderer>,
+> where
+    Highlighter: Highlighter,
+    Theme: Catalog,
+    Renderer: Renderer, {/* private fields */}
 ```
 
 ## When to use

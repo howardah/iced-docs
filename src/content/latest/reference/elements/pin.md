@@ -17,8 +17,9 @@ A widget that positions its contents at some fixed coordinates inside of its bou
 ## Verified type declaration
 
 ```rust
-pub struct Pin<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>where
-Renderer: Renderer,{ /* private fields */ }
+pub struct Pin<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
+where
+    Renderer: Renderer, {/* private fields */}
 ```
 
 ## When to use

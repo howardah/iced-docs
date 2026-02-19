@@ -19,7 +19,7 @@ with the given children.
 ## Verified type declaration
 
 ```rust
-pub struct Grid<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>> { /* private fields */ }
+pub struct Grid<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>> {/* private fields */}
 ```
 
 ## When to use

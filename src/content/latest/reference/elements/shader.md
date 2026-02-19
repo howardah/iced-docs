@@ -17,8 +17,9 @@ A widget which can render custom shaders with Iced’s wgpu backend.
 ## Verified type declaration
 
 ```rust
-pub struct Shader<Message, P>where
-P: Program<Message>,{ /* private fields */ }
+pub struct Shader<Message, P>
+where
+    P: Program<Message>, {/* private fields */}
 ```
 
 ## When to use

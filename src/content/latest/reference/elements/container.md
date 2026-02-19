@@ -17,9 +17,10 @@ A widget that aligns its contents inside of its boundaries.
 ## Verified type declaration
 
 ```rust
-pub struct Container<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>where
-Theme: Catalog,
-Renderer: Renderer,{ /* private fields */ }
+pub struct Container<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
+where
+    Theme: Catalog,
+    Renderer: Renderer, {/* private fields */}
 ```
 
 ## When to use

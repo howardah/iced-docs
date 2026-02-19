@@ -17,7 +17,7 @@ An amount of empty space.
 ## Verified type declaration
 
 ```rust
-pub struct Space { /* private fields */ }
+pub struct Space {/* private fields */}
 ```
 
 ## When to use

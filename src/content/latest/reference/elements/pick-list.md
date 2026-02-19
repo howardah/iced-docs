@@ -17,12 +17,13 @@ A widget for selecting a single value from a list of options.
 ## Verified type declaration
 
 ```rust
-pub struct PickList<'a, T, L, V, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>where
-T: ToString + PartialEq + Clone,
-L: Borrow<[T]> + 'a,
-V: Borrow<T> + 'a,
-Theme: Catalog,
-Renderer: Renderer,{ /* private fields */ }
+pub struct PickList<'a, T, L, V, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
+where
+    T: ToString + PartialEq + Clone,
+    L: Borrow<[T]> + 'a,
+    V: Borrow<T> + 'a,
+    Theme: Catalog,
+    Renderer: Renderer, {/* private fields */}
 ```
 
 ## When to use

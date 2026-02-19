@@ -5,14 +5,41 @@ set -euo pipefail
 # Usage:
 #   scripts/rustfmt_markdown_code_blocks.sh
 #   scripts/rustfmt_markdown_code_blocks.sh --check
-#   scripts/rustfmt_markdown_code_blocks.sh path/to/file.md [...]
+#   scripts/rustfmt_markdown_code_blocks.sh -r path/to/dir
+#   scripts/rustfmt_markdown_code_blocks.sh [-r] path/to/file.md [...]
 
 CHECK_ONLY=0
+RECURSIVE=0
+declare -a roots=()
 
-if [[ "${1:-}" == "--check" ]]; then
-  CHECK_ONLY=1
-  shift
-fi
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --check)
+      CHECK_ONLY=1
+      shift
+      ;;
+    -r|--recursive)
+      RECURSIVE=1
+      shift
+      ;;
+    --)
+      shift
+      while [[ $# -gt 0 ]]; do
+        roots+=("$1")
+        shift
+      done
+      break
+      ;;
+    -*)
+      echo "error: unknown flag: $1" >&2
+      exit 2
+      ;;
+    *)
+      roots+=("$1")
+      shift
+      ;;
+  esac
+done
 
 if ! command -v rustfmt >/dev/null 2>&1; then
   echo "error: rustfmt not found in PATH" >&2
@@ -23,8 +50,9 @@ format_block_file() {
   local input_file="$1"
   local output_file="$2"
 
-  # rustfmt can fail for partial snippets; keep original in that case.
-  if rustfmt --emit stdout --edition 2021 "$input_file" >"$output_file" 2>/dev/null; then
+  # Use stdin/stdout to avoid rustfmt emitting file-path headers for temp files.
+  # rustfmt can still fail for partial snippets; keep original in that case.
+  if rustfmt --emit stdout --edition 2021 <"$input_file" >"$output_file" 2>/dev/null; then
     return 0
   fi
 
@@ -103,13 +131,55 @@ process_markdown_file() {
   return 0
 }
 
+list_markdown_recursive() {
+  local root="$1"
+  if command -v rg >/dev/null 2>&1; then
+    if [[ "$root" == "." ]]; then
+      rg --files -g '*.md'
+    else
+      rg --files "$root" -g '*.md'
+    fi
+  else
+    find "$root" -type f -name '*.md'
+  fi
+}
+
+list_markdown_non_recursive() {
+  local root="$1"
+  find "$root" -maxdepth 1 -type f -name '*.md'
+}
+
 declare -a files=()
-if [[ $# -gt 0 ]]; then
-  files=("$@")
-else
+
+if [[ ${#roots[@]} -eq 0 ]]; then
   while IFS= read -r path; do
-    files+=("$path")
-  done < <(rg --files -g '*.md')
+    [[ -n "$path" ]] && files+=("$path")
+  done < <(list_markdown_recursive "." | sort -u)
+else
+  list_file="$(mktemp)"
+  trap 'rm -f "$list_file"' EXIT
+
+  for root in "${roots[@]}"; do
+    if [[ -f "$root" ]]; then
+      [[ "$root" == *.md ]] && printf '%s\n' "$root" >>"$list_file"
+      continue
+    fi
+
+    if [[ -d "$root" ]]; then
+      if [[ $RECURSIVE -eq 1 ]]; then
+        list_markdown_recursive "$root" >>"$list_file"
+      else
+        list_markdown_non_recursive "$root" >>"$list_file"
+      fi
+      continue
+    fi
+
+    echo "skip: $root (not found)" >&2
+  done
+
+  while IFS= read -r path; do
+    [[ -n "$path" ]] && files+=("$path")
+  done < <(sort -u "$list_file")
 fi
 
 if [[ ${#files[@]} -eq 0 ]]; then

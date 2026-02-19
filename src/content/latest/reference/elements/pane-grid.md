@@ -18,9 +18,10 @@ to completely fill the space available.
 ## Verified type declaration
 
 ```rust
-pub struct PaneGrid<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>where
-Theme: Catalog,
-Renderer: Renderer,{ /* private fields */ }
+pub struct PaneGrid<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
+where
+    Theme: Catalog,
+    Renderer: Renderer, {/* private fields */}
 ```
 
 ## When to use

@@ -770,3 +770,20 @@ Added a utility script to run `rustfmt` over fenced Rust code blocks inside mark
   - `scripts/rustfmt_markdown_code_blocks.sh --check src/content/latest/guide/overview.md`
   - `scripts/rustfmt_markdown_code_blocks.sh --check src/content/latest/**/*.md`
 - The broader check mode completed and reported pending formatting candidates without mutating files.
+
+### Follow-up Fixes
+
+- Fixed rustfmt output pollution for certain snippets:
+  - Switched formatting execution from `rustfmt <temp-file>` to stdin/stdout piping (`rustfmt --emit stdout < block`).
+  - This avoids temp-path header lines like `/tmp/...:` being inserted into markdown blocks.
+
+- Added recursive directory mode:
+  - New `-r` / `--recursive` flag scans all `.md` files under provided directories.
+  - Example:
+    - `scripts/rustfmt_markdown_code_blocks.sh -r src/content`
+    - `scripts/rustfmt_markdown_code_blocks.sh --check -r src/content`
+
+- Improved CLI compatibility and parsing:
+  - Flags are now accepted in any position (e.g. `path -r`, `-r path`, `--check path -r`).
+  - Added fallback file discovery when `rg` is unavailable (uses `find`).
+  - Replaced `mapfile` with portable read loops to support older bash versions on macOS.

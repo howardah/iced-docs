@@ -17,7 +17,7 @@ A widget that is aware of its dimensions.
 ## Verified type declaration
 
 ```rust
-pub struct Responsive<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>> { /* private fields */ }
+pub struct Responsive<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>> {/* private fields */}
 ```
 
 ## When to use
