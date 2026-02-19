@@ -35,12 +35,12 @@ It scales better for production apps with explicit startup and configuration nee
 
 ## Example References
 
-- ref/examples/clock/src/main.rs
-- ref/examples/editor/src/main.rs
-- ref/examples/pokedex/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/vectorial_text/src/main.rs
+- ref/examples/modal/src/main.rs
 - ref/examples/color_palette/src/main.rs
+- ref/examples/table/src/main.rs
+- ref/examples/editor/src/main.rs
+- ref/examples/layout/src/main.rs
+- ref/examples/clock/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

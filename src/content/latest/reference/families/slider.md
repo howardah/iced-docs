@@ -56,12 +56,12 @@ where
 ```
 ## Example References
 
-- ref/examples/custom_widget/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/loading_spinners/src/main.rs
-- ref/examples/color_palette/src/main.rs
-- ref/examples/game_of_life/src/main.rs
-- ref/examples/qr_code/src/main.rs
+- ref/examples/toast/src/main.rs
+- ref/examples/custom_quad/src/main.rs
+- ref/examples/sandpiles/src/main.rs
+- ref/examples/tour/src/main.rs
+- ref/examples/table/src/main.rs
+- ref/examples/integration/src/controls.rs
 
 ## Inline Examples (from rustdoc)
 

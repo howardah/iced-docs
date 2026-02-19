@@ -39,10 +39,10 @@ where
 
 - ref/examples/clock/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/text/src/main.rs
-- ref/examples/loupe/src/main.rs
-- ref/examples/geometry/src/main.rs
-- ref/examples/pokedex/src/main.rs
+- ref/examples/tooltip/src/main.rs
+- ref/examples/pick_list/src/main.rs
+- ref/examples/combo_box/src/main.rs
+- ref/examples/custom_shader/src/scene/camera.rs
 
 ## Related
 

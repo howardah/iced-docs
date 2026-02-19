@@ -22,11 +22,11 @@ Keyed widgets can provide hints to ensure continuity.
 ## Example References
 
 - ref/examples/clock/src/main.rs
+- ref/examples/styling/src/main.rs
+- ref/examples/gallery/src/main.rs
+- ref/examples/gallery/src/civitai.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/custom_widget/src/main.rs
 - ref/examples/geometry/src/main.rs
-- ref/examples/loupe/src/main.rs
-- ref/examples/events/src/main.rs
 
 ## Related
 

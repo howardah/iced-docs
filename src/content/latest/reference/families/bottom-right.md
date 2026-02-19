@@ -36,11 +36,11 @@ where
 ## Example References
 
 - ref/examples/clock/src/main.rs
-- ref/examples/layout/src/main.rs
-- ref/examples/custom_quad/src/main.rs
-- ref/examples/vectorial_text/src/main.rs
-- ref/examples/qr_code/src/main.rs
-- ref/examples/url_handler/src/main.rs
+- ref/examples/editor/src/main.rs
+- ref/examples/custom_widget/src/main.rs
+- ref/examples/pokedex/src/main.rs
+- ref/examples/ferris/src/main.rs
+- ref/examples/loading_spinners/src/circular.rs
 
 ## Inline Examples (from rustdoc)
 

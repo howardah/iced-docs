@@ -36,9 +36,9 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
+- ref/examples/styling/src/main.rs
 - ref/examples/layout/src/main.rs
 - ref/examples/changelog/src/main.rs
-- ref/examples/styling/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

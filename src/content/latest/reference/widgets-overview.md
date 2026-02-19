@@ -28,6 +28,8 @@ Authoritative source:
 - [Modules](/latest/reference/modules)
 - [Constructors](/latest/reference/constructors)
 - [Elements](/latest/reference/elements)
+- [Structs](/latest/reference/structs)
+- [Enums](/latest/reference/enums)
 
 ## Notes
 

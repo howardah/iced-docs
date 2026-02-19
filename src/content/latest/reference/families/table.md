@@ -42,11 +42,11 @@ where
 ## Example References
 
 - ref/examples/clock/src/main.rs
-- ref/examples/table/src/main.rs
-- ref/examples/sierpinski_triangle/src/main.rs
+- ref/examples/editor/src/main.rs
 - ref/examples/text/src/main.rs
 - ref/examples/loupe/src/main.rs
-- ref/examples/editor/src/main.rs
+- ref/examples/custom_widget/src/main.rs
+- ref/examples/events/src/main.rs
 
 ## Related
 

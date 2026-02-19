@@ -37,12 +37,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
+- ref/examples/websocket/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/loupe/src/main.rs
-- ref/examples/bezier_tool/src/main.rs
+- ref/examples/counter/src/main.rs
+- ref/examples/gallery/src/main.rs
 - ref/examples/layout/src/main.rs
-- ref/examples/pokedex/src/main.rs
-- ref/examples/game_of_life/src/main.rs
+- ref/examples/exit/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

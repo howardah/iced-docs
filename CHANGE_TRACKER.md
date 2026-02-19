@@ -953,6 +953,65 @@ Runtime/Core grouping remains unchanged.
 - `cargo check`
 - `cargo test`
 
+## 2026-02-19 (Added Missing Rustdoc Structs and Enums Coverage)
+
+### Summary
+
+Added crate-level `Structs` and `Enums` coverage to the reference site, generated from authoritative rustdoc sources, and wired them into routing/sidebar navigation so they are discoverable.
+
+### Implemented
+
+- Generator expansion in:
+- `scripts/generate_reference_pages.sh`
+
+- New generated catalogs:
+  - `src/content/latest/reference/enums.md`
+  - `src/content/latest/reference/structs.md`
+
+- New generated item pages:
+  - `src/content/latest/reference/enums/*.md` (from `ref/doc/iced/enum.*.html`)
+  - `src/content/latest/reference/structs/*.md` (from `ref/doc/iced/struct.*.html`)
+
+- Page content includes:
+  - authoritative source link
+  - rustdoc summary (from page meta description)
+  - verified declaration/signature
+  - example references discovered from `ref/examples`
+  - inline rustdoc examples when present
+
+- Routing/sidebar integration in:
+- `src/app/mod.rs`
+  - Added canonical/reference route handling for:
+    - `/latest/reference/enums`
+    - `/latest/reference/enums/<slug>`
+    - `/latest/reference/structs`
+    - `/latest/reference/structs/<slug>`
+  - Added Reference submenu groups:
+    - `Enums`
+    - `Structs`
+  - Added sidebar title cleanup for `Enum - ...` and `Struct - ...`.
+
+- Overview page update:
+- `src/content/latest/reference/widgets-overview.md`
+  - Added links to `Structs` and `Enums` catalogs.
+
+### Generator Stability Fixes (required)
+
+During this pass, generation intermittently aborted under `set -euo pipefail` due SIGPIPE in internal helper pipelines. Fixed by:
+
+- `merge_examples` rewritten to single-pass `awk` limiting (no downstream pipe truncation).
+- `extract_index_description` made pipefail-safe to avoid abort on early awk exit.
+
+### Verification
+
+- `./scripts/generate_reference_pages.sh` completed successfully.
+- Internal link test now resolves new catalogs/items:
+  - `cargo test app::tests::internal_links_resolve`
+- Full validation:
+  - `cargo fmt`
+  - `cargo check`
+  - `cargo test`
+
 ## 2026-02-19 (Nested Widget Sidebar Menu)
 
 ### Summary

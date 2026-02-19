@@ -40,8 +40,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/progress_bar/src/main.rs
 - ref/examples/slider/src/main.rs
+- ref/examples/progress_bar/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

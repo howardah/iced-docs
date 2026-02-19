@@ -54,12 +54,12 @@ where
 ```
 ## Example References
 
-- ref/examples/multi_window/src/main.rs
-- ref/examples/markdown/src/main.rs
+- ref/examples/table/src/main.rs
+- ref/examples/combo_box/src/main.rs
 - ref/examples/todos/src/main.rs
-- ref/examples/tour/src/main.rs
-- ref/examples/pane_grid/src/main.rs
-- ref/examples/styling/src/main.rs
+- ref/examples/layout/src/main.rs
+- ref/examples/delineate/src/main.rs
+- ref/examples/geometry/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

@@ -39,10 +39,10 @@ It gives explicit widget construction with compile-time type checking and builde
 ## Example References
 
 - ref/examples/editor/src/main.rs
-- ref/examples/geometry/src/main.rs
 - ref/examples/table/src/main.rs
-- ref/examples/svg/src/main.rs
-- ref/examples/todos/src/main.rs
+- ref/examples/geometry/src/main.rs
+- ref/examples/markdown/src/main.rs
+- ref/examples/progress_bar/src/main.rs
 - ref/examples/multi_window/src/main.rs
 
 ## Inline Examples (from rustdoc)

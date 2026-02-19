@@ -35,12 +35,12 @@ where
 ```
 ## Example References
 
+- ref/examples/sierpinski_triangle/src/main.rs
 - ref/examples/clock/src/main.rs
-- ref/examples/editor/src/main.rs
-- ref/examples/custom_widget/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/color_palette/src/main.rs
 - ref/examples/table/src/main.rs
+- ref/examples/url_handler/src/main.rs
+- ref/examples/counter/src/main.rs
+- ref/examples/arc/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

@@ -23,10 +23,10 @@ Use the built-in theme and styles.
 
 - ref/examples/clock/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/custom_widget/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/loading_spinners/src/circular.rs
-- ref/examples/pokedex/src/main.rs
+- ref/examples/loupe/src/main.rs
+- ref/examples/checkbox/src/main.rs
+- ref/examples/text/src/main.rs
+- ref/examples/arc/src/main.rs
 
 ## Related
 

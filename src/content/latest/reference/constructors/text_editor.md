@@ -38,8 +38,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/editor/src/main.rs
 - ref/examples/markdown/src/main.rs
+- ref/examples/editor/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

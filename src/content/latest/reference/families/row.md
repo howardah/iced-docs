@@ -51,11 +51,11 @@ pub struct Row<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Rendere
 ```
 ## Example References
 
-- ref/examples/game_of_life/src/preset.rs
-- ref/examples/tour/src/main.rs
 - ref/examples/changelog/src/main.rs
-- ref/examples/styling/src/main.rs
+- ref/examples/game_of_life/src/preset.rs
 - ref/examples/layout/src/main.rs
+- ref/examples/styling/src/main.rs
+- ref/examples/tour/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

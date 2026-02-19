@@ -38,12 +38,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
+- ref/examples/loupe/src/main.rs
+- ref/examples/text/src/main.rs
+- ref/examples/pokedex/src/main.rs
 - ref/examples/clock/src/main.rs
-- ref/examples/custom_widget/src/main.rs
-- ref/examples/custom_quad/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/todos/src/main.rs
-- ref/examples/events/src/main.rs
+- ref/examples/arc/src/main.rs
+- ref/examples/vectorial_text/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

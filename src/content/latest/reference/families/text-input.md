@@ -56,11 +56,11 @@ where
 ## Example References
 
 - ref/examples/qr_code/src/main.rs
-- ref/examples/modal/src/main.rs
-- ref/examples/toast/src/main.rs
-- ref/examples/multi_window/src/main.rs
 - ref/examples/todos/src/main.rs
+- ref/examples/modal/src/main.rs
+- ref/examples/multi_window/src/main.rs
 - ref/examples/tour/src/main.rs
+- ref/examples/changelog/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

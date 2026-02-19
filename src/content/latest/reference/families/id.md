@@ -28,11 +28,11 @@ pub struct Id(/* private fields */);
 ## Example References
 
 - ref/examples/editor/src/main.rs
-- ref/examples/delineate/src/main.rs
-- ref/examples/markdown/src/main.rs
 - ref/examples/todos/src/main.rs
-- ref/examples/websocket/src/main.rs
-- ref/examples/gallery/src/main.rs
+- ref/examples/markdown/src/main.rs
+- ref/examples/multi_window/src/main.rs
+- ref/examples/delineate/src/main.rs
+- ref/examples/scrollable/src/main.rs
 
 ## Related
 

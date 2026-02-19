@@ -37,12 +37,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/ferris/src/main.rs
-- ref/examples/vectorial_text/src/main.rs
-- ref/examples/game_of_life/src/main.rs
-- ref/examples/events/src/main.rs
+- ref/examples/svg/src/main.rs
 - ref/examples/layout/src/main.rs
+- ref/examples/ferris/src/main.rs
+- ref/examples/events/src/main.rs
 - ref/examples/checkbox/src/main.rs
+- ref/examples/progress_bar/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

@@ -47,11 +47,11 @@ pub struct Column<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Rend
 ## Example References
 
 - ref/examples/tour/src/main.rs
-- ref/examples/counter/src/main.rs
-- ref/examples/text/src/main.rs
-- ref/examples/lazy/src/main.rs
-- ref/examples/table/src/main.rs
 - ref/examples/layout/src/main.rs
+- ref/examples/events/src/main.rs
+- ref/examples/lazy/src/main.rs
+- ref/examples/websocket/src/main.rs
+- ref/examples/download_progress/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

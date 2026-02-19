@@ -54,10 +54,10 @@ where
 ## Example References
 
 - ref/examples/editor/src/main.rs
-- ref/examples/qr_code/src/main.rs
 - ref/examples/styling/src/main.rs
-- ref/examples/tour/src/main.rs
 - ref/examples/custom_quad/src/main.rs
+- ref/examples/tour/src/main.rs
+- ref/examples/qr_code/src/main.rs
 - ref/examples/markdown/src/main.rs
 
 ## Inline Examples (from rustdoc)

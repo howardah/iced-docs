@@ -32,12 +32,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/gallery/src/main.rs
-- ref/examples/gradient/src/main.rs
-- ref/examples/delineate/src/main.rs
 - ref/examples/markdown/src/main.rs
+- ref/examples/delineate/src/main.rs
+- ref/examples/gallery/src/main.rs
 - ref/examples/pick_list/src/main.rs
 - ref/examples/multi_window/src/main.rs
+- ref/examples/tour/src/main.rs
 
 
 ## Related

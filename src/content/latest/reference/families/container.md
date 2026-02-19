@@ -54,10 +54,10 @@ where
 ## Example References
 
 - ref/examples/clock/src/main.rs
+- ref/examples/modal/src/main.rs
 - ref/examples/ferris/src/main.rs
-- ref/examples/delineate/src/main.rs
-- ref/examples/game_of_life/src/main.rs
 - ref/examples/multi_window/src/main.rs
+- ref/examples/delineate/src/main.rs
 - ref/examples/markdown/src/main.rs
 
 ## Inline Examples (from rustdoc)

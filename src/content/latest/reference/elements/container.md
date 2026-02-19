@@ -33,8 +33,8 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
-- ref/examples/tour/src/main.rs
 - ref/examples/gradient/src/main.rs
+- ref/examples/tour/src/main.rs
 - ref/examples/arc/src/main.rs
 - ref/examples/bezier_tool/src/main.rs
 - ref/examples/changelog/src/main.rs

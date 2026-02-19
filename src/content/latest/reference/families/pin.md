@@ -46,8 +46,8 @@ where
 ```
 ## Example References
 
-- ref/examples/layout/src/main.rs
 - ref/examples/pane_grid/src/main.rs
+- ref/examples/layout/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

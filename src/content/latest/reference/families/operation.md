@@ -22,11 +22,11 @@ Change internal widget state.
 ## Example References
 
 - ref/examples/clock/src/main.rs
-- ref/examples/editor/src/main.rs
-- ref/examples/loupe/src/main.rs
-- ref/examples/geometry/src/main.rs
-- ref/examples/counter/src/main.rs
-- ref/examples/arc/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/game_of_life/src/preset.rs
+- ref/examples/qr_code/src/main.rs
+- ref/examples/tour/src/main.rs
+- ref/examples/the_matrix/src/main.rs
 
 ## Related
 

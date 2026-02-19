@@ -33,9 +33,9 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
+- ref/examples/tour/src/main.rs
 - ref/examples/color_palette/src/main.rs
 - ref/examples/slider/src/main.rs
-- ref/examples/tour/src/main.rs
 - ref/examples/custom_quad/src/main.rs
 - ref/examples/custom_shader/src/main.rs
 - ref/examples/custom_widget/src/main.rs

@@ -37,12 +37,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/tour/src/main.rs
+- ref/examples/geometry/src/main.rs
+- ref/examples/lazy/src/main.rs
+- ref/examples/combo_box/src/main.rs
 - ref/examples/delineate/src/main.rs
 - ref/examples/pane_grid/src/main.rs
-- ref/examples/markdown/src/main.rs
-- ref/examples/todos/src/main.rs
-- ref/examples/styling/src/main.rs
+- ref/examples/multi_window/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

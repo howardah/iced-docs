@@ -61,8 +61,8 @@ where
 ## Example References
 
 - ref/examples/editor/src/main.rs
-- ref/examples/table/src/main.rs
 - ref/examples/tooltip/src/main.rs
+- ref/examples/table/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

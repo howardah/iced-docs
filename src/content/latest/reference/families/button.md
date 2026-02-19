@@ -53,12 +53,12 @@ where
 ```
 ## Example References
 
-- ref/examples/system_information/src/main.rs
-- ref/examples/download_progress/src/main.rs
-- ref/examples/toast/src/main.rs
+- ref/examples/editor/src/main.rs
+- ref/examples/loupe/src/main.rs
+- ref/examples/modal/src/main.rs
+- ref/examples/todos/src/main.rs
+- ref/examples/pokedex/src/main.rs
 - ref/examples/game_of_life/src/main.rs
-- ref/examples/multi_window/src/main.rs
-- ref/examples/tour/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

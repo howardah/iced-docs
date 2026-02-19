@@ -1,0 +1,49 @@
+---
+title: Enum - Length
+description: Enum reference for iced::Length.
+version: latest
+last_updated: 2026-02-19
+order: 77
+---
+
+# Enum - Length
+
+Authoritative source: `ref/doc/iced/enum.Length.html`.
+
+## Rustdoc summary
+
+The strategy used to fill space in a specific dimension.
+
+## Verified declaration
+
+```rust
+pub enum Length {
+    Fill,
+    FillPortion(u16),
+    Shrink,
+    Fixed(f32),
+}
+```
+
+## When to use
+
+Use this enum when modeling or configuring the set of discrete variants represented by `iced::...`.
+
+## Why to use
+
+It provides explicit, typed variant semantics that match runtime and widget APIs documented in rustdoc.
+
+## Example References
+
+- ref/examples/toast/src/main.rs
+- ref/examples/custom_quad/src/main.rs
+- ref/examples/loading_spinners/src/circular.rs
+- ref/examples/custom_widget/src/main.rs
+- ref/examples/loading_spinners/src/linear.rs
+- ref/examples/layout/src/main.rs
+
+
+## Related
+
+- [Enums](/latest/reference/enums)
+- [Runtime API](/latest/reference/runtime-api)

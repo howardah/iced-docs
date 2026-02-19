@@ -45,12 +45,12 @@ pub struct Space { /* private fields */ }
 ```
 ## Example References
 
-- ref/examples/styling/src/main.rs
-- ref/examples/gradient/src/main.rs
-- ref/examples/scrollable/src/main.rs
+- ref/examples/markdown/src/main.rs
 - ref/examples/delineate/src/main.rs
 - ref/examples/multi_window/src/main.rs
+- ref/examples/gallery/src/main.rs
 - ref/examples/tour/src/main.rs
+- ref/examples/styling/src/main.rs
 
 ## Related
 

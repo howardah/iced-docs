@@ -40,11 +40,11 @@ where
 ## Example References
 
 - ref/examples/clock/src/main.rs
+- ref/examples/custom_shader/src/scene/camera.rs
+- ref/examples/custom_shader/src/scene/pipeline.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/custom_widget/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/pokedex/src/main.rs
-- ref/examples/loading_spinners/src/circular.rs
+- ref/examples/stopwatch/src/main.rs
+- ref/examples/tooltip/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

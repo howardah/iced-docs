@@ -6,10 +6,12 @@ DATE="2026-02-19"
 
 mkdir -p "$ROOT/modules" "$ROOT/constructors" "$ROOT/elements"
 mkdir -p "$ROOT/families"
+mkdir -p "$ROOT/structs" "$ROOT/enums"
 
 widget_sidebar="ref/doc/iced/widget/sidebar-items.js"
 iced_sidebar="ref/doc/iced/sidebar-items.js"
 widget_index="ref/doc/iced/widget/index.html"
+iced_index="ref/doc/iced/index.html"
 example_map_file="src/docs-meta/example_map.tsv"
 
 extract_array() {
@@ -49,6 +51,7 @@ extract_signature() {
             $s =~ s/&quot;/"/g;
             $s =~ s/\r//g;
             $s =~ s/[ \t]+\n/\n/g;
+            $s =~ s/^Show \d+ variants\s*\n//mg;
             $s =~ s/\n{3,}/\n\n/g;
             $s =~ s/^\s+//;
             $s =~ s/\s+$//;
@@ -76,7 +79,27 @@ extract_index_description() {
             in_dd { print }
             in_dd && /<\/dd>/ { exit }
         ' \
-        | clean_html_text
+        | clean_html_text || true
+}
+
+extract_meta_description() {
+    local file="$1"
+    [[ -f "$file" ]] || return 0
+    perl -0777 -ne '
+        if (/<meta name="description" content="([^"]*)"/s) {
+            $s = $1;
+            $s =~ s/&lt;/</g;
+            $s =~ s/&gt;/>/g;
+            $s =~ s/&amp;/\&/g;
+            $s =~ s/&nbsp;/ /g;
+            $s =~ s/&#39;/'\''/g;
+            $s =~ s/&quot;/"/g;
+            $s =~ s/[ \t\r\n]+/ /g;
+            $s =~ s/^\s+//;
+            $s =~ s/\s+$//;
+            print "$s\n";
+        }
+    ' "$file"
 }
 
 list_examples() {
@@ -117,7 +140,7 @@ manual_examples() {
 }
 
 merge_examples() {
-    awk '!seen[$0]++' | sed '/^$/d' | sed -n '1,6p'
+    awk 'NF && !seen[$0]++ { print; if (++count >= 6) exit }'
 }
 
 render_example_section() {
@@ -215,6 +238,7 @@ rm -f "$ROOT"/runtime-fn-*.md
 rm -f "$ROOT"/widget-*.md
 rm -f "$ROOT"/modules/*.md "$ROOT"/constructors/*.md "$ROOT"/elements/*.md
 rm -f "$ROOT"/families/*.md
+rm -f "$ROOT"/structs/*.md "$ROOT"/enums/*.md
 
 runtime_order=20
 while read -r fn_name || [[ -n "$fn_name" ]]; do
@@ -311,6 +335,130 @@ PAGE
 PAGE
     } > "$ROOT/runtime-fn-${fn_name}.md"
 done < <(extract_array "$iced_sidebar" "fn")
+
+enum_order=70
+while read -r enum_name || [[ -n "$enum_name" ]]; do
+    [[ -z "$enum_name" ]] && continue
+    enum_order=$((enum_order + 1))
+    enum_slug="$(kebab_from_pascal "$enum_name")"
+    enum_doc="ref/doc/iced/enum.${enum_name}.html"
+    sig="$(extract_signature "$enum_doc")"
+    description="$(extract_meta_description "$enum_doc")"
+    inline_examples="$(extract_inline_examples_markdown "$enum_doc" 2)"
+    ex_files=()
+    auto_files=( $(list_examples_limited "\\b${enum_name}::|\\b${enum_name}\\b" 8) )
+    manual_files=( $(manual_examples enum "$enum_slug") )
+    ex_files=( $(printf "%s\n" "${auto_files[@]}" "${manual_files[@]}" | merge_examples) )
+
+    {
+        cat <<PAGE
+---
+title: Enum - ${enum_name}
+description: Enum reference for iced::${enum_name}.
+version: latest
+last_updated: ${DATE}
+order: ${enum_order}
+---
+
+# Enum - ${enum_name}
+
+Authoritative source: \`ref/doc/iced/enum.${enum_name}.html\`.
+
+## Rustdoc summary
+
+${description:-TODO(api-verify)}
+
+## Verified declaration
+
+\`\`\`rust
+PAGE
+        echo "$sig"
+        echo '```'
+        cat <<'PAGE'
+
+## When to use
+
+Use this enum when modeling or configuring the set of discrete variants represented by `iced::...`.
+
+## Why to use
+
+It provides explicit, typed variant semantics that match runtime and widget APIs documented in rustdoc.
+
+PAGE
+        render_example_section "Example References" "${ex_files[@]}"
+        echo
+        render_inline_examples_section "$inline_examples"
+        cat <<'PAGE'
+
+## Related
+
+- [Enums](/latest/reference/enums)
+- [Runtime API](/latest/reference/runtime-api)
+PAGE
+    } > "$ROOT/enums/${enum_slug}.md"
+done < <(extract_array "$iced_sidebar" "enum")
+
+struct_order=80
+while read -r struct_name || [[ -n "$struct_name" ]]; do
+    [[ -z "$struct_name" ]] && continue
+    struct_order=$((struct_order + 1))
+    struct_slug="$(kebab_from_pascal "$struct_name")"
+    struct_doc="ref/doc/iced/struct.${struct_name}.html"
+    sig="$(extract_signature "$struct_doc")"
+    description="$(extract_meta_description "$struct_doc")"
+    inline_examples="$(extract_inline_examples_markdown "$struct_doc" 2)"
+    ex_files=()
+    auto_files=( $(list_examples_limited "\\b${struct_name}\\b" 8) )
+    manual_files=( $(manual_examples struct "$struct_slug") )
+    ex_files=( $(printf "%s\n" "${auto_files[@]}" "${manual_files[@]}" | merge_examples) )
+
+    {
+        cat <<PAGE
+---
+title: Struct - ${struct_name}
+description: Struct reference for iced::${struct_name}.
+version: latest
+last_updated: ${DATE}
+order: ${struct_order}
+---
+
+# Struct - ${struct_name}
+
+Authoritative source: \`ref/doc/iced/struct.${struct_name}.html\`.
+
+## Rustdoc summary
+
+${description:-TODO(api-verify)}
+
+## Verified declaration
+
+\`\`\`rust
+PAGE
+        echo "$sig"
+        echo '```'
+        cat <<'PAGE'
+
+## When to use
+
+Use this struct when you need the concrete typed value represented by `iced::...` in application/runtime or layout code.
+
+## Why to use
+
+It gives explicit data and behavior surfaces aligned with rustdoc signatures and trait bounds.
+
+PAGE
+        render_example_section "Example References" "${ex_files[@]}"
+        echo
+        render_inline_examples_section "$inline_examples"
+        cat <<'PAGE'
+
+## Related
+
+- [Structs](/latest/reference/structs)
+- [Runtime API](/latest/reference/runtime-api)
+PAGE
+    } > "$ROOT/structs/${struct_slug}.md"
+done < <(extract_array "$iced_sidebar" "struct")
 
 module_order=100
 while read -r module_name || [[ -n "$module_name" ]]; do
@@ -726,6 +874,50 @@ while read -r struct_name || [[ -n "$struct_name" ]]; do
     slug="$(kebab_from_pascal "$struct_name")"
     echo "- [$(titleize_name "$slug")](/latest/reference/elements/${slug})" >> "$ROOT/elements.md"
 done < <(extract_array "$widget_sidebar" "struct")
+
+cat > "$ROOT/enums.md" <<PAGE
+---
+title: Enums
+description: Index of crate-level iced enums exposed in rustdoc.
+version: latest
+last_updated: ${DATE}
+order: 94
+---
+
+# Enums
+
+Generated from ref/doc/iced/sidebar-items.js.
+
+## Enum Index
+
+PAGE
+while read -r enum_name || [[ -n "$enum_name" ]]; do
+    [[ -z "$enum_name" ]] && continue
+    enum_slug="$(kebab_from_pascal "$enum_name")"
+    echo "- [${enum_name}](/latest/reference/enums/${enum_slug})" >> "$ROOT/enums.md"
+done < <(extract_array "$iced_sidebar" "enum")
+
+cat > "$ROOT/structs.md" <<PAGE
+---
+title: Structs
+description: Index of crate-level iced structs exposed in rustdoc.
+version: latest
+last_updated: ${DATE}
+order: 95
+---
+
+# Structs
+
+Generated from ref/doc/iced/sidebar-items.js.
+
+## Struct Index
+
+PAGE
+while read -r struct_name || [[ -n "$struct_name" ]]; do
+    [[ -z "$struct_name" ]] && continue
+    struct_slug="$(kebab_from_pascal "$struct_name")"
+    echo "- [${struct_name}](/latest/reference/structs/${struct_slug})" >> "$ROOT/structs.md"
+done < <(extract_array "$iced_sidebar" "struct")
 
 cat > "$ROOT/families.md" <<PAGE
 ---

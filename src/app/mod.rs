@@ -1086,6 +1086,8 @@ fn section_has_active_page(indices: &[usize], current_path: &str, pages: &[DocPa
 
 fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec<usize>)> {
     let mut core_runtime = Vec::new();
+    let mut enums = Vec::new();
+    let mut structs = Vec::new();
     let mut widgets = Vec::new();
     let mut other = Vec::new();
 
@@ -1095,7 +1097,10 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
         };
         let slug = page.slug.as_str();
 
-        if matches!(slug, "families" | "modules" | "constructors" | "elements") {
+        if matches!(
+            slug,
+            "families" | "modules" | "constructors" | "elements" | "enums" | "structs"
+        ) {
             continue;
         }
 
@@ -1105,6 +1110,10 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
         ) || slug.starts_with("runtime-fn-")
         {
             core_runtime.push(*index);
+        } else if slug.starts_with("enums/") {
+            enums.push(*index);
+        } else if slug.starts_with("structs/") {
+            structs.push(*index);
         } else if slug == "families"
             || slug.starts_with("families/")
             || slug == "modules"
@@ -1122,6 +1131,8 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
 
     let mut groups = Vec::new();
     push_group(&mut groups, "Runtime and Core", core_runtime);
+    push_group(&mut groups, "Enums", enums);
+    push_group(&mut groups, "Structs", structs);
     push_group(&mut groups, "Widgets", widgets);
     push_group(&mut groups, "Other", other);
     groups
@@ -1135,7 +1146,14 @@ fn push_group(groups: &mut Vec<(String, Vec<usize>)>, label: &str, indices: Vec<
 }
 
 fn sidebar_display_title(page: &DocPage) -> String {
-    for prefix in ["Family - ", "Module - ", "Constructor - ", "Element - "] {
+    for prefix in [
+        "Family - ",
+        "Module - ",
+        "Constructor - ",
+        "Element - ",
+        "Struct - ",
+        "Enum - ",
+    ] {
         if let Some(rest) = page.frontmatter.title.strip_prefix(prefix) {
             return rest.to_string();
         }
@@ -1145,6 +1163,8 @@ fn sidebar_display_title(page: &DocPage) -> String {
 
 fn subgroup_catalog_path(version: &str, label: &str) -> Option<String> {
     match label {
+        "Enums" => Some(format!("/{}/reference/enums", version)),
+        "Structs" => Some(format!("/{}/reference/structs", version)),
         "Widgets" => Some(format!("/{}/reference/families", version)),
         "Runtime and Core" => Some(format!("/{}/reference/runtime-api", version)),
         _ => None,
@@ -1312,6 +1332,8 @@ fn canonical_route_path(version: &str, section: &str, group: Option<&str>, slug:
     }
 
     match group {
+        Some("enums") => format!("/{}/{}/enums/{}", version, section, slug),
+        Some("structs") => format!("/{}/{}/structs/{}", version, section, slug),
         Some("families" | "widget-families") => {
             format!("/{}/{}/families/{}", version, section, slug)
         }
@@ -1325,6 +1347,8 @@ fn canonical_route_path(version: &str, section: &str, group: Option<&str>, slug:
             format!("/{}/{}/elements/{}", version, section, slug)
         }
         _ => match slug {
+            "enums" => format!("/{}/{}/enums", version, section),
+            "structs" => format!("/{}/{}/structs", version, section),
             "families" | "widget-families" => format!("/{}/{}/families", version, section),
             "modules" | "widget-modules" => format!("/{}/{}/modules", version, section),
             "constructors" | "widget-constructors" => {
@@ -1341,7 +1365,15 @@ fn slug_to_route_path(version: &str, section: &str, slug: &str) -> String {
         return format!("/{}/{}/{}", version, section, slug);
     }
 
-    if slug == "modules" || slug == "widget-modules-catalog" {
+    if slug == "enums" {
+        format!("/{}/{}/enums", version, section)
+    } else if let Some(tail) = slug.strip_prefix("enums/") {
+        format!("/{}/{}/enums/{}", version, section, tail)
+    } else if slug == "structs" {
+        format!("/{}/{}/structs", version, section)
+    } else if let Some(tail) = slug.strip_prefix("structs/") {
+        format!("/{}/{}/structs/{}", version, section, tail)
+    } else if slug == "modules" || slug == "widget-modules-catalog" {
         format!("/{}/{}/modules", version, section)
     } else if slug == "families" || slug == "widget-families-catalog" {
         format!("/{}/{}/families", version, section)

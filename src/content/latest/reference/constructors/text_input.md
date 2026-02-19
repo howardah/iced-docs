@@ -39,12 +39,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/toast/src/main.rs
-- ref/examples/todos/src/main.rs
-- ref/examples/multi_window/src/main.rs
 - ref/examples/qr_code/src/main.rs
-- ref/examples/tour/src/main.rs
+- ref/examples/modal/src/main.rs
+- ref/examples/multi_window/src/main.rs
 - ref/examples/integration/src/controls.rs
+- ref/examples/toast/src/main.rs
+- ref/examples/tour/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

@@ -30,11 +30,11 @@ pub fn span<'a, Link, Font>(text: impl IntoFragment<'a>) -> Span<'a, Link, Font>
 ## Example References
 
 - ref/examples/clock/src/main.rs
+- ref/examples/loupe/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/custom_widget/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/pokedex/src/main.rs
+- ref/examples/modal/src/main.rs
 - ref/examples/text/src/main.rs
+- ref/examples/todos/src/main.rs
 
 ## Inline Examples (from rustdoc)
 
