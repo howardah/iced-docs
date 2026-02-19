@@ -4,7 +4,7 @@ Beginner-friendly, documentation website for the Rust GUI crate `iced`, built wi
 
 ## Reason for this project
 
-The iced crate is a powerful and flexible GUI library for Rust, but other than the rustdocs and examples in the github repo, there doesn't seem to be any complete docs. There is an (official site with the start of some documentation)[https://book.iced.rs/] but it's very far from completely and doesn't seem to have been updated at all in the last year.
+The iced crate is a powerful and flexible GUI library for Rust, but other than the rustdocs and examples in the github repo, there doesn't seem to be any complete docs. There is an [official site with the start of some documentation](https://book.iced.rs/) but it's very far from completely and doesn't seem to have been updated at all in the last year.
 
 ## A Disclaimer About AI Usage
 
