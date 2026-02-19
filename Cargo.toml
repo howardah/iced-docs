@@ -10,6 +10,7 @@ edition = "2021"
 dioxus = { version = "0.7.1", features = ["router", "fullstack"] }
 dioxus-markdown = "0.0.1"
 pulldown-cmark = "0.13"
+syntect = { version = "5.3.0", default-features = false, features = ["default-fancy"] }
 
 [features]
 default = ["web"]

@@ -3,7 +3,10 @@ use std::sync::OnceLock;
 
 use dioxus::document;
 use dioxus::prelude::*;
-use pulldown_cmark::{html, Options, Parser};
+use pulldown_cmark::{html, CodeBlockKind, Event, Options, Parser, Tag, TagEnd};
+use syntect::highlighting::{Theme, ThemeSet};
+use syntect::html::highlighted_html_for_string;
+use syntect::parsing::SyntaxSet;
 
 mod generated {
     include!(concat!(env!("OUT_DIR"), "/content_gen.rs"));
@@ -333,10 +336,12 @@ fn render_doc(path: String) -> Element {
 
     const codeNode = pre.querySelector("code");
     const text = codeNode ? codeNode.textContent || "" : pre.textContent || "";
+    const languageAttr = pre.getAttribute("data-lang");
     const languageClass = codeNode
       ? Array.from(codeNode.classList).find((name) => name.startsWith("language-"))
       : null;
-    const language = languageClass ? languageClass.replace("language-", "") : "text";
+    const language = languageAttr
+      || (languageClass ? languageClass.replace("language-", "") : "text");
 
     const wrapper = document.createElement("div");
     wrapper.className = "code-block";
@@ -870,8 +875,120 @@ fn render_markdown_html(markdown: &str) -> String {
         | Options::ENABLE_TASKLISTS;
     let parser = Parser::new_ext(markdown, options);
     let mut html_out = String::new();
-    html::push_html(&mut html_out, parser);
+    let mut passthrough_events: Vec<Event<'_>> = Vec::new();
+    let mut events = parser.into_iter();
+
+    while let Some(event) = events.next() {
+        match event {
+            Event::Start(Tag::CodeBlock(kind)) => {
+                if !passthrough_events.is_empty() {
+                    html::push_html(&mut html_out, passthrough_events.drain(..));
+                }
+
+                let language = match kind {
+                    CodeBlockKind::Fenced(info) => extract_fence_language(info.as_ref()),
+                    CodeBlockKind::Indented => "text".to_string(),
+                };
+
+                let mut raw_code = String::new();
+                for code_event in events.by_ref() {
+                    match code_event {
+                        Event::End(TagEnd::CodeBlock) => break,
+                        Event::Text(text) | Event::Code(text) => raw_code.push_str(text.as_ref()),
+                        Event::SoftBreak | Event::HardBreak => raw_code.push('\n'),
+                        _ => {}
+                    }
+                }
+
+                html_out.push_str(&highlight_code_block_html(&raw_code, &language));
+            }
+            _ => passthrough_events.push(event),
+        }
+    }
+
+    if !passthrough_events.is_empty() {
+        html::push_html(&mut html_out, passthrough_events.drain(..));
+    }
+
     html_out
+}
+
+fn extract_fence_language(info: &str) -> String {
+    let first = info.split_whitespace().next().unwrap_or("text");
+    let language = first.split(',').next().unwrap_or("text").trim();
+    if language.is_empty() {
+        "text".to_string()
+    } else {
+        language.to_string()
+    }
+}
+
+fn syntect_assets() -> &'static (SyntaxSet, ThemeSet) {
+    static ASSETS: OnceLock<(SyntaxSet, ThemeSet)> = OnceLock::new();
+    ASSETS.get_or_init(|| {
+        (
+            SyntaxSet::load_defaults_newlines(),
+            ThemeSet::load_defaults(),
+        )
+    })
+}
+
+fn highlight_theme() -> &'static Theme {
+    let (_, themes) = syntect_assets();
+    themes
+        .themes
+        .get("base16-ocean.dark")
+        .or_else(|| themes.themes.values().next())
+        .expect("syntect theme set should include at least one theme")
+}
+
+fn highlight_code_block_html(code: &str, language: &str) -> String {
+    let language = sanitize_lang_token(language);
+    let (syntax_set, _) = syntect_assets();
+    let syntax = syntax_set
+        .find_syntax_by_token(&language)
+        .unwrap_or_else(|| syntax_set.find_syntax_plain_text());
+
+    match highlighted_html_for_string(code, syntax_set, syntax, highlight_theme()) {
+        Ok(rendered) => add_pre_attributes(rendered, &language),
+        Err(_) => format!(
+            "<pre data-lang=\"{}\"><code>{}</code></pre>",
+            language,
+            escape_html(code)
+        ),
+    }
+}
+
+fn add_pre_attributes(mut html_snippet: String, language: &str) -> String {
+    if let Some(start) = html_snippet.find("<pre") {
+        if let Some(end) = html_snippet[start..].find('>') {
+            let insert_at = start + end;
+            html_snippet.insert_str(
+                insert_at,
+                &format!(" data-lang=\"{}\" class=\"syntect\"", language),
+            );
+        }
+    }
+    html_snippet
+}
+
+fn sanitize_lang_token(value: &str) -> String {
+    let normalized: String = value
+        .chars()
+        .filter(|ch| ch.is_ascii_alphanumeric() || matches!(ch, '-' | '_' | '+'))
+        .collect();
+    if normalized.is_empty() {
+        "text".to_string()
+    } else {
+        normalized.to_lowercase()
+    }
+}
+
+fn escape_html(value: &str) -> String {
+    value
+        .replace('&', "&amp;")
+        .replace('<', "&lt;")
+        .replace('>', "&gt;")
 }
 
 fn section_rank(section: &str) -> usize {

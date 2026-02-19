@@ -619,3 +619,48 @@ Executed successfully after the fix:
 - `cargo fmt`
 - `cargo check`
 - `cargo test`
+
+## 2026-02-19 (Syntax Highlighting for Fenced Code Blocks)
+
+### Summary
+
+Added proper syntax highlighting for fenced markdown code blocks while preserving the existing code block UI and click-to-copy behavior.
+
+### Implemented
+
+- Dependency update:
+- `Cargo.toml`
+  - Added `syntect = "5.3.0"`
+
+- Markdown rendering upgrade in:
+- `src/app/mod.rs`
+  - `render_markdown_html` now intercepts fenced/indented code block events from `pulldown-cmark`.
+  - Non-code markdown still renders through `pulldown_cmark::html::push_html`.
+  - Code blocks are highlighted via `syntect::html::highlighted_html_for_string`.
+  - Added helper functions:
+    - `extract_fence_language`
+    - `syntect_assets`
+    - `highlight_theme`
+    - `highlight_code_block_html`
+    - `add_pre_attributes`
+    - `sanitize_lang_token`
+    - `escape_html`
+
+- DOM enhancement update:
+- `src/app/mod.rs`
+  - Copy-wrapper script now reads `data-lang` from `<pre>` first, then falls back to `language-*` classes.
+  - This keeps language labels correct for both syntect-rendered and standard fenced blocks.
+
+### Result
+
+- Triple-backtick fenced blocks render with syntax-highlighted HTML.
+- Existing copy button remains available and copies raw code text.
+- Existing heading anchors/TOC behavior remains unchanged.
+
+### Build/Test Results
+
+Executed successfully after highlighting integration:
+
+- `cargo fmt`
+- `cargo check`
+- `cargo test`

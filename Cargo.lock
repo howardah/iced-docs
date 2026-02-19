@@ -2926,6 +2926,7 @@ dependencies = [
  "dioxus 0.7.3",
  "dioxus-markdown",
  "pulldown-cmark",
+ "syntect",
 ]
 
 [[package]]
