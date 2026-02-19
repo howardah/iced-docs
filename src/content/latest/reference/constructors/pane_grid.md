@@ -39,7 +39,7 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- TODO(api-verify): add canonical example mapping for this item.
+- ref/examples/pane_grid/src/main.rs
 
 ## Related
 

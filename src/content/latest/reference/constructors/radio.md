@@ -41,8 +41,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/scrollable/src/main.rs
 - ref/examples/tour/src/main.rs
+- ref/examples/scrollable/src/main.rs
 
 ## Related
 

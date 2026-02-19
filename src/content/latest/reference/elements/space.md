@@ -30,7 +30,9 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
-- TODO(api-verify): add canonical example mapping for this item.
+- ref/examples/styling/src/main.rs
+- ref/examples/layout/src/main.rs
+- ref/examples/stopwatch/src/main.rs
 
 ## Related
 

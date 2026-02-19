@@ -38,12 +38,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/multi_window/src/main.rs
-- ref/examples/toast/src/main.rs
-- ref/examples/tour/src/main.rs
-- ref/examples/websocket/src/main.rs
 - ref/examples/styling/src/main.rs
-- ref/examples/lazy/src/main.rs
+- ref/examples/integration/src/controls.rs
+- ref/examples/multi_window/src/main.rs
+- ref/examples/tour/src/main.rs
+- ref/examples/todos/src/main.rs
+- ref/examples/qr_code/src/main.rs
 
 ## Related
 

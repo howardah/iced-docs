@@ -37,10 +37,10 @@ It gives explicit widget construction with compile-time type checking and builde
 ## Example References
 
 - ref/examples/clock/src/main.rs
-- ref/examples/slider/src/main.rs
-- ref/examples/multi_window/src/main.rs
-- ref/examples/delineate/src/main.rs
-- ref/examples/pane_grid/src/main.rs
+- ref/examples/tour/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/layout/src/main.rs
+- ref/examples/bezier_tool/src/main.rs
 - ref/examples/ferris/src/main.rs
 
 ## Related

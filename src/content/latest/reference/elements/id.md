@@ -32,6 +32,9 @@ It enables strongly typed composition and explicit builder method flows.
 
 - ref/examples/todos/src/main.rs
 - ref/examples/delineate/src/main.rs
+- ref/examples/gallery/src/main.rs
+- ref/examples/gallery/src/civitai.rs
+- ref/examples/multi_window/src/main.rs
 
 ## Related
 

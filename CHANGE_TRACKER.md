@@ -421,3 +421,46 @@ Validation tests passing:
 - `app::tests::all_pages_have_required_frontmatter`
 - `app::tests::internal_links_resolve`
 - `app::tests::search_index_builds`
+
+## 2026-02-19 (Generator Stability Pass - Persisted Example Mapping)
+
+### Summary
+
+Fixed `scripts/generate_reference_pages.sh` so regenerated pages no longer lose curated example links. Added a persistent manual example map and merged it with auto-discovered examples from `ref/examples`.
+
+### Implemented
+
+- Added persistent example mapping file:
+- `src/docs-meta/example_map.tsv`
+
+- Updated generator (`scripts/generate_reference_pages.sh`) to merge example sources:
+- Auto-discovery via `rg` pattern matching in `ref/examples/**/*.rs`
+- Directory inference (`ref/examples/<name>/src/main.rs`) for module/constructor/element names
+- Manual curated mappings from `src/docs-meta/example_map.tsv`
+- Stable de-dup + cap (`merge_examples`) to avoid noisy lists
+
+- Result:
+- Running `./scripts/generate_reference_pages.sh` now preserves curated examples from the map instead of replacing them with TODO placeholders.
+- Additional examples are discovered automatically where naming patterns or folder names match.
+
+### Verification Against `ref/`
+
+Example links now derive from:
+
+- `ref/examples/**/*.rs` (searched)
+- Explicit map entries in `src/docs-meta/example_map.tsv`
+
+### Build/Test Results
+
+Executed successfully after generator stability changes:
+
+- `cargo fmt`
+- `cargo check`
+- `cargo test`
+- `scripts/ci_quality_gates.sh`
+
+Validation tests passing:
+
+- `app::tests::all_pages_have_required_frontmatter`
+- `app::tests::internal_links_resolve`
+- `app::tests::search_index_builds`

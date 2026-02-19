@@ -39,8 +39,8 @@ It gives explicit widget construction with compile-time type checking and builde
 - ref/examples/progress_bar/src/main.rs
 - ref/examples/changelog/src/main.rs
 - ref/examples/download_progress/src/main.rs
-- ref/examples/styling/src/main.rs
 - ref/examples/scrollable/src/main.rs
+- ref/examples/styling/src/main.rs
 
 ## Related
 

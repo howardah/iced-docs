@@ -32,7 +32,9 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
-- TODO(api-verify): add canonical example mapping for this item.
+- ref/examples/game_of_life/src/preset.rs
+- ref/examples/layout/src/main.rs
+- ref/examples/tour/src/main.rs
 
 ## Related
 

@@ -34,12 +34,12 @@ It scales better for production apps with explicit startup and configuration nee
 
 ## Example References
 
-- ref/examples/clock/src/main.rs
-- ref/examples/arc/src/main.rs
-- ref/examples/text/src/main.rs
-- ref/examples/ferris/src/main.rs
 - ref/examples/qr_code/src/main.rs
-- ref/examples/pokedex/src/main.rs
+- ref/examples/multitouch/src/main.rs
+- ref/examples/delineate/src/main.rs
+- ref/examples/clock/src/main.rs
+- ref/examples/sierpinski_triangle/src/main.rs
+- ref/examples/modal/src/main.rs
 
 ## API verification notes
 

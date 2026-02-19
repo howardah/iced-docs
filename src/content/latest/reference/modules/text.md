@@ -20,8 +20,9 @@ Use this module when you need the widget family and related style/state APIs gro
 
 ## Example References
 
-- ref/examples/websocket/src/echo.rs
 - ref/examples/game_of_life/src/main.rs
+- ref/examples/websocket/src/echo.rs
+- ref/examples/text/src/main.rs
 
 ## Related
 

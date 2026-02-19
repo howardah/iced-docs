@@ -1,0 +1,18 @@
+# kind<TAB>id<TAB>comma-separated example paths
+# kind values: runtime | module | constructor | element
+runtime	run	ref/examples/counter/src/main.rs,ref/examples/slider/src/main.rs
+runtime	application	ref/examples/tour/src/main.rs,ref/examples/todos/src/main.rs
+runtime	daemon	ref/examples/multi_window/src/main.rs
+runtime	exit	ref/examples/changelog/src/main.rs,ref/examples/multi_window/src/main.rs
+module	combo_box	ref/examples/combo_box/src/main.rs
+module	pane_grid	ref/examples/pane_grid/src/main.rs
+module	progress_bar	ref/examples/progress_bar/src/main.rs
+module	slider	ref/examples/slider/src/main.rs
+constructor	center_x	ref/examples/tour/src/main.rs
+constructor	center_y	ref/examples/tour/src/main.rs
+constructor	keyed_column	ref/examples/todos/src/main.rs
+constructor	text_input	ref/examples/todos/src/main.rs,ref/examples/tour/src/main.rs
+element	button	ref/examples/counter/src/main.rs,ref/examples/tour/src/main.rs
+element	text-input	ref/examples/todos/src/main.rs
+element	scrollable	ref/examples/scrollable/src/main.rs
+element	pane-grid	ref/examples/pane_grid/src/main.rs

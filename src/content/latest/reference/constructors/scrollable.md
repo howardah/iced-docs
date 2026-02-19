@@ -36,12 +36,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/table/src/main.rs
 - ref/examples/geometry/src/main.rs
-- ref/examples/pane_grid/src/main.rs
-- ref/examples/changelog/src/main.rs
-- ref/examples/websocket/src/main.rs
-- ref/examples/pick_list/src/main.rs
+- ref/examples/delineate/src/main.rs
+- ref/examples/lazy/src/main.rs
+- ref/examples/combo_box/src/main.rs
+- ref/examples/markdown/src/main.rs
+- ref/examples/multi_window/src/main.rs
 
 ## Related
 

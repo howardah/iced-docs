@@ -36,12 +36,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/screenshot/src/main.rs
-- ref/examples/styling/src/main.rs
-- ref/examples/gradient/src/main.rs
-- ref/examples/layout/src/main.rs
-- ref/examples/websocket/src/main.rs
+- ref/examples/editor/src/main.rs
+- ref/examples/scrollable/src/main.rs
+- ref/examples/tour/src/main.rs
+- ref/examples/integration/src/controls.rs
 - ref/examples/modal/src/main.rs
+- ref/examples/lazy/src/main.rs
 
 ## Related
 

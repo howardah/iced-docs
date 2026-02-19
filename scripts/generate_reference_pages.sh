@@ -9,6 +9,7 @@ mkdir -p "$ROOT/modules" "$ROOT/constructors" "$ROOT/elements"
 widget_sidebar="ref/doc/iced/widget/sidebar-items.js"
 iced_sidebar="ref/doc/iced/sidebar-items.js"
 widget_index="ref/doc/iced/widget/index.html"
+example_map_file="src/docs-meta/example_map.tsv"
 
 extract_array() {
     local file="$1"
@@ -65,6 +66,42 @@ list_examples() {
     rg -l "$pattern" ref/examples -g '*.rs' 2>/dev/null | sed -n '1,6p' || true
 }
 
+list_examples_limited() {
+    local pattern="$1"
+    local limit="$2"
+    rg -l "$pattern" ref/examples -g '*.rs' 2>/dev/null | sed -n "1,${limit}p" || true
+}
+
+infer_examples_from_dir() {
+    local name="$1"
+    for candidate in "$name" "${name//-/_}" "${name//_/-}"; do
+        local path="ref/examples/${candidate}/src/main.rs"
+        if [[ -f "$path" ]]; then
+            echo "$path"
+        fi
+    done
+}
+
+manual_examples() {
+    local kind="$1"
+    local key="$2"
+    if [[ ! -f "$example_map_file" ]]; then
+        return
+    fi
+    awk -F '\t' -v k="$kind" -v id="$key" '
+        $1 == k && $2 == id && $3 != "" {
+            n = split($3, arr, /[ ]*,[ ]*/)
+            for (i = 1; i <= n; i++) {
+                if (arr[i] != "") print arr[i]
+            }
+        }
+    ' "$example_map_file"
+}
+
+merge_examples() {
+    awk '!seen[$0]++' | sed '/^$/d' | sed -n '1,6p'
+}
+
 render_example_section() {
     local header="$1"
     shift
@@ -95,30 +132,33 @@ while read -r fn_name || [[ -n "$fn_name" ]]; do
     runtime_order=$((runtime_order + 1))
     sig="$(extract_signature "ref/doc/iced/fn.${fn_name}.html")"
     ex_files=()
+    auto_files=()
+    inferred_files=()
+    manual_files=()
 
     case "$fn_name" in
         run)
-            ex_files=( $(list_examples 'iced::run\(') )
+            auto_files=( $(list_examples_limited 'iced::run\(' 10) )
             when='Use it for straightforward apps where State: Default is acceptable and you want minimal startup wiring.'
             why='It is the shortest path from update/view logic to a running app.'
             ;;
         application)
-            ex_files=( $(list_examples 'iced::application\(') )
+            auto_files=( $(list_examples_limited 'iced::application\(' 10) )
             when='Use it when you need runtime builder configuration (title/theme/window/subscription/font/presets) before run().' 
             why='It scales better for production apps with explicit startup and configuration needs.'
             ;;
         daemon)
-            ex_files=( $(list_examples 'iced::daemon\(') )
+            auto_files=( $(list_examples_limited 'iced::daemon\(' 10) )
             when='Use it for daemon-like or background-centric app lifecycles, including multi-window orchestration.'
             why='It provides the daemon runtime builder counterpart to application.'
             ;;
         exit)
-            ex_files=( $(list_examples 'iced::exit\(') )
+            auto_files=( $(list_examples_limited 'iced::exit\(' 10) )
             when='Use it inside update logic when a message should trigger runtime shutdown.'
             why='It returns a Task so shutdown composes with the same side-effect model as other runtime actions.'
             ;;
         never)
-            ex_files=( $(list_examples 'iced::never\(') )
+            auto_files=( $(list_examples_limited 'iced::never\(' 10) )
             when='Use it only for advanced unreachable Infallible-based branches in typed/generic code.'
             why='It allows impossible branches to satisfy type requirements safely.'
             ;;
@@ -127,6 +167,8 @@ while read -r fn_name || [[ -n "$fn_name" ]]; do
             why='See rustdoc for rationale.'
             ;;
     esac
+    manual_files=( $(manual_examples runtime "$fn_name") )
+    ex_files=( $(printf "%s\n" "${auto_files[@]}" "${manual_files[@]}" | merge_examples) )
 
     {
         cat <<PAGE
@@ -182,7 +224,11 @@ while read -r module_name || [[ -n "$module_name" ]]; do
 
     display="$(titleize_name "$module_name")"
     description="$(extract_index_description mod "$module_name")"
-    ex_files=( $(list_examples "widget::${module_name}") )
+    ex_files=()
+    auto_files=( $(list_examples_limited "widget::${module_name}" 8) )
+    inferred_files=( $(infer_examples_from_dir "$module_name") )
+    manual_files=( $(manual_examples module "$module_name") )
+    ex_files=( $(printf "%s\n" "${auto_files[@]}" "${inferred_files[@]}" "${manual_files[@]}" | merge_examples) )
 
     {
         cat <<PAGE
@@ -226,7 +272,11 @@ while read -r fn_name || [[ -n "$fn_name" ]]; do
     display="$(titleize_name "$fn_name")"
     sig="$(extract_signature "ref/doc/iced/widget/fn.${fn_name}.html")"
     description="$(extract_index_description fn "$fn_name")"
-    ex_files=( $(list_examples "\\b${fn_name}\\(") )
+    ex_files=()
+    auto_files=( $(list_examples_limited "\\b${fn_name}\\(" 8) )
+    inferred_files=( $(infer_examples_from_dir "$fn_name") )
+    manual_files=( $(manual_examples constructor "$fn_name") )
+    ex_files=( $(printf "%s\n" "${auto_files[@]}" "${inferred_files[@]}" "${manual_files[@]}" | merge_examples) )
 
     {
         cat <<PAGE
@@ -283,7 +333,11 @@ while read -r struct_name || [[ -n "$struct_name" ]]; do
 
     sig="$(extract_signature "ref/doc/iced/widget/struct.${struct_name}.html")"
     description="$(extract_index_description struct "$struct_name")"
-    ex_files=( $(list_examples "widget::${struct_name}|\\b${struct_name}<'") )
+    ex_files=()
+    auto_files=( $(list_examples_limited "widget::${struct_name}|\\b${struct_name}<'|\\b${struct_name}\\b" 8) )
+    inferred_files=( $(infer_examples_from_dir "$slug") )
+    manual_files=( $(manual_examples element "$slug") )
+    ex_files=( $(printf "%s\n" "${auto_files[@]}" "${inferred_files[@]}" "${manual_files[@]}" | merge_examples) )
 
     {
         cat <<PAGE

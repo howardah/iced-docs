@@ -35,7 +35,7 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
-- TODO(api-verify): add canonical example mapping for this item.
+- ref/examples/pick_list/src/main.rs
 
 ## Related
 
