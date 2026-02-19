@@ -33,8 +33,8 @@ It enables strongly typed composition and explicit builder method flows.
 ## Example References
 
 - ref/examples/game_of_life/src/preset.rs
-- ref/examples/layout/src/main.rs
 - ref/examples/tour/src/main.rs
+- ref/examples/layout/src/main.rs
 - ref/examples/changelog/src/main.rs
 - ref/examples/styling/src/main.rs
 

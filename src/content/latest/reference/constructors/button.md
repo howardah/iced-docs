@@ -38,11 +38,11 @@ It gives explicit widget construction with compile-time type checking and builde
 ## Example References
 
 - ref/examples/editor/src/main.rs
-- ref/examples/events/src/main.rs
 - ref/examples/loupe/src/main.rs
+- ref/examples/bezier_tool/src/main.rs
+- ref/examples/layout/src/main.rs
 - ref/examples/pokedex/src/main.rs
 - ref/examples/game_of_life/src/main.rs
-- ref/examples/modal/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

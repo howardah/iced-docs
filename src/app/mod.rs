@@ -1033,11 +1033,9 @@ fn section_has_active_page(indices: &[usize], current_path: &str, pages: &[DocPa
 
 fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec<usize>)> {
     let mut core_runtime = Vec::new();
-    let mut modules = Vec::new();
-    let mut constructors_a_m = Vec::new();
-    let mut constructors_n_z = Vec::new();
-    let mut elements_a_m = Vec::new();
-    let mut elements_n_z = Vec::new();
+    let mut widgets = Vec::new();
+    let mut constructors = Vec::new();
+    let mut elements = Vec::new();
     let mut other = Vec::new();
 
     for index in indices {
@@ -1046,7 +1044,7 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
         };
         let slug = page.slug.as_str();
 
-        if matches!(slug, "modules" | "constructors" | "elements") {
+        if matches!(slug, "families" | "modules" | "constructors" | "elements") {
             continue;
         }
 
@@ -1056,20 +1054,12 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
         ) || slug.starts_with("runtime-fn-")
         {
             core_runtime.push(*index);
-        } else if slug.starts_with("modules/") {
-            modules.push(*index);
+        } else if slug == "families" || slug.starts_with("families/") {
+            widgets.push(*index);
         } else if slug.starts_with("constructors/") {
-            if split_half(&page.frontmatter.title) {
-                constructors_n_z.push(*index);
-            } else {
-                constructors_a_m.push(*index);
-            }
+            constructors.push(*index);
         } else if slug.starts_with("elements/") {
-            if split_half(&page.frontmatter.title) {
-                elements_n_z.push(*index);
-            } else {
-                elements_a_m.push(*index);
-            }
+            elements.push(*index);
         } else {
             other.push(*index);
         }
@@ -1077,26 +1067,11 @@ fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec
 
     let mut groups = Vec::new();
     push_group(&mut groups, "Runtime and Core", core_runtime);
-    push_group(&mut groups, "Modules", modules);
-    push_group(&mut groups, "Constructors A-M", constructors_a_m);
-    push_group(&mut groups, "Constructors N-Z", constructors_n_z);
-    push_group(&mut groups, "Elements A-M", elements_a_m);
-    push_group(&mut groups, "Elements N-Z", elements_n_z);
+    push_group(&mut groups, "Widgets", widgets);
+    push_group(&mut groups, "Constructors", constructors);
+    push_group(&mut groups, "Elements", elements);
     push_group(&mut groups, "Other", other);
     groups
-}
-
-fn split_half(title: &str) -> bool {
-    let candidate = title
-        .split_once(" - ")
-        .map(|(_, value)| value)
-        .unwrap_or(title);
-    let ch = candidate
-        .chars()
-        .find(|ch| ch.is_ascii_alphabetic())
-        .unwrap_or('A')
-        .to_ascii_uppercase();
-    ch >= 'N'
 }
 
 fn push_group(groups: &mut Vec<(String, Vec<usize>)>, label: &str, indices: Vec<usize>) {
@@ -1107,7 +1082,7 @@ fn push_group(groups: &mut Vec<(String, Vec<usize>)>, label: &str, indices: Vec<
 }
 
 fn sidebar_display_title(page: &DocPage) -> String {
-    for prefix in ["Module - ", "Constructor - ", "Element - "] {
+    for prefix in ["Family - ", "Module - ", "Constructor - ", "Element - "] {
         if let Some(rest) = page.frontmatter.title.strip_prefix(prefix) {
             return rest.to_string();
         }
@@ -1117,11 +1092,9 @@ fn sidebar_display_title(page: &DocPage) -> String {
 
 fn subgroup_catalog_path(version: &str, label: &str) -> Option<String> {
     match label {
-        "Modules" => Some(format!("/{}/reference/modules", version)),
-        "Constructors A-M" | "Constructors N-Z" => {
-            Some(format!("/{}/reference/constructors", version))
-        }
-        "Elements A-M" | "Elements N-Z" => Some(format!("/{}/reference/elements", version)),
+        "Widgets" => Some(format!("/{}/reference/families", version)),
+        "Constructors" => Some(format!("/{}/reference/constructors", version)),
+        "Elements" => Some(format!("/{}/reference/elements", version)),
         "Runtime and Core" => Some(format!("/{}/reference/runtime-api", version)),
         _ => None,
     }
@@ -1160,6 +1133,9 @@ fn canonical_route_path(version: &str, section: &str, group: Option<&str>, slug:
     }
 
     match group {
+        Some("families" | "widget-families") => {
+            format!("/{}/{}/families/{}", version, section, slug)
+        }
         Some("modules" | "widget-modules") => {
             format!("/{}/{}/modules/{}", version, section, slug)
         }
@@ -1170,6 +1146,7 @@ fn canonical_route_path(version: &str, section: &str, group: Option<&str>, slug:
             format!("/{}/{}/elements/{}", version, section, slug)
         }
         _ => match slug {
+            "families" | "widget-families" => format!("/{}/{}/families", version, section),
             "modules" | "widget-modules" => format!("/{}/{}/modules", version, section),
             "constructors" | "widget-constructors" => {
                 format!("/{}/{}/constructors", version, section)
@@ -1187,6 +1164,10 @@ fn slug_to_route_path(version: &str, section: &str, slug: &str) -> String {
 
     if slug == "modules" || slug == "widget-modules-catalog" {
         format!("/{}/{}/modules", version, section)
+    } else if slug == "families" || slug == "widget-families-catalog" {
+        format!("/{}/{}/families", version, section)
+    } else if let Some(tail) = slug.strip_prefix("families/") {
+        format!("/{}/{}/families/{}", version, section, tail)
     } else if let Some(tail) = slug.strip_prefix("modules/") {
         format!("/{}/{}/modules/{}", version, section, tail)
     } else if let Some(tail) = slug.strip_prefix("widget-module-") {

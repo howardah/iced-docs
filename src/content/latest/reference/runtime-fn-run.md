@@ -36,10 +36,10 @@ It is the shortest path from update/view logic to a running app.
 
 - ref/examples/custom_widget/src/main.rs
 - ref/examples/exit/src/main.rs
-- ref/examples/custom_quad/src/main.rs
-- ref/examples/progress_bar/src/main.rs
+- ref/examples/combo_box/src/main.rs
+- ref/examples/geometry/src/main.rs
 - ref/examples/counter/src/main.rs
-- ref/examples/lazy/src/main.rs
+- ref/examples/slider/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

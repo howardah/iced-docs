@@ -5,6 +5,7 @@ ROOT="src/content/latest/reference"
 DATE="2026-02-19"
 
 mkdir -p "$ROOT/modules" "$ROOT/constructors" "$ROOT/elements"
+mkdir -p "$ROOT/families"
 
 widget_sidebar="ref/doc/iced/widget/sidebar-items.js"
 iced_sidebar="ref/doc/iced/sidebar-items.js"
@@ -198,9 +199,22 @@ ${markdown}
 PAGE
 }
 
+struct_name_from_slug() {
+    local slug="$1"
+    while read -r struct_name || [[ -n "$struct_name" ]]; do
+        [[ -z "$struct_name" ]] && continue
+        if [[ "$(kebab_from_pascal "$struct_name")" == "$slug" ]]; then
+            echo "$struct_name"
+            return 0
+        fi
+    done < <(extract_array "$widget_sidebar" "struct")
+    return 1
+}
+
 rm -f "$ROOT"/runtime-fn-*.md
 rm -f "$ROOT"/widget-*.md
 rm -f "$ROOT"/modules/*.md "$ROOT"/constructors/*.md "$ROOT"/elements/*.md
+rm -f "$ROOT"/families/*.md
 
 runtime_order=20
 while read -r fn_name || [[ -n "$fn_name" ]]; do
@@ -478,6 +492,177 @@ PAGE
     } > "$ROOT/elements/${slug}.md"
 done < <(extract_array "$widget_sidebar" "struct")
 
+family_order=700
+family_slugs="$(
+    {
+        extract_array "$widget_sidebar" "mod" | sed 's/_/-/g'
+        echo
+        extract_array "$widget_sidebar" "fn" | sed 's/_/-/g'
+        echo
+        extract_array "$widget_sidebar" "struct" | while read -r struct_name || [[ -n "$struct_name" ]]; do
+            [[ -z "$struct_name" ]] && continue
+            kebab_from_pascal "$struct_name"
+        done
+    } | sed '/^$/d' | sort -u
+)"
+
+while read -r family_slug || [[ -n "$family_slug" ]]; do
+    [[ -z "$family_slug" ]] && continue
+    family_order=$((family_order + 1))
+    display="$(titleize_name "$family_slug")"
+
+    module_name="${family_slug//-/_}"
+    constructor_name="${family_slug//-/_}"
+    struct_name="$(struct_name_from_slug "$family_slug" || true)"
+
+    has_module=0
+    has_constructor=0
+    has_element=0
+    [[ -f "$ROOT/modules/${module_name}.md" ]] && has_module=1
+    [[ -f "$ROOT/constructors/${constructor_name}.md" ]] && has_constructor=1
+    [[ -f "$ROOT/elements/${family_slug}.md" ]] && has_element=1
+
+    module_description=""
+    constructor_description=""
+    element_description=""
+    constructor_sig=""
+    element_sig=""
+    constructor_inline_examples=""
+    element_inline_examples=""
+
+    if [[ $has_module -eq 1 ]]; then
+        module_description="$(extract_index_description mod "$module_name")"
+    fi
+    if [[ $has_constructor -eq 1 ]]; then
+        constructor_description="$(extract_index_description fn "$constructor_name")"
+        constructor_doc="ref/doc/iced/widget/fn.${constructor_name}.html"
+        constructor_sig="$(extract_signature "$constructor_doc")"
+        constructor_inline_examples="$(extract_inline_examples_markdown "$constructor_doc" 1)"
+    fi
+    if [[ $has_element -eq 1 && -n "$struct_name" ]]; then
+        element_description="$(extract_index_description struct "$struct_name")"
+        element_doc="ref/doc/iced/widget/struct.${struct_name}.html"
+        element_sig="$(extract_signature "$element_doc")"
+        element_inline_examples="$(extract_inline_examples_markdown "$element_doc" 1)"
+    fi
+
+    ex_files=()
+    auto_files=( $(list_examples_limited "widget::${module_name}|\\b${constructor_name}\\(|\\b${struct_name}\\b" 10) )
+    inferred_files=( $(infer_examples_from_dir "$family_slug") )
+    manual_module_files=( $(manual_examples module "$module_name") )
+    manual_constructor_files=( $(manual_examples constructor "$constructor_name") )
+    manual_element_files=( $(manual_examples element "$family_slug") )
+    ex_files=( $(printf "%s\n" "${auto_files[@]}" "${inferred_files[@]}" "${manual_module_files[@]}" "${manual_constructor_files[@]}" "${manual_element_files[@]}" | merge_examples) )
+
+    {
+        cat <<PAGE
+---
+title: Family - ${display}
+description: Unified reference for the ${display} widget family across module, constructor, and element APIs.
+version: latest
+last_updated: ${DATE}
+order: ${family_order}
+---
+
+# Family - ${display}
+
+This page unifies related iced::widget APIs for the **${display}** family.
+
+## API surfaces
+
+PAGE
+        if [[ $has_module -eq 1 ]]; then
+            echo "- Module: [iced::widget::${module_name}](/latest/reference/modules/${module_name})"
+        fi
+        if [[ $has_constructor -eq 1 ]]; then
+            echo "- Constructor: [iced::widget::${constructor_name}](/latest/reference/constructors/${constructor_name})"
+        fi
+        if [[ $has_element -eq 1 ]]; then
+            echo "- Element: [iced::widget::${struct_name}](/latest/reference/elements/${family_slug})"
+        fi
+        cat <<'PAGE'
+
+## Surface summaries
+PAGE
+        if [[ $has_module -eq 1 ]]; then
+            cat <<PAGE
+
+### Module
+
+${module_description:-TODO(api-verify)}
+PAGE
+        fi
+        if [[ $has_constructor -eq 1 ]]; then
+            cat <<PAGE
+
+### Constructor
+
+${constructor_description:-TODO(api-verify)}
+PAGE
+        fi
+        if [[ $has_element -eq 1 ]]; then
+            cat <<PAGE
+
+### Element
+
+${element_description:-TODO(api-verify)}
+PAGE
+        fi
+        if [[ $has_constructor -eq 1 ]]; then
+            cat <<PAGE
+
+## Verified constructor signature
+
+\`\`\`rust
+${constructor_sig}
+\`\`\`
+PAGE
+        fi
+        if [[ $has_element -eq 1 ]]; then
+            cat <<PAGE
+
+## Verified element declaration
+
+\`\`\`rust
+${element_sig}
+\`\`\`
+PAGE
+        fi
+        render_example_section "Example References" "${ex_files[@]}"
+        if [[ -n "${constructor_inline_examples//[[:space:]]/}" || -n "${element_inline_examples//[[:space:]]/}" ]]; then
+            cat <<'PAGE'
+
+## Inline Examples (from rustdoc)
+PAGE
+            if [[ -n "${constructor_inline_examples//[[:space:]]/}" ]]; then
+                cat <<'PAGE'
+
+### Constructor example
+PAGE
+                echo
+                echo "$constructor_inline_examples"
+            fi
+            if [[ -n "${element_inline_examples//[[:space:]]/}" ]]; then
+                cat <<'PAGE'
+
+### Element example
+PAGE
+                echo
+                echo "$element_inline_examples"
+            fi
+        fi
+        cat <<'PAGE'
+
+## Related
+
+- [Families](/latest/reference/families)
+- [Modules](/latest/reference/modules)
+- [Constructors](/latest/reference/constructors)
+- [Elements](/latest/reference/elements)
+PAGE
+    } > "$ROOT/families/${family_slug}.md"
+done <<< "$family_slugs"
+
 cat > "$ROOT/modules.md" <<PAGE
 ---
 title: Modules
@@ -541,3 +726,24 @@ while read -r struct_name || [[ -n "$struct_name" ]]; do
     slug="$(kebab_from_pascal "$struct_name")"
     echo "- [$(titleize_name "$slug")](/latest/reference/elements/${slug})" >> "$ROOT/elements.md"
 done < <(extract_array "$widget_sidebar" "struct")
+
+cat > "$ROOT/families.md" <<PAGE
+---
+title: Families
+description: Unified widget-family pages that group module, constructor, and element APIs.
+version: latest
+last_updated: ${DATE}
+order: 93
+---
+
+# Families
+
+Generated from ref/doc/iced/widget/sidebar-items.js by normalizing related module/function/struct names into family slugs.
+
+## Family Index
+
+PAGE
+while read -r family_slug || [[ -n "$family_slug" ]]; do
+    [[ -z "$family_slug" ]] && continue
+    echo "- [$(titleize_name "$family_slug")](/latest/reference/families/${family_slug})" >> "$ROOT/families.md"
+done <<< "$family_slugs"

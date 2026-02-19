@@ -43,12 +43,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/editor/src/main.rs
+- ref/examples/lazy/src/main.rs
 - ref/examples/text/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/qr_code/src/main.rs
-- ref/examples/modal/src/main.rs
-- ref/examples/game_of_life/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/editor/src/main.rs
+- ref/examples/pick_list/src/main.rs
+- ref/examples/toast/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

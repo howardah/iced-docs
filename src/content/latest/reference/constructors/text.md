@@ -37,12 +37,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/counter/src/main.rs
-- ref/examples/table/src/main.rs
-- ref/examples/editor/src/main.rs
-- ref/examples/websocket/src/main.rs
+- ref/examples/system_information/src/main.rs
 - ref/examples/integration/src/controls.rs
-- ref/examples/loading_spinners/src/main.rs
+- ref/examples/editor/src/main.rs
+- ref/examples/toast/src/main.rs
+- ref/examples/markdown/src/main.rs
+- ref/examples/markdown/src/icon.rs
 
 ## Inline Examples (from rustdoc)
 

@@ -41,11 +41,11 @@ It gives explicit widget construction with compile-time type checking and builde
 ## Example References
 
 - ref/examples/custom_widget/src/main.rs
-- ref/examples/loading_spinners/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/color_palette/src/main.rs
-- ref/examples/integration/src/controls.rs
 - ref/examples/vectorial_text/src/main.rs
+- ref/examples/scrollable/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/slider/src/main.rs
+- ref/examples/qr_code/src/main.rs
 
 ## Inline Examples (from rustdoc)
 

@@ -1,6 +1,6 @@
 ---
 title: Widgets Overview
-description: Coverage map for widget modules, constructors, and element structs.
+description: Coverage map for widget families, modules, constructors, and element structs.
 version: latest
 last_updated: 2026-02-19
 order: 3
@@ -8,7 +8,7 @@ order: 3
 
 # Widgets Overview
 
-This reference section now includes a page for each widget module, constructor, and element struct exposed by `iced::widget` in rustdoc.
+This reference section now includes a page for each widget family, module, constructor, and element struct exposed by `iced::widget` in rustdoc.
 
 Authoritative source:
 
@@ -20,9 +20,11 @@ Authoritative source:
 - Widget modules: one page per item in rustdoc `mod` list
 - Widget constructors/helpers: one page per item in rustdoc `fn` list
 - Widget element structs: one page per item in rustdoc `struct` list
+- Widget families: one page per normalized module/function/struct family slug
 
 ## Catalog pages
 
+- [Families](/latest/reference/families)
 - [Modules](/latest/reference/modules)
 - [Constructors](/latest/reference/constructors)
 - [Elements](/latest/reference/elements)

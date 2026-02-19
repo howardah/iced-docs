@@ -851,3 +851,104 @@ Updated reference generation so inline rustdoc examples embedded in authoritativ
   - `src/content/latest/reference/constructors/button.md`
   - `src/content/latest/reference/runtime-fn-application.md`
   - `src/content/latest/reference/elements/button.md`
+
+## 2026-02-19 (Widget Family Pages)
+
+### Summary
+
+Added generated Widget Family pages that unify related module/constructor/element APIs into a single per-family reference page, plus a family catalog and navigation support.
+
+### Implemented
+
+- Generator enhancements in:
+- `scripts/generate_reference_pages.sh`
+
+- New generated content:
+  - `src/content/latest/reference/families.md`
+  - `src/content/latest/reference/families/*.md`
+
+- Family generation behavior:
+  - Builds normalized family slugs from widget rustdoc `mod` + `fn` + `struct` sets.
+  - For each family, merges available surfaces:
+    - Module (`/reference/modules/...`)
+    - Constructor (`/reference/constructors/...`)
+    - Element (`/reference/elements/...`)
+  - Includes:
+    - API surface links
+    - Surface summaries from rustdoc index descriptions
+    - Verified constructor signature (when available)
+    - Verified element declaration (when available)
+    - Merged example references
+    - Inline rustdoc examples (constructor + element snippets when present)
+
+- Routing + sidebar updates in:
+- `src/app/mod.rs`
+  - Added `families` route canonicalization and slug conversion support.
+  - Added sidebar subgrouping for families:
+    - `Families A-M`
+    - `Families N-Z`
+  - Added family subgroup catalog navigation (`/latest/reference/families`).
+  - Added title clean-up support for `Family - ...` in sidebar labels.
+
+- Overview update:
+- `src/content/latest/reference/widgets-overview.md`
+  - Added family coverage and catalog link.
+
+### Generator robustness notes
+
+- Fixed heredoc command-substitution hazard in family template text by removing inline backticks around `iced::widget`.
+- Fixed family-slug boundary handling so normalized sources are separated correctly.
+
+### Verification
+
+- Regenerated pages successfully:
+  - `./scripts/generate_reference_pages.sh`
+- Spot-checked:
+  - `src/content/latest/reference/families/button.md`
+  - `src/content/latest/reference/families.md`
+- Build/tests:
+  - `cargo fmt`
+  - `cargo check`
+  - `cargo test`
+
+## 2026-02-19 (Sidebar Simplification - Widgets / Constructors / Elements)
+
+### Summary
+
+Simplified the Reference sidebar submenu structure by removing alphabet split buckets and consolidating into single groups:
+
+- `Widgets` (renamed from family buckets)
+- `Constructors`
+- `Elements`
+
+Runtime/Core grouping remains unchanged.
+
+### Implemented
+
+- Updated reference subgroup generation in:
+- `src/app/mod.rs`
+  - Removed split groups:
+    - `Families A-M`
+    - `Families N-Z`
+    - `Constructors A-M`
+    - `Constructors N-Z`
+    - `Elements A-M`
+    - `Elements N-Z`
+  - Added consolidated groups:
+    - `Widgets`
+    - `Constructors`
+    - `Elements`
+
+- Updated subgroup catalog routing in:
+- `src/app/mod.rs`
+  - `Widgets` now navigates to `/latest/reference/families`.
+  - `Constructors` and `Elements` catalogs remain unchanged.
+
+- Removed obsolete alpha split helper:
+- `split_half` deleted from `src/app/mod.rs`.
+
+### Verification
+
+- `cargo fmt`
+- `cargo check`
+- `cargo test`

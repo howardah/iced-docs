@@ -1,0 +1,128 @@
+---
+title: Family - Checkbox
+description: Unified reference for the Checkbox widget family across module, constructor, and element APIs.
+version: latest
+last_updated: 2026-02-19
+order: 709
+---
+
+# Family - Checkbox
+
+This page unifies related iced::widget APIs for the **Checkbox** family.
+
+## API surfaces
+
+- Module: [iced::widget::checkbox](/latest/reference/modules/checkbox)
+- Constructor: [iced::widget::checkbox](/latest/reference/constructors/checkbox)
+- Element: [iced::widget::Checkbox](/latest/reference/elements/checkbox)
+
+## Surface summaries
+
+### Module
+
+Checkboxes can be used to let users make binary choices.
+
+### Constructor
+
+Creates a new
+Checkbox
+.
+
+### Element
+
+A box that can be checked.
+
+## Verified constructor signature
+
+```rust
+pub fn checkbox<'a, Message, Theme, Renderer>(
+    is_checked: bool,
+) -> Checkbox<'a, Message, Theme, Renderer>
+where
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
+```
+
+## Verified element declaration
+
+```rust
+pub struct Checkbox<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
+where
+    Renderer: Renderer,
+    Theme: Catalog,{ /* private fields */ }
+```
+## Example References
+
+- ref/examples/layout/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/vectorial_text/src/main.rs
+- ref/examples/events/src/main.rs
+- ref/examples/todos/src/main.rs
+- ref/examples/ferris/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+### Constructor example
+
+```rust
+use iced::widget::checkbox;
+
+struct State {
+   is_checked: bool,
+}
+
+enum Message {
+    CheckboxToggled(bool),
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    checkbox(state.is_checked)
+        .label("Toggle me!")
+        .on_toggle(Message::CheckboxToggled)
+        .into()
+}
+
+fn update(state: &mut State, message: Message) {
+    match message {
+        Message::CheckboxToggled(is_checked) => {
+            state.is_checked = is_checked;
+        }
+    }
+}
+```
+
+### Element example
+
+```rust
+use iced::widget::checkbox;
+
+struct State {
+   is_checked: bool,
+}
+
+enum Message {
+    CheckboxToggled(bool),
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    checkbox(state.is_checked)
+        .label("Toggle me!")
+        .on_toggle(Message::CheckboxToggled)
+        .into()
+}
+
+fn update(state: &mut State, message: Message) {
+    match message {
+        Message::CheckboxToggled(is_checked) => {
+            state.is_checked = is_checked;
+        }
+    }
+}
+```
+
+## Related
+
+- [Families](/latest/reference/families)
+- [Modules](/latest/reference/modules)
+- [Constructors](/latest/reference/constructors)
+- [Elements](/latest/reference/elements)
