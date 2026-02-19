@@ -144,7 +144,7 @@ while read -r fn_name || [[ -n "$fn_name" ]]; do
             ;;
         application)
             auto_files=( $(list_examples_limited 'iced::application\(' 10) )
-            when='Use it when you need runtime builder configuration (title/theme/window/subscription/font/presets) before run().' 
+            when='Use it when you need runtime builder configuration (title/theme/window/subscription/font/presets) before run().'
             why='It scales better for production apps with explicit startup and configuration needs.'
             ;;
         daemon)
@@ -180,9 +180,9 @@ last_updated: ${DATE}
 order: ${runtime_order}
 ---
 
-# Runtime Function - iced::${fn_name}
+# Runtime Function - \`iced::${fn_name}\`
 
-Authoritative source: ref/doc/iced/fn.${fn_name}.html.
+Authoritative source: \`ref/doc/iced/fn.${fn_name}.html\`.
 
 ## Verified signature
 
@@ -242,7 +242,7 @@ order: ${module_order}
 
 # Module - ${display}
 
-Authoritative source: ref/doc/iced/widget/${module_name}/index.html.
+Authoritative source: \`ref/doc/iced/widget/${module_name}/index.html\`.
 
 ## Rustdoc description
 
@@ -290,7 +290,7 @@ order: ${constructor_order}
 
 # Constructor - ${display}
 
-Authoritative source: ref/doc/iced/widget/fn.${fn_name}.html.
+Authoritative source: \`ref/doc/iced/widget/fn.${fn_name}.html\`.
 
 ## Rustdoc summary
 
