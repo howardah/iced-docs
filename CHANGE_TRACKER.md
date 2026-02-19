@@ -214,3 +214,55 @@ Validation tests passing:
 - `app::tests::all_pages_have_required_frontmatter`
 - `app::tests::internal_links_resolve`
 - `app::tests::search_index_builds`
+
+## 2026-02-19 (UI Pass - Collapsible Sidebar)
+
+### Summary
+
+Refactored the sidebar navigation to reduce vertical overload by introducing collapsible menus at section and subsection levels.
+
+### Implemented
+
+- Updated sidebar rendering in:
+- `src/app/mod.rs`
+
+- Added top-level collapsible sections (`Guide`, `Reference`, `Tutorial`) using `<details>/<summary>`.
+- Added reference-specific collapsible subgroups to split the long list:
+  - Runtime and Core
+  - Catalogs
+  - Widget Modules
+  - Constructors A-M
+  - Constructors N-Z
+  - Elements A-M
+  - Elements N-Z
+  - Other (fallback)
+
+- Auto-open behavior:
+- The section containing the active page opens automatically.
+- The matching reference subgroup containing the active page also opens automatically.
+
+- Added helper functions for grouping/open-state logic:
+- `section_has_active_page`
+- `reference_subgroups`
+- `split_half`
+- `push_group`
+
+- Updated sidebar styles in:
+- `assets/main.css`
+
+- Added visual styles for section/subsection toggle rows and item counts.
+- Added subgroup separators and adjusted sidebar spacing for better scanability.
+
+### Build/Test Results
+
+Executed successfully after UI changes:
+
+- `cargo fmt`
+- `cargo check`
+- `cargo test`
+
+Validation tests passing:
+
+- `app::tests::all_pages_have_required_frontmatter`
+- `app::tests::internal_links_resolve`
+- `app::tests::search_index_builds`

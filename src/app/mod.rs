@@ -418,19 +418,72 @@ fn SidebarNav(selected_version: String, current_page: Option<DocPage>) -> Elemen
         }
     }
 
+    let nav_sections: Vec<(String, Vec<usize>, bool, Vec<(String, Vec<usize>, bool)>)> = sections
+        .into_iter()
+        .map(|(section, indices)| {
+            let is_open = section_has_active_page(&indices, &current_path, &catalog.pages);
+            let subgroups = if section == "reference" {
+                reference_subgroups(&indices, &catalog.pages)
+                    .into_iter()
+                    .map(|(label, group_indices)| {
+                        let is_group_open =
+                            section_has_active_page(&group_indices, &current_path, &catalog.pages);
+                        (label, group_indices, is_group_open)
+                    })
+                    .collect()
+            } else {
+                Vec::new()
+            };
+            (section, indices, is_open, subgroups)
+        })
+        .collect();
+
     rsx! {
         nav { class: "sidebar-nav",
-            for (section, indices) in sections {
-                section { class: "sidebar-group",
-                    h2 { "{capitalize(&section)}" }
-                    ul {
-                        for index in indices {
-                            if let Some(page) = catalog.pages.get(index) {
-                                li {
-                                    a {
-                                        class: if page.route_path == current_path { "active" } else { "" },
-                                        href: "{page.route_path}",
-                                        "{page.frontmatter.title}"
+            for (section, indices, is_open, subgroups) in nav_sections {
+                details {
+                    class: "sidebar-section",
+                    open: is_open,
+                    summary {
+                        span { class: "section-title", "{capitalize(&section)}" }
+                        span { class: "section-count", "{indices.len()}" }
+                    }
+                    section { class: "sidebar-group",
+                        if section == "reference" {
+                            for (label, group_indices, is_group_open) in subgroups {
+                                details {
+                                    class: "sidebar-subgroup",
+                                    open: is_group_open,
+                                    summary {
+                                        span { "{label}" }
+                                        span { class: "section-count", "{group_indices.len()}" }
+                                    }
+                                    ul {
+                                        for index in group_indices {
+                                            if let Some(page) = catalog.pages.get(index) {
+                                                li {
+                                                    a {
+                                                        class: if page.route_path == current_path { "active" } else { "" },
+                                                        href: "{page.route_path}",
+                                                        "{page.frontmatter.title}"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            ul {
+                                for index in indices {
+                                    if let Some(page) = catalog.pages.get(index) {
+                                        li {
+                                            a {
+                                                class: if page.route_path == current_path { "active" } else { "" },
+                                                href: "{page.route_path}",
+                                                "{page.frontmatter.title}"
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -806,6 +859,85 @@ fn capitalize(text: &str) -> String {
         Some(first) => format!("{}{}", first.to_uppercase(), chars.as_str()),
         None => String::new(),
     }
+}
+
+fn section_has_active_page(indices: &[usize], current_path: &str, pages: &[DocPage]) -> bool {
+    indices.iter().any(|index| {
+        pages
+            .get(*index)
+            .is_some_and(|page| page.route_path == current_path)
+    })
+}
+
+fn reference_subgroups(indices: &[usize], pages: &[DocPage]) -> Vec<(String, Vec<usize>)> {
+    let mut core_runtime = Vec::new();
+    let mut catalogs = Vec::new();
+    let mut modules = Vec::new();
+    let mut constructors_a_m = Vec::new();
+    let mut constructors_n_z = Vec::new();
+    let mut elements_a_m = Vec::new();
+    let mut elements_n_z = Vec::new();
+    let mut other = Vec::new();
+
+    for index in indices {
+        let Some(page) = pages.get(*index) else {
+            continue;
+        };
+        let slug = page.slug.as_str();
+
+        if matches!(
+            slug,
+            "core-concepts" | "runtime-api" | "tasks-subscriptions" | "widgets-overview"
+        ) || slug.starts_with("runtime-fn-")
+        {
+            core_runtime.push(*index);
+        } else if slug.ends_with("-catalog") || slug.contains("catalog") {
+            catalogs.push(*index);
+        } else if slug.starts_with("widget-module-") {
+            modules.push(*index);
+        } else if slug.starts_with("widget-constructor-") {
+            if split_half(&page.frontmatter.title) {
+                constructors_n_z.push(*index);
+            } else {
+                constructors_a_m.push(*index);
+            }
+        } else if slug.starts_with("widget-element-") {
+            if split_half(&page.frontmatter.title) {
+                elements_n_z.push(*index);
+            } else {
+                elements_a_m.push(*index);
+            }
+        } else {
+            other.push(*index);
+        }
+    }
+
+    let mut groups = Vec::new();
+    push_group(&mut groups, "Runtime and Core", core_runtime);
+    push_group(&mut groups, "Catalogs", catalogs);
+    push_group(&mut groups, "Widget Modules", modules);
+    push_group(&mut groups, "Constructors A-M", constructors_a_m);
+    push_group(&mut groups, "Constructors N-Z", constructors_n_z);
+    push_group(&mut groups, "Elements A-M", elements_a_m);
+    push_group(&mut groups, "Elements N-Z", elements_n_z);
+    push_group(&mut groups, "Other", other);
+    groups
+}
+
+fn split_half(title: &str) -> bool {
+    let ch = title
+        .chars()
+        .find(|ch| ch.is_ascii_alphabetic())
+        .unwrap_or('A')
+        .to_ascii_uppercase();
+    ch >= 'N'
+}
+
+fn push_group(groups: &mut Vec<(String, Vec<usize>)>, label: &str, indices: Vec<usize>) {
+    if indices.is_empty() {
+        return;
+    }
+    groups.push((label.to_string(), indices));
 }
 
 fn plain_text(markdown: &str) -> String {
