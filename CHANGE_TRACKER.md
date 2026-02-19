@@ -664,3 +664,29 @@ Executed successfully after highlighting integration:
 - `cargo fmt`
 - `cargo check`
 - `cargo test`
+
+## 2026-02-19 (WASM Build Fix for `dx serve`)
+
+### Summary
+
+Fixed `wasm32-unknown-unknown` build failures introduced by syntax-highlighting dependencies, so web builds used by `dx serve` compile successfully.
+
+### Root Cause
+
+- `syntect` was added with default features, which enables `default-onig`.
+- That pulled in `onig_sys`, which failed to compile for `wasm32-unknown-unknown` (C toolchain/stdlib expectations incompatible with this target in our setup).
+
+### Implemented
+
+- Updated dependency features in:
+- `Cargo.toml`
+  - `syntect` now uses:
+    - `default-features = false`
+    - `features = ["default-fancy"]`
+- This keeps highlighting support while avoiding the `onig` backend.
+
+### Verification
+
+- `cargo build --target wasm32-unknown-unknown` now succeeds.
+- `cargo check` succeeds.
+- `dx serve` could not be fully smoke-tested in the sandbox because binding `127.0.0.1:8080` is disallowed (`Operation not permitted`), but the prior compile error path is resolved.
