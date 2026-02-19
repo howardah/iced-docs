@@ -1,0 +1,229 @@
+:root {
+    --bg: #f2efe8;
+    --bg-glow: #f8d8a2;
+    --surface: #fffdf8;
+    --ink: #1e1e1b;
+    --muted: #5f5a50;
+    --line: #d2c9bb;
+    --brand: #0c7a6e;
+    --brand-2: #2f534e;
+    --accent: #ea9a3b;
+    --shadow: 0 12px 40px rgba(20, 25, 21, 0.12);
+    --radius-lg: 18px;
+    --radius-md: 12px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: var(--ink);
+    font-family: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
+    background: radial-gradient(circle at 8% 15%, rgba(248, 216, 162, 0.58), transparent 32%),
+        radial-gradient(circle at 95% 5%, rgba(12, 122, 110, 0.2), transparent 36%),
+        linear-gradient(160deg, #f4f2ed 0%, #f7f0e4 48%, #f1eee5 100%);
+    min-height: 100vh;
+}
+
+.page-bg {
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.shell {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 22px 20px 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    background: rgba(255, 253, 248, 0.86);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(6px);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-mark {
+    background: linear-gradient(145deg, var(--brand), #145a52);
+    color: #f8f7f3;
+    border-radius: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding: 7px 10px;
+}
+
+.brand-copy h1 {
+    margin: 0;
+    font-size: 1.28rem;
+    line-height: 1.15;
+}
+
+.brand-copy p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.route-nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.route-link {
+    color: var(--brand-2);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.92rem;
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    transition: 160ms ease;
+}
+
+.route-link:hover {
+    background: rgba(12, 122, 110, 0.08);
+    border-color: rgba(12, 122, 110, 0.35);
+}
+
+.route-link[aria-current="page"] {
+    background: var(--brand);
+    color: #fff;
+    border-color: var(--brand);
+}
+
+.content {
+    margin-top: 18px;
+}
+
+.doc-page {
+    display: grid;
+    gap: 16px;
+}
+
+.hero,
+.card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.hero h2,
+.card h3 {
+    margin: 0 0 10px;
+}
+
+.hero p,
+.card p,
+.card li {
+    color: #2f2a22;
+    line-height: 1.56;
+}
+
+.footnote-inline {
+    color: var(--brand-2);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.86rem;
+}
+
+.grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+}
+
+.ref-item {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: #fffdfa;
+    padding: 12px;
+}
+
+.ref-item h4 {
+    margin: 0 0 6px;
+    font-size: 0.98rem;
+}
+
+.ref-item p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.ref-item .source {
+    margin-top: 8px;
+    color: var(--muted);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.76rem;
+}
+
+.code {
+    margin: 10px 0 0;
+    overflow-x: auto;
+    background: #141b24;
+    color: #e9eef6;
+    border-radius: 12px;
+    padding: 14px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.84rem;
+    border: 1px solid #243141;
+}
+
+.footnotes ol {
+    margin: 0;
+    padding-left: 20px;
+    display: grid;
+    gap: 8px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.84rem;
+}
+
+@media (max-width: 900px) {
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .brand-copy p {
+        max-width: 55ch;
+    }
+}
+
+@media (max-width: 640px) {
+    .shell {
+        padding: 14px 12px 24px;
+    }
+
+    .hero,
+    .card {
+        padding: 16px;
+    }
+
+    .route-nav {
+        width: 100%;
+    }
+}
