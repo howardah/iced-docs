@@ -19,11 +19,12 @@ the widget—effectively making it opaque.
 
 ```rust
 pub fn opaque<'a, Message, Theme, Renderer>(
-content: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Element<'a, Message, Theme, Renderer>where
-Message: 'a,
-Theme: 'a,
-Renderer: Renderer + 'a,
+    content: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Element<'a, Message, Theme, Renderer>
+where
+    Message: 'a,
+    Theme: 'a,
+    Renderer: Renderer + 'a,
 ```
 
 ## When to use
@@ -36,8 +37,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/gallery/src/main.rs
 - ref/examples/modal/src/main.rs
+- ref/examples/gallery/src/main.rs
 
 ## Related
 

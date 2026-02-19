@@ -21,10 +21,11 @@ and aligns its contents inside to the bottom center.
 
 ```rust
 pub fn bottom_center<'a, Message, Theme, Renderer>(
-content: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Container<'a, Message, Theme, Renderer>where
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    content: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Container<'a, Message, Theme, Renderer>
+where
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use

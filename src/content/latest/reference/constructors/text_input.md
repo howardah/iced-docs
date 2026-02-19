@@ -20,12 +20,13 @@ TextInput
 
 ```rust
 pub fn text_input<'a, Message, Theme, Renderer>(
-placeholder: &str,
-value: &str,
-) -> TextInput<'a, Message, Theme, Renderer>where
-Message: Clone,
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    placeholder: &str,
+    value: &str,
+) -> TextInput<'a, Message, Theme, Renderer>
+where
+    Message: Clone,
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -38,12 +39,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/changelog/src/main.rs
-- ref/examples/integration/src/controls.rs
-- ref/examples/lazy/src/main.rs
 - ref/examples/modal/src/main.rs
-- ref/examples/multi_window/src/main.rs
+- ref/examples/lazy/src/main.rs
 - ref/examples/qr_code/src/main.rs
+- ref/examples/multi_window/src/main.rs
+- ref/examples/todos/src/main.rs
+- ref/examples/changelog/src/main.rs
 
 ## Related
 

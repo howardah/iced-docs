@@ -19,7 +19,7 @@ A widget which can render custom shaders with Iced’s wgpu backend.
 ```rust
 pub struct Shader<Message, P>
 where
-    P: Program<Message>, {/* private fields */}
+    P: Program<Message>,{ /* private fields */ }
 ```
 
 ## When to use

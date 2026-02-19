@@ -20,10 +20,11 @@ widget with the provided content.
 
 ```rust
 pub fn text<'a, Theme, Renderer>(
-text: impl IntoFragment<'a>,
-) -> Text<'a, Theme, Renderer>where
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    text: impl IntoFragment<'a>,
+) -> Text<'a, Theme, Renderer>
+where
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -36,12 +37,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/text/src/main.rs
-- ref/examples/changelog/src/icon.rs
-- ref/examples/changelog/src/main.rs
+- ref/examples/editor/src/main.rs
+- ref/examples/loupe/src/main.rs
 - ref/examples/color_palette/src/main.rs
-- ref/examples/combo_box/src/main.rs
-- ref/examples/counter/src/main.rs
+- ref/examples/todos/src/main.rs
+- ref/examples/pokedex/src/main.rs
+- ref/examples/table/src/main.rs
 
 ## Related
 

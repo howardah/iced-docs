@@ -19,7 +19,7 @@ A widget that positions its contents at some fixed coordinates inside of its bou
 ```rust
 pub struct Pin<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
 where
-    Renderer: Renderer, {/* private fields */}
+    Renderer: Renderer,{ /* private fields */ }
 ```
 
 ## When to use
@@ -32,6 +32,7 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
+- ref/examples/pane_grid/src/main.rs
 - ref/examples/layout/src/main.rs
 
 ## Related

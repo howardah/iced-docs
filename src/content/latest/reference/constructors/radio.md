@@ -20,15 +20,16 @@ Radio
 
 ```rust
 pub fn radio<'a, Message, Theme, Renderer, V>(
-label: impl Into<String>,
-value: V,
-selected: Option<V>,
-on_click: impl FnOnce(V) -> Message,
-) -> Radio<'a, Message, Theme, Renderer>where
-Message: Clone,
-Theme: Catalog + 'a,
-Renderer: Renderer,
-V: Copy + Eq,
+    label: impl Into<String>,
+    value: V,
+    selected: Option<V>,
+    on_click: impl FnOnce(V) -> Message,
+) -> Radio<'a, Message, Theme, Renderer>
+where
+    Message: Clone,
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
+    V: Copy + Eq,
 ```
 
 ## When to use
@@ -41,8 +42,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/scrollable/src/main.rs
 - ref/examples/tour/src/main.rs
+- ref/examples/scrollable/src/main.rs
 
 ## Related
 

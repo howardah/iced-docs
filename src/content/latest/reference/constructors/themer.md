@@ -18,11 +18,12 @@ A widget that applies any Theme to its contents.
 
 ```rust
 pub fn themer<'a, Message, Theme, Renderer>(
-theme: Option<Theme>,
-content: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Themer<'a, Message, Theme, Renderer>where
-Theme: Base,
-Renderer: Renderer,
+    theme: Option<Theme>,
+    content: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Themer<'a, Message, Theme, Renderer>
+where
+    Theme: Base,
+    Renderer: Renderer,
 ```
 
 ## When to use

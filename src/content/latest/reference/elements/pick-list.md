@@ -23,7 +23,7 @@ where
     L: Borrow<[T]> + 'a,
     V: Borrow<T> + 'a,
     Theme: Catalog,
-    Renderer: Renderer, {/* private fields */}
+    Renderer: Renderer,{ /* private fields */ }
 ```
 
 ## When to use

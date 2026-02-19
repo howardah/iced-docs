@@ -20,11 +20,12 @@ TextEditor
 
 ```rust
 pub fn text_editor<'a, Message, Theme, Renderer>(
-content: &'a Content<Renderer>,
-) -> TextEditor<'a, PlainText, Message, Theme, Renderer>where
-Message: Clone,
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    content: &'a Content<Renderer>,
+) -> TextEditor<'a, PlainText, Message, Theme, Renderer>
+where
+    Message: Clone,
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use

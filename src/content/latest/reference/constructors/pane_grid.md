@@ -22,11 +22,12 @@ and view function.
 
 ```rust
 pub fn pane_grid<'a, T, Message, Theme, Renderer>(
-state: &'a State<T>,
-view: impl Fn(Pane, &'a T, bool) -> Content<'a, Message, Theme, Renderer>,
-) -> PaneGrid<'a, Message, Theme, Renderer>where
-Theme: Catalog,
-Renderer: Renderer,
+    state: &'a State<T>,
+    view: impl Fn(Pane, &'a T, bool) -> Content<'a, Message, Theme, Renderer>,
+) -> PaneGrid<'a, Message, Theme, Renderer>
+where
+    Theme: Catalog,
+    Renderer: Renderer,
 ```
 
 ## When to use

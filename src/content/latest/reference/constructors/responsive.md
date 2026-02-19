@@ -21,9 +21,10 @@ contents.
 
 ```rust
 pub fn responsive<'a, Message, Theme, Renderer>(
-f: impl Fn(Size) -> Element<'a, Message, Theme, Renderer> + 'a,
-) -> Responsive<'a, Message, Theme, Renderer>where
-Renderer: Renderer,
+    f: impl Fn(Size) -> Element<'a, Message, Theme, Renderer> + 'a,
+) -> Responsive<'a, Message, Theme, Renderer>
+where
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -36,8 +37,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/layout/src/main.rs
 - ref/examples/pane_grid/src/main.rs
+- ref/examples/layout/src/main.rs
 
 ## Related
 

@@ -20,7 +20,7 @@ A widget for searching and selecting a single value from a list of options.
 pub struct ComboBox<'a, T, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
 where
     Theme: Catalog,
-    Renderer: Renderer, {/* private fields */}
+    Renderer: Renderer,{ /* private fields */ }
 ```
 
 ## When to use

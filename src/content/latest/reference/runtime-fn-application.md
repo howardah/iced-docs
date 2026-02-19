@@ -14,14 +14,15 @@ Authoritative source: `ref/doc/iced/fn.application.html`.
 
 ```rust
 pub fn application<State, Message, Theme, Renderer>(
-boot: impl BootFn<State, Message>,
-update: impl UpdateFn<State, Message>,
-view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer>,
-) -> Application<impl Program<State = State, Message = Message, Theme = Theme>>where
-State: 'static,
-Message: Send + 'static,
-Theme: Base,
-Renderer: Renderer,
+    boot: impl BootFn<State, Message>,
+    update: impl UpdateFn<State, Message>,
+    view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer>,
+) -> Application<impl Program<State = State, Message = Message, Theme = Theme>>
+where
+    State: 'static,
+    Message: Send + 'static,
+    Theme: Base,
+    Renderer: Renderer,
 ```
 
 ## When to use it
@@ -34,11 +35,11 @@ It scales better for production apps with explicit startup and configuration nee
 
 ## Example References
 
-- ref/examples/arc/src/main.rs
-- ref/examples/bezier_tool/src/main.rs
-- ref/examples/changelog/src/main.rs
-- ref/examples/checkbox/src/main.rs
 - ref/examples/clock/src/main.rs
+- ref/examples/editor/src/main.rs
+- ref/examples/pokedex/src/main.rs
+- ref/examples/ferris/src/main.rs
+- ref/examples/vectorial_text/src/main.rs
 - ref/examples/color_palette/src/main.rs
 
 ## API verification notes

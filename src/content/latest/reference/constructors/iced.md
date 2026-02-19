@@ -20,13 +20,14 @@ that displays the iced logo with the given text_size.
 
 ```rust
 pub fn iced<'a, Message, Theme, Renderer>(
-text_size: impl Into<Pixels>,
-) -> Element<'a, Message, Theme, Renderer>where
-Message: 'a,
-Renderer: Renderer + Renderer<Font = Font> + 'a,
-Theme: Catalog + Catalog + 'a,
-<Theme as Catalog>::Class<'a>: From<Box<dyn Fn(&Theme) -> Style + 'a>>,
-<Theme as Catalog>::Class<'a>: From<Box<dyn Fn(&Theme) -> Style + 'a>>,
+    text_size: impl Into<Pixels>,
+) -> Element<'a, Message, Theme, Renderer>
+where
+    Message: 'a,
+    Renderer: Renderer + Renderer<Font = Font> + 'a,
+    Theme: Catalog + Catalog + 'a,
+    <Theme as Catalog>::Class<'a>: From<Box<dyn Fn(&Theme) -> Style + 'a>>,
+    <Theme as Catalog>::Class<'a>: From<Box<dyn Fn(&Theme) -> Style + 'a>>,
 ```
 
 ## When to use

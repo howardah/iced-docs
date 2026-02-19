@@ -20,9 +20,10 @@ with the given children.
 
 ```rust
 pub fn column<'a, Message, Theme, Renderer>(
-children: impl IntoIterator<Item = Element<'a, Message, Theme, Renderer>>,
-) -> Column<'a, Message, Theme, Renderer>where
-Renderer: Renderer,
+    children: impl IntoIterator<Item = Element<'a, Message, Theme, Renderer>>,
+) -> Column<'a, Message, Theme, Renderer>
+where
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -35,9 +36,9 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/lazy/src/main.rs
 - ref/examples/table/src/main.rs
 - ref/examples/text/src/main.rs
+- ref/examples/lazy/src/main.rs
 - ref/examples/tour/src/main.rs
 - ref/examples/websocket/src/main.rs
 

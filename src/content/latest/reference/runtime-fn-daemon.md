@@ -14,14 +14,15 @@ Authoritative source: `ref/doc/iced/fn.daemon.html`.
 
 ```rust
 pub fn daemon<State, Message, Theme, Renderer>(
-boot: impl BootFn<State, Message>,
-update: impl UpdateFn<State, Message>,
-view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer>,
-) -> Daemon<impl Program<State = State, Message = Message, Theme = Theme>>where
-State: 'static,
-Message: Send + 'static,
-Theme: Base,
-Renderer: Renderer,
+    boot: impl BootFn<State, Message>,
+    update: impl UpdateFn<State, Message>,
+    view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer>,
+) -> Daemon<impl Program<State = State, Message = Message, Theme = Theme>>
+where
+    State: 'static,
+    Message: Send + 'static,
+    Theme: Base,
+    Renderer: Renderer,
 ```
 
 ## When to use it

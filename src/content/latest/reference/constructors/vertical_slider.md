@@ -20,13 +20,14 @@ VerticalSlider
 
 ```rust
 pub fn vertical_slider<'a, T, Message, Theme>(
-range: RangeInclusive<T>,
-value: T,
-on_change: impl Fn(T) -> Message + 'a,
-) -> VerticalSlider<'a, T, Message, Theme>where
-T: Copy + From<u8> + PartialOrd,
-Message: Clone,
-Theme: Catalog + 'a,
+    range: RangeInclusive<T>,
+    value: T,
+    on_change: impl Fn(T) -> Message + 'a,
+) -> VerticalSlider<'a, T, Message, Theme>
+where
+    T: Copy + From<u8> + PartialOrd,
+    Message: Clone,
+    Theme: Catalog + 'a,
 ```
 
 ## When to use

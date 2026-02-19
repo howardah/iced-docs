@@ -18,12 +18,13 @@ Displays a widget on top of another one, only when the base widget is hovered.
 
 ```rust
 pub fn hover<'a, Message, Theme, Renderer>(
-base: impl Into<Element<'a, Message, Theme, Renderer>>,
-top: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Element<'a, Message, Theme, Renderer>where
-Message: 'a,
-Theme: 'a,
-Renderer: Renderer + 'a,
+    base: impl Into<Element<'a, Message, Theme, Renderer>>,
+    top: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Element<'a, Message, Theme, Renderer>
+where
+    Message: 'a,
+    Theme: 'a,
+    Renderer: Renderer + 'a,
 ```
 
 ## When to use
@@ -36,8 +37,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/bezier_tool/src/main.rs
 - ref/examples/markdown/src/main.rs
+- ref/examples/bezier_tool/src/main.rs
 
 ## Related
 

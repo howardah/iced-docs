@@ -20,10 +20,11 @@ with the provided content.
 
 ```rust
 pub fn scrollable<'a, Message, Theme, Renderer>(
-content: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Scrollable<'a, Message, Theme, Renderer>where
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    content: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Scrollable<'a, Message, Theme, Renderer>
+where
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -36,12 +37,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/scrollable/src/main.rs
-- ref/examples/changelog/src/main.rs
-- ref/examples/combo_box/src/main.rs
-- ref/examples/delineate/src/main.rs
-- ref/examples/gallery/src/main.rs
+- ref/examples/tour/src/main.rs
 - ref/examples/geometry/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/todos/src/main.rs
+- ref/examples/styling/src/main.rs
+- ref/examples/pick_list/src/main.rs
 
 ## Related
 

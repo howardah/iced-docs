@@ -21,10 +21,11 @@ horizontally and right-aligns its contents inside.
 
 ```rust
 pub fn right<'a, Message, Theme, Renderer>(
-content: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Container<'a, Message, Theme, Renderer>where
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    content: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Container<'a, Message, Theme, Renderer>
+where
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -37,9 +38,9 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
+- ref/examples/text/src/main.rs
 - ref/examples/bezier_tool/src/main.rs
 - ref/examples/markdown/src/main.rs
-- ref/examples/text/src/main.rs
 
 ## Related
 

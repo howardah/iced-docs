@@ -19,7 +19,7 @@ Display a horizontal or vertical rule for dividing content.
 ```rust
 pub struct Rule<'a, Theme = Theme>
 where
-    Theme: Catalog, {/* private fields */}
+    Theme: Catalog,{ /* private fields */ }
 ```
 
 ## When to use

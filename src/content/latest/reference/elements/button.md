@@ -17,12 +17,10 @@ A generic widget that produces a message when pressed.
 ## Verified type declaration
 
 ```rust
-/private/var/folders/hk/wykb6d7d2m5cg1rjhfx_tw200000gn/T/tmp.gDTBKDagjh:
-
 pub struct Button<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
 where
     Renderer: Renderer,
-    Theme: Catalog, {/* private fields */}
+    Theme: Catalog,{ /* private fields */ }
 ```
 
 ## When to use
@@ -35,12 +33,12 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
+- ref/examples/sierpinski_triangle/src/main.rs
+- ref/examples/sandpiles/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/pokedex/src/main.rs
 - ref/examples/bezier_tool/src/main.rs
-- ref/examples/changelog/src/main.rs
-- ref/examples/counter/src/main.rs
-- ref/examples/download_progress/src/main.rs
-- ref/examples/editor/src/main.rs
-- ref/examples/events/src/main.rs
+- ref/examples/tour/src/main.rs
 
 ## Related
 

@@ -20,10 +20,11 @@ ProgressBar
 
 ```rust
 pub fn progress_bar<'a, Theme>(
-range: RangeInclusive<f32>,
-value: f32,
-) -> ProgressBar<'a, Theme>where
-Theme: Catalog + 'a,
+    range: RangeInclusive<f32>,
+    value: f32,
+) -> ProgressBar<'a, Theme>
+where
+    Theme: Catalog + 'a,
 ```
 
 ## When to use
@@ -36,11 +37,11 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/progress_bar/src/main.rs
-- ref/examples/changelog/src/main.rs
 - ref/examples/download_progress/src/main.rs
-- ref/examples/scrollable/src/main.rs
 - ref/examples/styling/src/main.rs
+- ref/examples/progress_bar/src/main.rs
+- ref/examples/scrollable/src/main.rs
+- ref/examples/changelog/src/main.rs
 
 ## Related
 

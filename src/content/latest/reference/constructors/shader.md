@@ -19,8 +19,9 @@ Shader
 ## Verified signature
 
 ```rust
-pub fn shader<Message, P>(program: P) -> Shader<Message, P>where
-P: Program<Message>,
+pub fn shader<Message, P>(program: P) -> Shader<Message, P>
+where
+    P: Program<Message>,
 ```
 
 ## When to use

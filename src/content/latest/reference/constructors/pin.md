@@ -20,9 +20,10 @@ widget with the given content.
 
 ```rust
 pub fn pin<'a, Message, Theme, Renderer>(
-content: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Pin<'a, Message, Theme, Renderer>where
-Renderer: Renderer,
+    content: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Pin<'a, Message, Theme, Renderer>
+where
+    Renderer: Renderer,
 ```
 
 ## When to use

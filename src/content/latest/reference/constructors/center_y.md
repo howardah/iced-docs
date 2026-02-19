@@ -21,10 +21,11 @@ vertically and centers its contents inside.
 
 ```rust
 pub fn center_y<'a, Message, Theme, Renderer>(
-content: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Container<'a, Message, Theme, Renderer>where
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    content: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Container<'a, Message, Theme, Renderer>
+where
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -38,11 +39,11 @@ It gives explicit widget construction with compile-time type checking and builde
 ## Example References
 
 - ref/examples/geometry/src/main.rs
-- ref/examples/layout/src/main.rs
-- ref/examples/pane_grid/src/main.rs
-- ref/examples/screenshot/src/main.rs
-- ref/examples/styling/src/main.rs
 - ref/examples/table/src/main.rs
+- ref/examples/pane_grid/src/main.rs
+- ref/examples/tour/src/main.rs
+- ref/examples/styling/src/main.rs
+- ref/examples/screenshot/src/main.rs
 
 ## Related
 

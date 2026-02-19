@@ -20,7 +20,7 @@ A toggler widget.
 pub struct Toggler<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
 where
     Theme: Catalog,
-    Renderer: Renderer, {/* private fields */}
+    Renderer: Renderer,{ /* private fields */ }
 ```
 
 ## When to use
@@ -33,12 +33,12 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
+- ref/examples/tour/src/main.rs
 - ref/examples/custom_quad/src/main.rs
 - ref/examples/editor/src/main.rs
 - ref/examples/markdown/src/main.rs
 - ref/examples/qr_code/src/main.rs
 - ref/examples/styling/src/main.rs
-- ref/examples/tour/src/main.rs
 
 ## Related
 

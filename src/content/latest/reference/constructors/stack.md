@@ -20,9 +20,10 @@ with the given children.
 
 ```rust
 pub fn stack<'a, Message, Theme, Renderer>(
-children: impl IntoIterator<Item = Element<'a, Message, Theme, Renderer>>,
-) -> Stack<'a, Message, Theme, Renderer>where
-Renderer: Renderer,
+    children: impl IntoIterator<Item = Element<'a, Message, Theme, Renderer>>,
+) -> Stack<'a, Message, Theme, Renderer>
+where
+    Renderer: Renderer,
 ```
 
 ## When to use

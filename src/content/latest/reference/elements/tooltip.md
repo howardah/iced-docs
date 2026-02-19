@@ -20,7 +20,7 @@ An element to display a widget over another.
 pub struct Tooltip<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
 where
     Theme: Catalog,
-    Renderer: Renderer, {/* private fields */}
+    Renderer: Renderer,{ /* private fields */ }
 ```
 
 ## When to use

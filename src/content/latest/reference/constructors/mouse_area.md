@@ -20,9 +20,10 @@ MouseArea
 
 ```rust
 pub fn mouse_area<'a, Message, Theme, Renderer>(
-widget: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> MouseArea<'a, Message, Theme, Renderer>where
-Renderer: Renderer,
+    widget: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> MouseArea<'a, Message, Theme, Renderer>
+where
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -35,8 +36,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/gallery/src/main.rs
 - ref/examples/modal/src/main.rs
+- ref/examples/gallery/src/main.rs
 
 ## Related
 

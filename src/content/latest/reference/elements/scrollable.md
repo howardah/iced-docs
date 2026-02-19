@@ -21,7 +21,7 @@ scrollbar.
 pub struct Scrollable<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
 where
     Theme: Catalog,
-    Renderer: Renderer, {/* private fields */}
+    Renderer: Renderer,{ /* private fields */ }
 ```
 
 ## When to use
@@ -34,12 +34,12 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
+- ref/examples/tour/src/main.rs
 - ref/examples/scrollable/src/main.rs
 - ref/examples/changelog/src/main.rs
 - ref/examples/combo_box/src/main.rs
 - ref/examples/delineate/src/main.rs
 - ref/examples/gallery/src/main.rs
-- ref/examples/geometry/src/main.rs
 
 ## Related
 

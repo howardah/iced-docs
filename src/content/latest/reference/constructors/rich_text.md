@@ -20,12 +20,13 @@ text widget with the provided spans.
 
 ```rust
 pub fn rich_text<'a, Link, Message, Theme, Renderer>(
-spans: impl AsRef<[Span<'a, Link, <Renderer as Renderer>::Font>]> + 'a,
-) -> Rich<'a, Link, Message, Theme, Renderer>where
-Link: Clone + 'static,
-Theme: Catalog + 'a,
-Renderer: Renderer,
-<Renderer as Renderer>::Font: 'a,
+    spans: impl AsRef<[Span<'a, Link, <Renderer as Renderer>::Font>]> + 'a,
+) -> Rich<'a, Link, Message, Theme, Renderer>
+where
+    Link: Clone + 'static,
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
+    <Renderer as Renderer>::Font: 'a,
 ```
 
 ## When to use

@@ -20,10 +20,11 @@ widget with the given content.
 
 ```rust
 pub fn float<'a, Message, Theme, Renderer>(
-content: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Float<'a, Message, Theme, Renderer>where
-Theme: Catalog,
-Renderer: Renderer,
+    content: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Float<'a, Message, Theme, Renderer>
+where
+    Theme: Catalog,
+    Renderer: Renderer,
 ```
 
 ## When to use

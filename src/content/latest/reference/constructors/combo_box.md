@@ -20,14 +20,15 @@ ComboBox
 
 ```rust
 pub fn combo_box<'a, T, Message, Theme, Renderer>(
-state: &'a State<T>,
-placeholder: &str,
-selection: Option<&T>,
-on_selected: impl Fn(T) -> Message + 'static,
-) -> ComboBox<'a, T, Message, Theme, Renderer>where
-T: Display + Clone,
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    state: &'a State<T>,
+    placeholder: &str,
+    selection: Option<&T>,
+    on_selected: impl Fn(T) -> Message + 'static,
+) -> ComboBox<'a, T, Message, Theme, Renderer>
+where
+    T: Display + Clone,
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use

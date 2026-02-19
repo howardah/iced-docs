@@ -33,10 +33,27 @@ clean_html_text() {
 
 extract_signature() {
     local file="$1"
-    sed 's/></>\n</g' "$file" \
-        | sed -n '/<pre class="rust item-decl">/,/<\/pre>/p' \
-        | clean_html_text \
-        | sed '/^$/d'
+    perl -0777 -ne '
+        if (/<pre class="rust item-decl">.*?<code>(.*?)<\/code>.*?<\/pre>/s) {
+            $s = $1;
+            $s =~ s/<div class="where">/\n/g;
+            $s =~ s/<br\s*\/?>/\n/g;
+            $s =~ s/<\/p>/\n/g;
+            $s =~ s/<[^>]+>//g;
+            $s =~ s/&lt;/</g;
+            $s =~ s/&gt;/>/g;
+            $s =~ s/&amp;/\&/g;
+            $s =~ s/&nbsp;/ /g;
+            $s =~ s/&#39;/'\''/g;
+            $s =~ s/&quot;/"/g;
+            $s =~ s/\r//g;
+            $s =~ s/[ \t]+\n/\n/g;
+            $s =~ s/\n{3,}/\n\n/g;
+            $s =~ s/^\s+//;
+            $s =~ s/\s+$//;
+            print "$s\n";
+        }
+    ' "$file"
 }
 
 extract_index_description() {

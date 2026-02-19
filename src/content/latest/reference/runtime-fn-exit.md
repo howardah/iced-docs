@@ -26,8 +26,8 @@ It returns a Task so shutdown composes with the same side-effect model as other 
 
 ## Example References
 
-- ref/examples/changelog/src/main.rs
 - ref/examples/multi_window/src/main.rs
+- ref/examples/changelog/src/main.rs
 
 ## API verification notes
 

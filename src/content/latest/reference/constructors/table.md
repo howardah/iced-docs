@@ -20,12 +20,13 @@ with the given columns and rows.
 
 ```rust
 pub fn table<'a, 'b, T, Message, Theme, Renderer>(
-columns: impl IntoIterator<Item = Column<'a, 'b, T, Message, Theme, Renderer>>,
-rows: impl IntoIterator<Item = T>,
-) -> Table<'a, Message, Theme, Renderer>where
-T: Clone,
-Theme: Catalog,
-Renderer: Renderer,
+    columns: impl IntoIterator<Item = Column<'a, 'b, T, Message, Theme, Renderer>>,
+    rows: impl IntoIterator<Item = T>,
+) -> Table<'a, Message, Theme, Renderer>
+where
+    T: Clone,
+    Theme: Catalog,
+    Renderer: Renderer,
 ```
 
 ## When to use

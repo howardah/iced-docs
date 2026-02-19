@@ -20,10 +20,11 @@ widget that displays the provided value.
 
 ```rust
 pub fn value<'a, Theme, Renderer>(
-value: impl ToString,
-) -> Text<'a, Theme, Renderer>where
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    value: impl ToString,
+) -> Text<'a, Theme, Renderer>
+where
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use

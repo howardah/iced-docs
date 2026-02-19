@@ -17,7 +17,7 @@ Emit messages on mouse events.
 ## Verified type declaration
 
 ```rust
-pub struct MouseArea<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>> {/* private fields */}
+pub struct MouseArea<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>> { /* private fields */ }
 ```
 
 ## When to use

@@ -20,9 +20,10 @@ widget.
 
 ```rust
 pub fn sensor<'a, Message, Theme, Renderer>(
-content: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Sensor<'a, (), Message, Theme, Renderer>where
-Renderer: Renderer,
+    content: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Sensor<'a, (), Message, Theme, Renderer>
+where
+    Renderer: Renderer,
 ```
 
 ## When to use

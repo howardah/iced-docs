@@ -20,10 +20,11 @@ from an iterator of elements.
 
 ```rust
 pub fn keyed_column<'a, Key, Message, Theme, Renderer>(
-children: impl IntoIterator<Item = (Key, Element<'a, Message, Theme, Renderer>)>,
-) -> Column<'a, Key, Message, Theme, Renderer>where
-Key: Copy + PartialEq,
-Renderer: Renderer,
+    children: impl IntoIterator<Item = (Key, Element<'a, Message, Theme, Renderer>)>,
+) -> Column<'a, Key, Message, Theme, Renderer>
+where
+    Key: Copy + PartialEq,
+    Renderer: Renderer,
 ```
 
 ## When to use

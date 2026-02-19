@@ -787,3 +787,31 @@ Added a utility script to run `rustfmt` over fenced Rust code blocks inside mark
   - Flags are now accepted in any position (e.g. `path -r`, `-r path`, `--check path -r`).
   - Added fallback file discovery when `rg` is unavailable (uses `find`).
   - Replaced `mapfile` with portable read loops to support older bash versions on macOS.
+
+## 2026-02-19 (Reference Signature Extraction Fix)
+
+### Summary
+
+Fixed incomplete/flattened `Verified signature` extraction in generated reference pages (constructors/elements/runtime), including cases like `constructors/button.md`.
+
+### Root Cause
+
+- `scripts/generate_reference_pages.sh` used a very lossy extraction pipeline:
+  - tag splitting + generic HTML stripping + whitespace collapsing.
+- Rustdoc signatures often include nested markup (notably `<div class="where">...</div>`), and the old pipeline collapsed/garbled declaration formatting.
+
+### Implemented
+
+- Replaced `extract_signature` logic in:
+- `scripts/generate_reference_pages.sh`
+  - New extractor uses a single-pass Perl capture of `<pre class="rust item-decl"><code>...</code></pre>`.
+  - Preserves line structure and `where` block formatting.
+  - Decodes core HTML entities (`&lt;`, `&gt;`, `&amp;`, etc.) without flattening declaration structure.
+
+- Regenerated reference pages:
+- `./scripts/generate_reference_pages.sh`
+
+### Verification
+
+- Spot-check confirmed `src/content/latest/reference/constructors/button.md` now contains full multi-line signature with proper `where` bounds.
+- `cargo check` passes after regeneration.

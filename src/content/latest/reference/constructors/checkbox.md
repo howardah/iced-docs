@@ -20,10 +20,11 @@ Checkbox
 
 ```rust
 pub fn checkbox<'a, Message, Theme, Renderer>(
-is_checked: bool,
-) -> Checkbox<'a, Message, Theme, Renderer>where
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    is_checked: bool,
+) -> Checkbox<'a, Message, Theme, Renderer>
+where
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -36,12 +37,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/checkbox/src/main.rs
-- ref/examples/custom_shader/src/main.rs
-- ref/examples/events/src/main.rs
 - ref/examples/ferris/src/main.rs
+- ref/examples/vectorial_text/src/main.rs
 - ref/examples/game_of_life/src/main.rs
-- ref/examples/gradient/src/main.rs
+- ref/examples/progress_bar/src/main.rs
+- ref/examples/checkbox/src/main.rs
+- ref/examples/tour/src/main.rs
 
 ## Related
 

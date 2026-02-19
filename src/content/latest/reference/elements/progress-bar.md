@@ -19,7 +19,7 @@ A bar that displays progress.
 ```rust
 pub struct ProgressBar<'a, Theme = Theme>
 where
-    Theme: Catalog, {/* private fields */}
+    Theme: Catalog,{ /* private fields */ }
 ```
 
 ## When to use

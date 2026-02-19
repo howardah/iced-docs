@@ -19,7 +19,7 @@ A widget that can make its contents float over other widgets.
 ```rust
 pub struct Float<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
 where
-    Theme: Catalog, {/* private fields */}
+    Theme: Catalog,{ /* private fields */ }
 ```
 
 ## When to use

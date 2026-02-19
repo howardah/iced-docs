@@ -20,10 +20,11 @@ with the provided content.
 
 ```rust
 pub fn container<'a, Message, Theme, Renderer>(
-content: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Container<'a, Message, Theme, Renderer>where
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    content: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Container<'a, Message, Theme, Renderer>
+where
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -36,12 +37,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/bezier_tool/src/main.rs
-- ref/examples/changelog/src/main.rs
 - ref/examples/clock/src/main.rs
-- ref/examples/delineate/src/main.rs
 - ref/examples/ferris/src/main.rs
-- ref/examples/gallery/src/main.rs
+- ref/examples/modal/src/main.rs
+- ref/examples/markdown/src/main.rs
+- ref/examples/delineate/src/main.rs
+- ref/examples/slider/src/main.rs
 
 ## Related
 

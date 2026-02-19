@@ -20,16 +20,17 @@ PickList
 
 ```rust
 pub fn pick_list<'a, T, L, V, Message, Theme, Renderer>(
-options: L,
-selected: Option<V>,
-on_selected: impl Fn(T) -> Message + 'a,
-) -> PickList<'a, T, L, V, Message, Theme, Renderer>where
-T: ToString + PartialEq + Clone + 'a,
-L: Borrow<[T]> + 'a,
-V: Borrow<T> + 'a,
-Message: Clone,
-Theme: Catalog + Catalog,
-Renderer: Renderer,
+    options: L,
+    selected: Option<V>,
+    on_selected: impl Fn(T) -> Message + 'a,
+) -> PickList<'a, T, L, V, Message, Theme, Renderer>
+where
+    T: ToString + PartialEq + Clone + 'a,
+    L: Borrow<[T]> + 'a,
+    V: Borrow<T> + 'a,
+    Message: Clone,
+    Theme: Catalog + Catalog,
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -42,12 +43,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/pick_list/src/main.rs
-- ref/examples/changelog/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/ferris/src/main.rs
+- ref/examples/text/src/main.rs
 - ref/examples/game_of_life/src/main.rs
-- ref/examples/layout/src/main.rs
+- ref/examples/modal/src/main.rs
+- ref/examples/styling/src/main.rs
+- ref/examples/changelog/src/main.rs
 
 ## Related
 

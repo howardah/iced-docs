@@ -14,14 +14,14 @@ Authoritative source: `ref/doc/iced/fn.run.html`.
 
 ```rust
 pub fn run<State, Message, Theme, Renderer>(
-update: impl UpdateFn<State, Message> + 'static,
-view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer> + 'static,
+    update: impl UpdateFn<State, Message> + 'static,
+    view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer> + 'static,
 ) -> Result
 where
-State: Default + 'static,
-Message: Send + MaybeDebug + MaybeClone + 'static,
-Theme: Base + 'static,
-Renderer: Renderer + 'static,
+    State: Default + 'static,
+    Message: Send + MaybeDebug + MaybeClone + 'static,
+    Theme: Base + 'static,
+    Renderer: Renderer + 'static,
 ```
 
 ## When to use it
@@ -34,12 +34,12 @@ It is the shortest path from update/view logic to a running app.
 
 ## Example References
 
-- ref/examples/combo_box/src/main.rs
-- ref/examples/counter/src/main.rs
-- ref/examples/custom_quad/src/main.rs
 - ref/examples/custom_widget/src/main.rs
-- ref/examples/exit/src/main.rs
 - ref/examples/geometry/src/main.rs
+- ref/examples/exit/src/main.rs
+- ref/examples/custom_quad/src/main.rs
+- ref/examples/slider/src/main.rs
+- ref/examples/tooltip/src/main.rs
 
 ## API verification notes
 

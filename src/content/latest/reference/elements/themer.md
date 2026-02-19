@@ -19,7 +19,7 @@ A widget that applies any Theme to its contents.
 ```rust
 pub struct Themer<'a, Message, Theme, Renderer = Renderer<Renderer, Renderer>>
 where
-    Renderer: Renderer, {/* private fields */}
+    Renderer: Renderer,{ /* private fields */ }
 ```
 
 ## When to use

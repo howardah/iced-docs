@@ -20,13 +20,14 @@ Slider
 
 ```rust
 pub fn slider<'a, T, Message, Theme>(
-range: RangeInclusive<T>,
-value: T,
-on_change: impl Fn(T) -> Message + 'a,
-) -> Slider<'a, T, Message, Theme>where
-T: Copy + From<u8> + PartialOrd,
-Message: Clone,
-Theme: Catalog + 'a,
+    range: RangeInclusive<T>,
+    value: T,
+    on_change: impl Fn(T) -> Message + 'a,
+) -> Slider<'a, T, Message, Theme>
+where
+    T: Copy + From<u8> + PartialOrd,
+    Message: Clone,
+    Theme: Catalog + 'a,
 ```
 
 ## When to use
@@ -39,12 +40,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/slider/src/main.rs
-- ref/examples/color_palette/src/main.rs
-- ref/examples/custom_quad/src/main.rs
-- ref/examples/custom_shader/src/main.rs
 - ref/examples/custom_widget/src/main.rs
 - ref/examples/ferris/src/main.rs
+- ref/examples/vectorial_text/src/main.rs
+- ref/examples/loading_spinners/src/main.rs
+- ref/examples/integration/src/controls.rs
+- ref/examples/color_palette/src/main.rs
 
 ## Related
 

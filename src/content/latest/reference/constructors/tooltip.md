@@ -25,12 +25,13 @@ tooltip::Position
 
 ```rust
 pub fn tooltip<'a, Message, Theme, Renderer>(
-content: impl Into<Element<'a, Message, Theme, Renderer>>,
-tooltip: impl Into<Element<'a, Message, Theme, Renderer>>,
-position: Position,
-) -> Tooltip<'a, Message, Theme, Renderer>where
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    content: impl Into<Element<'a, Message, Theme, Renderer>>,
+    tooltip: impl Into<Element<'a, Message, Theme, Renderer>>,
+    position: Position,
+) -> Tooltip<'a, Message, Theme, Renderer>
+where
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -43,9 +44,9 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
+- ref/examples/table/src/main.rs
 - ref/examples/tooltip/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/table/src/main.rs
 
 ## Related
 

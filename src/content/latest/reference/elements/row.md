@@ -19,7 +19,7 @@ with the given children.
 ## Verified type declaration
 
 ```rust
-pub struct Row<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>> {/* private fields */}
+pub struct Row<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>> { /* private fields */ }
 ```
 
 ## When to use
@@ -32,10 +32,11 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
-- ref/examples/changelog/src/main.rs
-- ref/examples/layout/src/main.rs
-- ref/examples/styling/src/main.rs
 - ref/examples/tour/src/main.rs
+- ref/examples/game_of_life/src/preset.rs
+- ref/examples/layout/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/styling/src/main.rs
 
 ## Related
 

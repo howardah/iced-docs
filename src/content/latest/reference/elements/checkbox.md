@@ -20,7 +20,7 @@ A box that can be checked.
 pub struct Checkbox<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
 where
     Renderer: Renderer,
-    Theme: Catalog, {/* private fields */}
+    Theme: Catalog,{ /* private fields */ }
 ```
 
 ## When to use

@@ -20,10 +20,11 @@ with the provided content.
 
 ```rust
 pub fn button<'a, Message, Theme, Renderer>(
-content: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Button<'a, Message, Theme, Renderer>where
-Theme: Catalog + 'a,
-Renderer: Renderer,
+    content: impl Into<Element<'a, Message, Theme, Renderer>>,
+) -> Button<'a, Message, Theme, Renderer>
+where
+    Theme: Catalog + 'a,
+    Renderer: Renderer,
 ```
 
 ## When to use
@@ -36,12 +37,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/bezier_tool/src/main.rs
-- ref/examples/changelog/src/main.rs
-- ref/examples/counter/src/main.rs
-- ref/examples/download_progress/src/main.rs
+- ref/examples/loupe/src/main.rs
+- ref/examples/scrollable/src/main.rs
+- ref/examples/pokedex/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/events/src/main.rs
+- ref/examples/lazy/src/main.rs
+- ref/examples/system_information/src/main.rs
 
 ## Related
 
