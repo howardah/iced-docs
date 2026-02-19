@@ -17,8 +17,9 @@ A widget that applies any Theme to its contents.
 ## Verified type declaration
 
 ```rust
-pub struct Themer<'a, Message, Theme, Renderer = Renderer<Renderer, Renderer>>where
-Renderer: Renderer,{ /* private fields */ }
+pub struct Themer<'a, Message, Theme, Renderer = Renderer<Renderer, Renderer>>
+where
+    Renderer: Renderer, {/* private fields */}
 ```
 
 ## When to use

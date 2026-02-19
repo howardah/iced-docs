@@ -18,8 +18,9 @@ values.
 ## Verified type declaration
 
 ```rust
-pub struct VerticalSlider<'a, T, Message, Theme = Theme>where
-Theme: Catalog,{ /* private fields */ }
+pub struct VerticalSlider<'a, T, Message, Theme = Theme>
+where
+    Theme: Catalog, {/* private fields */}
 ```
 
 ## When to use

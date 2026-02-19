@@ -17,9 +17,10 @@ An element to display a widget over another.
 ## Verified type declaration
 
 ```rust
-pub struct Tooltip<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>where
-Theme: Catalog,
-Renderer: Renderer,{ /* private fields */ }
+pub struct Tooltip<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
+where
+    Theme: Catalog,
+    Renderer: Renderer, {/* private fields */}
 ```
 
 ## When to use
