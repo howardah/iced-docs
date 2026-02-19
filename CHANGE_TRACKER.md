@@ -102,3 +102,67 @@ Validation tests passing:
 - `ref/` remained read-only and unchanged.
 - Content rendering source remains strictly `/src/content`.
 - No Dioxus pre-0.7 APIs were introduced.
+
+## 2026-02-19 (Reference Expansion Pass 2)
+
+### Summary
+
+Expanded the Reference section to comprehensive per-item coverage for widget modules, constructors, and element structs from iced rustdoc. Added dedicated runtime-function pages with deeper guidance for how/when/why each function is used.
+
+### Implemented
+
+- Added generator script for reference coverage:
+- `scripts/generate_reference_pages.sh`
+- Source of truth for generation:
+  - `ref/doc/iced/widget/sidebar-items.js`
+  - `ref/doc/iced/sidebar-items.js`
+
+- Generated per-item Reference pages under `src/content/latest/reference`:
+- Widget modules: 28 pages (`widget-module-*.md`)
+- Widget constructors/helpers: 44 pages (`widget-constructor-*.md`)
+- Widget element structs: 30 pages (`widget-element-*.md`)
+
+- Added catalog index pages:
+- `src/content/latest/reference/widget-modules-catalog.md`
+- `src/content/latest/reference/widget-constructors-catalog.md`
+- `src/content/latest/reference/widget-elements-catalog.md`
+
+- Added/enriched dedicated runtime function pages:
+- `src/content/latest/reference/runtime-fn-run.md`
+- `src/content/latest/reference/runtime-fn-application.md`
+- `src/content/latest/reference/runtime-fn-daemon.md`
+- `src/content/latest/reference/runtime-fn-exit.md`
+- `src/content/latest/reference/runtime-fn-never.md`
+
+- Updated runtime and widget overview pages to route users into per-item docs:
+- `src/content/latest/reference/runtime-api.md`
+- `src/content/latest/reference/widgets-overview.md`
+
+### Verification Against `ref/`
+
+- Runtime top-level functions confirmed from:
+  - `ref/doc/iced/index.html`
+  - `ref/doc/iced/sidebar-items.js`
+- Widget coverage lists confirmed from:
+  - `ref/doc/iced/widget/index.html`
+  - `ref/doc/iced/widget/sidebar-items.js`
+- Runtime usage examples cross-checked in:
+  - `ref/examples/counter/src/main.rs` (`run`)
+  - `ref/examples/tour/src/main.rs` (`application`)
+  - `ref/examples/multi_window/src/main.rs` (`daemon`, `exit`)
+  - `ref/examples/changelog/src/main.rs` (`exit`)
+
+### Build/Test Results
+
+Executed successfully after expansion:
+
+- `cargo fmt`
+- `cargo check`
+- `cargo test`
+- `scripts/ci_quality_gates.sh`
+
+Validation tests passing:
+
+- `app::tests::all_pages_have_required_frontmatter`
+- `app::tests::internal_links_resolve`
+- `app::tests::search_index_builds`

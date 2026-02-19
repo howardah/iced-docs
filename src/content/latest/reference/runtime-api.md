@@ -1,6 +1,6 @@
 ---
 title: Runtime API
-description: Verified top-level runtime entry points from iced rustdoc.
+description: Top-level iced runtime entrypoints and how to choose between them.
 version: latest
 last_updated: 2026-02-19
 order: 2
@@ -8,44 +8,40 @@ order: 2
 
 # Runtime API
 
-This page lists high-usage APIs verified in `ref/doc/iced`.
+Iced exposes five top-level runtime functions in rustdoc:
 
-## iced::run
+- `application`
+- `daemon`
+- `exit`
+- `never`
+- `run`
 
-From `ref/doc/iced/fn.run.html`:
+Authoritative source list:
 
-```rust
-pub fn run<State, Message, Theme, Renderer>(
-    update: impl UpdateFn<State, Message> + 'static,
-    view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer> + 'static,
-) -> Result
-```
+- `ref/doc/iced/index.html`
+- `ref/doc/iced/fn.application.html`
+- `ref/doc/iced/fn.daemon.html`
+- `ref/doc/iced/fn.exit.html`
+- `ref/doc/iced/fn.never.html`
+- `ref/doc/iced/fn.run.html`
 
-Use it for straightforward apps with default settings.
+## How to choose
 
-## iced::application
+- Start with [`run`](/latest/reference/runtime-fn-run) for simple apps.
+- Use [`application`](/latest/reference/runtime-fn-application) when you need startup/configuration hooks.
+- Use [`daemon`](/latest/reference/runtime-fn-daemon) for background-driven multi-window or utility workflows.
+- Use [`exit`](/latest/reference/runtime-fn-exit) to terminate runtime from update logic.
+- Use [`never`](/latest/reference/runtime-fn-never) only for unreachable code paths involving `Infallible`.
 
-From `ref/doc/iced/fn.application.html`:
+## Per-function pages
 
-```rust
-pub fn application<State, Message, Theme, Renderer>(
-    boot: impl BootFn<State, Message>,
-    update: impl UpdateFn<State, Message>,
-    view: impl for<'a> ViewFn<'a, State, Message, Theme, Renderer>,
-) -> Application<impl Program<State = State, Message = Message, Theme = Theme>>
-```
-
-Use it when you need builder hooks like title, theme, window size, or subscription.
-
-## iced::exit
-
-From `ref/doc/iced/fn.exit.html`:
-
-```rust
-pub fn exit<T>() -> Task<T>
-```
+- [Runtime Function - run](/latest/reference/runtime-fn-run)
+- [Runtime Function - application](/latest/reference/runtime-fn-application)
+- [Runtime Function - daemon](/latest/reference/runtime-fn-daemon)
+- [Runtime Function - exit](/latest/reference/runtime-fn-exit)
+- [Runtime Function - never](/latest/reference/runtime-fn-never)
 
 ## Related
 
-- [Widgets Overview](/latest/reference/widgets-overview)
+- [Core Concepts](/latest/reference/core-concepts)
 - [Tasks and Subscriptions](/latest/reference/tasks-subscriptions)

@@ -1,6 +1,6 @@
 ---
 title: Widgets Overview
-description: Common widgets and constructors referenced across official examples.
+description: Coverage map for widget modules, constructors, and element structs.
 version: latest
 last_updated: 2026-02-19
 order: 3
@@ -8,43 +8,30 @@ order: 3
 
 # Widgets Overview
 
-The module `iced::widget` exposes widgets, layout macros, and helper constructors.
+This reference section now includes a page for each widget module, constructor, and element struct exposed by `iced::widget` in rustdoc.
 
-## High-usage widgets in examples
+Authoritative source:
 
-- `button`
-- `text`
-- `text_input`
-- `checkbox`
-- `slider`
-- `scrollable`
-- `container`
-- `row` and `column`
+- `ref/doc/iced/widget/index.html`
+- `ref/doc/iced/widget/sidebar-items.js`
 
-## Verified constructor examples
+## Coverage sets
 
-From rustdoc:
+- Widget modules: one page per item in rustdoc `mod` list
+- Widget constructors/helpers: one page per item in rustdoc `fn` list
+- Widget element structs: one page per item in rustdoc `struct` list
 
-```rust
-pub fn button<'a, Message, Theme, Renderer>(
-    content: impl Into<Element<'a, Message, Theme, Renderer>>,
-) -> Button<'a, Message, Theme, Renderer>
-```
+## Catalog pages
 
-```rust
-pub fn text_input<'a, Message, Theme, Renderer>(
-    placeholder: &str,
-    value: &str,
-) -> TextInput<'a, Message, Theme, Renderer>
-```
+- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
+- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
 
-## When to use
+## Notes
 
-- Use `row!` and `column!` for primary layout
-- Use `container` for spacing/alignment wrappers
-- Use `scrollable` when content can overflow
+For exact signatures and trait bounds, each page points to its corresponding rustdoc HTML file in `ref/doc/iced/widget`.
 
 ## Related
 
+- [Runtime API](/latest/reference/runtime-api)
 - [Tasks and Subscriptions](/latest/reference/tasks-subscriptions)
-- [Tutorial 2 - Layout and Input](/latest/tutorial/layout-input)
