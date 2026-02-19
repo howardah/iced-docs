@@ -8,7 +8,7 @@ order: 324
 
 # Constructor - Responsive
 
-Authoritative source: ref/doc/iced/widget/fn.responsive.html.
+Authoritative source: `ref/doc/iced/widget/fn.responsive.html`.
 
 ## Rustdoc summary
 

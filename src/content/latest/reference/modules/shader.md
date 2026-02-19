@@ -8,7 +8,7 @@ order: 118
 
 # Module - Shader
 
-Authoritative source: ref/doc/iced/widget/shader/index.html.
+Authoritative source: `ref/doc/iced/widget/shader/index.html`.
 
 ## Rustdoc description
 
@@ -20,8 +20,8 @@ Use this module when you need the widget family and related style/state APIs gro
 
 ## Example References
 
-- ref/examples/custom_shader/src/scene.rs
 - ref/examples/custom_shader/src/main.rs
+- ref/examples/custom_shader/src/scene.rs
 
 ## Related
 

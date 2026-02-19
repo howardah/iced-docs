@@ -516,3 +516,28 @@ Validation tests passing:
 - `app::tests::all_pages_have_required_frontmatter`
 - `app::tests::internal_links_resolve`
 - `app::tests::search_index_builds`
+
+## 2026-02-19 (Generator Hardening - Backtick-Safe Templates)
+
+### Summary
+
+Hardened `scripts/generate_reference_pages.sh` against shell command-substitution breakage caused by backticks in unquoted heredoc templates.
+
+### Implemented
+
+- Removed all backtick literals from generator templates.
+- Replaced markdown code fences with `~~~` style in generated sections.
+- Kept generated output semantics intact (headers/source/signature blocks still rendered).
+
+### Why this fixes it
+
+In `cat <<PAGE` heredocs, backticks can trigger command substitution. Eliminating backticks in template text prevents accidental command execution if inline references are edited.
+
+### Verification
+
+- `./scripts/generate_reference_pages.sh`
+- `cargo check`
+- `cargo test`
+- `scripts/ci_quality_gates.sh`
+
+All passed.

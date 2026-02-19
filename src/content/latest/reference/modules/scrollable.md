@@ -8,7 +8,7 @@ order: 116
 
 # Module - Scrollable
 
-Authoritative source: ref/doc/iced/widget/scrollable/index.html.
+Authoritative source: `ref/doc/iced/widget/scrollable/index.html`.
 
 ## Rustdoc description
 

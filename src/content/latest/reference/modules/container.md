@@ -8,7 +8,7 @@ order: 104
 
 # Module - Container
 
-Authoritative source: ref/doc/iced/widget/container/index.html.
+Authoritative source: `ref/doc/iced/widget/container/index.html`.
 
 ## Rustdoc description
 
@@ -20,12 +20,12 @@ Use this module when you need the widget family and related style/state APIs gro
 
 ## Example References
 
-- ref/examples/pane_grid/src/main.rs
 - ref/examples/arc/src/main.rs
 - ref/examples/bezier_tool/src/main.rs
 - ref/examples/changelog/src/main.rs
 - ref/examples/checkbox/src/main.rs
 - ref/examples/clock/src/main.rs
+- ref/examples/combo_box/src/main.rs
 
 ## Related
 

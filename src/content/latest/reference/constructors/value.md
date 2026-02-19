@@ -8,7 +8,7 @@ order: 343
 
 # Constructor - Value
 
-Authoritative source: ref/doc/iced/widget/fn.value.html.
+Authoritative source: `ref/doc/iced/widget/fn.value.html`.
 
 ## Rustdoc summary
 

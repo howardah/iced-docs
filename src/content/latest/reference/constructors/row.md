@@ -8,7 +8,7 @@ order: 328
 
 # Constructor - Row
 
-Authoritative source: ref/doc/iced/widget/fn.row.html.
+Authoritative source: `ref/doc/iced/widget/fn.row.html`.
 
 ## Rustdoc summary
 
@@ -35,9 +35,9 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
+- ref/examples/changelog/src/main.rs
 - ref/examples/layout/src/main.rs
 - ref/examples/styling/src/main.rs
-- ref/examples/changelog/src/main.rs
 
 ## Related
 

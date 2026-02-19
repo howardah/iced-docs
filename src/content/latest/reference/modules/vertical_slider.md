@@ -8,7 +8,7 @@ order: 128
 
 # Module - Vertical Slider
 
-Authoritative source: ref/doc/iced/widget/vertical_slider/index.html.
+Authoritative source: `ref/doc/iced/widget/vertical_slider/index.html`.
 
 ## Rustdoc description
 

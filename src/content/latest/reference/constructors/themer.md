@@ -8,7 +8,7 @@ order: 340
 
 # Constructor - Themer
 
-Authoritative source: ref/doc/iced/widget/fn.themer.html.
+Authoritative source: `ref/doc/iced/widget/fn.themer.html`.
 
 ## Rustdoc summary
 

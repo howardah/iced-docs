@@ -8,7 +8,7 @@ order: 342
 
 # Constructor - Tooltip
 
-Authoritative source: ref/doc/iced/widget/fn.tooltip.html.
+Authoritative source: `ref/doc/iced/widget/fn.tooltip.html`.
 
 ## Rustdoc summary
 
@@ -43,9 +43,9 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
+- ref/examples/tooltip/src/main.rs
 - ref/examples/editor/src/main.rs
 - ref/examples/table/src/main.rs
-- ref/examples/tooltip/src/main.rs
 
 ## Related
 

@@ -8,7 +8,7 @@ order: 113
 
 # Module - Radio
 
-Authoritative source: ref/doc/iced/widget/radio/index.html.
+Authoritative source: `ref/doc/iced/widget/radio/index.html`.
 
 ## Rustdoc description
 

@@ -6,9 +6,9 @@ last_updated: 2026-02-19
 order: 23
 ---
 
-# Runtime Function - iced::exit
+# Runtime Function - `iced::exit`
 
-Authoritative source: ref/doc/iced/fn.exit.html.
+Authoritative source: `ref/doc/iced/fn.exit.html`.
 
 ## Verified signature
 

@@ -8,7 +8,7 @@ order: 344
 
 # Constructor - Vertical Slider
 
-Authoritative source: ref/doc/iced/widget/fn.vertical_slider.html.
+Authoritative source: `ref/doc/iced/widget/fn.vertical_slider.html`.
 
 ## Rustdoc summary
 
@@ -39,8 +39,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/slider/src/main.rs
 - ref/examples/progress_bar/src/main.rs
+- ref/examples/slider/src/main.rs
 
 ## Related
 

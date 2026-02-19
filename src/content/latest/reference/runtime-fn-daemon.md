@@ -6,9 +6,9 @@ last_updated: 2026-02-19
 order: 22
 ---
 
-# Runtime Function - iced::daemon
+# Runtime Function - `iced::daemon`
 
-Authoritative source: ref/doc/iced/fn.daemon.html.
+Authoritative source: `ref/doc/iced/fn.daemon.html`.
 
 ## Verified signature
 

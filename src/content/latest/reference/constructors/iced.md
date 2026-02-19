@@ -8,7 +8,7 @@ order: 315
 
 # Constructor - Iced
 
-Authoritative source: ref/doc/iced/widget/fn.iced.html.
+Authoritative source: `ref/doc/iced/widget/fn.iced.html`.
 
 ## Rustdoc summary
 

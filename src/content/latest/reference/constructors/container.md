@@ -8,7 +8,7 @@ order: 311
 
 # Constructor - Container
 
-Authoritative source: ref/doc/iced/widget/fn.container.html.
+Authoritative source: `ref/doc/iced/widget/fn.container.html`.
 
 ## Rustdoc summary
 
@@ -36,12 +36,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
+- ref/examples/bezier_tool/src/main.rs
+- ref/examples/changelog/src/main.rs
 - ref/examples/clock/src/main.rs
+- ref/examples/delineate/src/main.rs
 - ref/examples/ferris/src/main.rs
-- ref/examples/markdown/src/main.rs
-- ref/examples/screenshot/src/main.rs
-- ref/examples/modal/src/main.rs
-- ref/examples/multi_window/src/main.rs
+- ref/examples/gallery/src/main.rs
 
 ## Related
 

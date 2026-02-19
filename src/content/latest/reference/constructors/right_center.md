@@ -8,7 +8,7 @@ order: 327
 
 # Constructor - Right Center
 
-Authoritative source: ref/doc/iced/widget/fn.right_center.html.
+Authoritative source: `ref/doc/iced/widget/fn.right_center.html`.
 
 ## Rustdoc summary
 

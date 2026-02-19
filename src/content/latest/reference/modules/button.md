@@ -8,7 +8,7 @@ order: 101
 
 # Module - Button
 
-Authoritative source: ref/doc/iced/widget/button/index.html.
+Authoritative source: `ref/doc/iced/widget/button/index.html`.
 
 ## Rustdoc description
 
@@ -20,12 +20,12 @@ Use this module when you need the widget family and related style/state APIs gro
 
 ## Example References
 
-- ref/examples/pokedex/src/main.rs
 - ref/examples/bezier_tool/src/main.rs
 - ref/examples/changelog/src/main.rs
 - ref/examples/counter/src/main.rs
 - ref/examples/download_progress/src/main.rs
 - ref/examples/editor/src/main.rs
+- ref/examples/events/src/main.rs
 
 ## Related
 

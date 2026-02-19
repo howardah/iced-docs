@@ -8,7 +8,7 @@ order: 117
 
 # Module - Sensor
 
-Authoritative source: ref/doc/iced/widget/sensor/index.html.
+Authoritative source: `ref/doc/iced/widget/sensor/index.html`.
 
 ## Rustdoc description
 

@@ -8,7 +8,7 @@ order: 127
 
 # Module - Tooltip
 
-Authoritative source: ref/doc/iced/widget/tooltip/index.html.
+Authoritative source: `ref/doc/iced/widget/tooltip/index.html`.
 
 ## Rustdoc description
 

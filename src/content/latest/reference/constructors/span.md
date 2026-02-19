@@ -8,7 +8,7 @@ order: 334
 
 # Constructor - Span
 
-Authoritative source: ref/doc/iced/widget/fn.span.html.
+Authoritative source: `ref/doc/iced/widget/fn.span.html`.
 
 ## Rustdoc summary
 
@@ -32,8 +32,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/tour/src/main.rs
 - ref/examples/changelog/src/main.rs
+- ref/examples/tour/src/main.rs
 
 ## Related
 

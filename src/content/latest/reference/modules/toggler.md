@@ -8,7 +8,7 @@ order: 126
 
 # Module - Toggler
 
-Authoritative source: ref/doc/iced/widget/toggler/index.html.
+Authoritative source: `ref/doc/iced/widget/toggler/index.html`.
 
 ## Rustdoc description
 

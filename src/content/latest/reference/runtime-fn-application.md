@@ -6,9 +6,9 @@ last_updated: 2026-02-19
 order: 21
 ---
 
-# Runtime Function - iced::application
+# Runtime Function - `iced::application`
 
-Authoritative source: ref/doc/iced/fn.application.html.
+Authoritative source: `ref/doc/iced/fn.application.html`.
 
 ## Verified signature
 
@@ -34,12 +34,12 @@ It scales better for production apps with explicit startup and configuration nee
 
 ## Example References
 
-- ref/examples/clock/src/main.rs
-- ref/examples/editor/src/main.rs
-- ref/examples/text/src/main.rs
 - ref/examples/arc/src/main.rs
-- ref/examples/qr_code/src/main.rs
-- ref/examples/ferris/src/main.rs
+- ref/examples/bezier_tool/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/checkbox/src/main.rs
+- ref/examples/clock/src/main.rs
+- ref/examples/color_palette/src/main.rs
 
 ## API verification notes
 

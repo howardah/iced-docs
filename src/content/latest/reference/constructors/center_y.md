@@ -8,7 +8,7 @@ order: 307
 
 # Constructor - Center Y
 
-Authoritative source: ref/doc/iced/widget/fn.center_y.html.
+Authoritative source: `ref/doc/iced/widget/fn.center_y.html`.
 
 ## Rustdoc summary
 
@@ -39,10 +39,10 @@ It gives explicit widget construction with compile-time type checking and builde
 
 - ref/examples/geometry/src/main.rs
 - ref/examples/layout/src/main.rs
-- ref/examples/table/src/main.rs
 - ref/examples/pane_grid/src/main.rs
 - ref/examples/screenshot/src/main.rs
-- ref/examples/tour/src/main.rs
+- ref/examples/styling/src/main.rs
+- ref/examples/table/src/main.rs
 
 ## Related
 

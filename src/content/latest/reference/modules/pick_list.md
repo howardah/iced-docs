@@ -8,7 +8,7 @@ order: 111
 
 # Module - Pick List
 
-Authoritative source: ref/doc/iced/widget/pick_list/index.html.
+Authoritative source: `ref/doc/iced/widget/pick_list/index.html`.
 
 ## Rustdoc description
 

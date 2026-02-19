@@ -8,7 +8,7 @@ order: 125
 
 # Module - Theme
 
-Authoritative source: ref/doc/iced/widget/theme/index.html.
+Authoritative source: `ref/doc/iced/widget/theme/index.html`.
 
 ## Rustdoc description
 

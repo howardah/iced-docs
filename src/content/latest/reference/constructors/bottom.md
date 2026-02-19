@@ -8,7 +8,7 @@ order: 301
 
 # Constructor - Bottom
 
-Authoritative source: ref/doc/iced/widget/fn.bottom.html.
+Authoritative source: `ref/doc/iced/widget/fn.bottom.html`.
 
 ## Rustdoc summary
 

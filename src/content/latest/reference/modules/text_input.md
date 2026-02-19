@@ -8,7 +8,7 @@ order: 124
 
 # Module - Text Input
 
-Authoritative source: ref/doc/iced/widget/text_input/index.html.
+Authoritative source: `ref/doc/iced/widget/text_input/index.html`.
 
 ## Rustdoc description
 

@@ -8,7 +8,7 @@ order: 331
 
 # Constructor - Shader
 
-Authoritative source: ref/doc/iced/widget/fn.shader.html.
+Authoritative source: `ref/doc/iced/widget/fn.shader.html`.
 
 ## Rustdoc summary
 

@@ -8,7 +8,7 @@ order: 121
 
 # Module - Table
 
-Authoritative source: ref/doc/iced/widget/table/index.html.
+Authoritative source: `ref/doc/iced/widget/table/index.html`.
 
 ## Rustdoc description
 

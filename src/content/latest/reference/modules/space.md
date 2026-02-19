@@ -8,7 +8,7 @@ order: 120
 
 # Module - Space
 
-Authoritative source: ref/doc/iced/widget/space/index.html.
+Authoritative source: `ref/doc/iced/widget/space/index.html`.
 
 ## Rustdoc description
 

@@ -6,9 +6,9 @@ last_updated: 2026-02-19
 order: 24
 ---
 
-# Runtime Function - iced::never
+# Runtime Function - `iced::never`
 
-Authoritative source: ref/doc/iced/fn.never.html.
+Authoritative source: `ref/doc/iced/fn.never.html`.
 
 ## Verified signature
 

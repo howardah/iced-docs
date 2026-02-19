@@ -8,7 +8,7 @@ order: 321
 
 # Constructor - Pin
 
-Authoritative source: ref/doc/iced/widget/fn.pin.html.
+Authoritative source: `ref/doc/iced/widget/fn.pin.html`.
 
 ## Rustdoc summary
 

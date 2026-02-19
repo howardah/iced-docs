@@ -8,7 +8,7 @@ order: 336
 
 # Constructor - Table
 
-Authoritative source: ref/doc/iced/widget/fn.table.html.
+Authoritative source: `ref/doc/iced/widget/fn.table.html`.
 
 ## Rustdoc summary
 

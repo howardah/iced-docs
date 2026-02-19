@@ -8,7 +8,7 @@ order: 338
 
 # Constructor - Text Editor
 
-Authoritative source: ref/doc/iced/widget/fn.text_editor.html.
+Authoritative source: `ref/doc/iced/widget/fn.text_editor.html`.
 
 ## Rustdoc summary
 

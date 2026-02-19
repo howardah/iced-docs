@@ -8,7 +8,7 @@ order: 112
 
 # Module - Progress Bar
 
-Authoritative source: ref/doc/iced/widget/progress_bar/index.html.
+Authoritative source: `ref/doc/iced/widget/progress_bar/index.html`.
 
 ## Rustdoc description
 

@@ -8,7 +8,7 @@ order: 303
 
 # Constructor - Bottom Right
 
-Authoritative source: ref/doc/iced/widget/fn.bottom_right.html.
+Authoritative source: `ref/doc/iced/widget/fn.bottom_right.html`.
 
 ## Rustdoc summary
 

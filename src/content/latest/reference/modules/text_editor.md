@@ -8,7 +8,7 @@ order: 123
 
 # Module - Text Editor
 
-Authoritative source: ref/doc/iced/widget/text_editor/index.html.
+Authoritative source: `ref/doc/iced/widget/text_editor/index.html`.
 
 ## Rustdoc description
 

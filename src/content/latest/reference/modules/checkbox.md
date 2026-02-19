@@ -8,7 +8,7 @@ order: 102
 
 # Module - Checkbox
 
-Authoritative source: ref/doc/iced/widget/checkbox/index.html.
+Authoritative source: `ref/doc/iced/widget/checkbox/index.html`.
 
 ## Rustdoc description
 

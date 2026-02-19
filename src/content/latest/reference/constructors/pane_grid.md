@@ -8,7 +8,7 @@ order: 319
 
 # Constructor - Pane Grid
 
-Authoritative source: ref/doc/iced/widget/fn.pane_grid.html.
+Authoritative source: `ref/doc/iced/widget/fn.pane_grid.html`.
 
 ## Rustdoc summary
 

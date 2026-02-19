@@ -8,7 +8,7 @@ order: 337
 
 # Constructor - Text
 
-Authoritative source: ref/doc/iced/widget/fn.text.html.
+Authoritative source: `ref/doc/iced/widget/fn.text.html`.
 
 ## Rustdoc summary
 
@@ -36,12 +36,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/editor/src/main.rs
-- ref/examples/loupe/src/main.rs
-- ref/examples/scrollable/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/integration/src/controls.rs
-- ref/examples/events/src/main.rs
+- ref/examples/text/src/main.rs
+- ref/examples/changelog/src/icon.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/color_palette/src/main.rs
+- ref/examples/combo_box/src/main.rs
+- ref/examples/counter/src/main.rs
 
 ## Related
 

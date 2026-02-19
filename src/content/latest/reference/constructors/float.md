@@ -8,7 +8,7 @@ order: 312
 
 # Constructor - Float
 
-Authoritative source: ref/doc/iced/widget/fn.float.html.
+Authoritative source: `ref/doc/iced/widget/fn.float.html`.
 
 ## Rustdoc summary
 

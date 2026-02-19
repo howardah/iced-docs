@@ -8,7 +8,7 @@ order: 320
 
 # Constructor - Pick List
 
-Authoritative source: ref/doc/iced/widget/fn.pick_list.html.
+Authoritative source: `ref/doc/iced/widget/fn.pick_list.html`.
 
 ## Rustdoc summary
 
@@ -42,12 +42,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/layout/src/main.rs
-- ref/examples/styling/src/main.rs
+- ref/examples/pick_list/src/main.rs
 - ref/examples/changelog/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/pick_list/src/main.rs
 - ref/examples/ferris/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/layout/src/main.rs
 
 ## Related
 

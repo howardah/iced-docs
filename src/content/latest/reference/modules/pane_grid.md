@@ -8,7 +8,7 @@ order: 110
 
 # Module - Pane Grid
 
-Authoritative source: ref/doc/iced/widget/pane_grid/index.html.
+Authoritative source: `ref/doc/iced/widget/pane_grid/index.html`.
 
 ## Rustdoc description
 

@@ -8,7 +8,7 @@ order: 318
 
 # Constructor - Opaque
 
-Authoritative source: ref/doc/iced/widget/fn.opaque.html.
+Authoritative source: `ref/doc/iced/widget/fn.opaque.html`.
 
 ## Rustdoc summary
 
@@ -36,8 +36,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/modal/src/main.rs
 - ref/examples/gallery/src/main.rs
+- ref/examples/modal/src/main.rs
 
 ## Related
 

@@ -8,7 +8,7 @@ order: 306
 
 # Constructor - Center X
 
-Authoritative source: ref/doc/iced/widget/fn.center_x.html.
+Authoritative source: `ref/doc/iced/widget/fn.center_x.html`.
 
 ## Rustdoc summary
 
@@ -37,12 +37,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/table/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/svg/src/main.rs
 - ref/examples/geometry/src/main.rs
-- ref/examples/todos/src/main.rs
 - ref/examples/markdown/src/main.rs
+- ref/examples/multi_window/src/main.rs
+- ref/examples/progress_bar/src/main.rs
+- ref/examples/styling/src/main.rs
 
 ## Related
 

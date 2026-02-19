@@ -8,7 +8,7 @@ order: 107
 
 # Module - Keyed
 
-Authoritative source: ref/doc/iced/widget/keyed/index.html.
+Authoritative source: `ref/doc/iced/widget/keyed/index.html`.
 
 ## Rustdoc description
 

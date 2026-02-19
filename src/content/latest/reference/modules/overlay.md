@@ -8,7 +8,7 @@ order: 109
 
 # Module - Overlay
 
-Authoritative source: ref/doc/iced/widget/overlay/index.html.
+Authoritative source: `ref/doc/iced/widget/overlay/index.html`.
 
 ## Rustdoc description
 

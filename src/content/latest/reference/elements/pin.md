@@ -31,7 +31,6 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
-- ref/examples/pane_grid/src/main.rs
 - ref/examples/layout/src/main.rs
 
 ## Related

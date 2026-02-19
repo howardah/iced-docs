@@ -8,7 +8,7 @@ order: 103
 
 # Module - Combo Box
 
-Authoritative source: ref/doc/iced/widget/combo_box/index.html.
+Authoritative source: `ref/doc/iced/widget/combo_box/index.html`.
 
 ## Rustdoc description
 

@@ -8,7 +8,7 @@ order: 333
 
 # Constructor - Space
 
-Authoritative source: ref/doc/iced/widget/fn.space.html.
+Authoritative source: `ref/doc/iced/widget/fn.space.html`.
 
 ## Rustdoc summary
 
@@ -32,12 +32,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/styling/src/main.rs
-- ref/examples/scrollable/src/main.rs
-- ref/examples/markdown/src/main.rs
 - ref/examples/combo_box/src/main.rs
-- ref/examples/pick_list/src/main.rs
+- ref/examples/delineate/src/main.rs
 - ref/examples/gallery/src/main.rs
+- ref/examples/gradient/src/main.rs
+- ref/examples/markdown/src/main.rs
+- ref/examples/multi_window/src/main.rs
 
 ## Related
 

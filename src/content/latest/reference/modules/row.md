@@ -8,7 +8,7 @@ order: 114
 
 # Module - Row
 
-Authoritative source: ref/doc/iced/widget/row/index.html.
+Authoritative source: `ref/doc/iced/widget/row/index.html`.
 
 ## Rustdoc description
 

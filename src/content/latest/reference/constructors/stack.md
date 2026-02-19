@@ -8,7 +8,7 @@ order: 335
 
 # Constructor - Stack
 
-Authoritative source: ref/doc/iced/widget/fn.stack.html.
+Authoritative source: `ref/doc/iced/widget/fn.stack.html`.
 
 ## Rustdoc summary
 

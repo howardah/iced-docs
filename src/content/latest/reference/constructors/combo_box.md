@@ -8,7 +8,7 @@ order: 310
 
 # Constructor - Combo Box
 
-Authoritative source: ref/doc/iced/widget/fn.combo_box.html.
+Authoritative source: `ref/doc/iced/widget/fn.combo_box.html`.
 
 ## Rustdoc summary
 

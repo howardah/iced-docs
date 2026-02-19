@@ -32,12 +32,12 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
-- ref/examples/tour/src/main.rs
 - ref/examples/changelog/src/main.rs
 - ref/examples/integration/src/controls.rs
 - ref/examples/lazy/src/main.rs
 - ref/examples/modal/src/main.rs
 - ref/examples/multi_window/src/main.rs
+- ref/examples/qr_code/src/main.rs
 
 ## Related
 

@@ -8,7 +8,7 @@ order: 325
 
 # Constructor - Rich Text
 
-Authoritative source: ref/doc/iced/widget/fn.rich_text.html.
+Authoritative source: `ref/doc/iced/widget/fn.rich_text.html`.
 
 ## Rustdoc summary
 

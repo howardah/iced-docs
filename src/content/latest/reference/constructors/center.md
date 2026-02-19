@@ -8,7 +8,7 @@ order: 305
 
 # Constructor - Center
 
-Authoritative source: ref/doc/iced/widget/fn.center.html.
+Authoritative source: `ref/doc/iced/widget/fn.center.html`.
 
 ## Rustdoc summary
 
@@ -37,12 +37,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
+- ref/examples/arc/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/checkbox/src/main.rs
 - ref/examples/clock/src/main.rs
-- ref/examples/exit/src/main.rs
-- ref/examples/websocket/src/main.rs
-- ref/examples/multi_window/src/main.rs
-- ref/examples/svg/src/main.rs
-- ref/examples/custom_widget/src/main.rs
+- ref/examples/combo_box/src/main.rs
+- ref/examples/custom_quad/src/main.rs
 
 ## Related
 

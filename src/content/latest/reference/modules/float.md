@@ -8,7 +8,7 @@ order: 105
 
 # Module - Float
 
-Authoritative source: ref/doc/iced/widget/float/index.html.
+Authoritative source: `ref/doc/iced/widget/float/index.html`.
 
 ## Rustdoc description
 

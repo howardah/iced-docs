@@ -8,7 +8,7 @@ order: 115
 
 # Module - Rule
 
-Authoritative source: ref/doc/iced/widget/rule/index.html.
+Authoritative source: `ref/doc/iced/widget/rule/index.html`.
 
 ## Rustdoc description
 

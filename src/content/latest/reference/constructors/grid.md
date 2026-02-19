@@ -8,7 +8,7 @@ order: 313
 
 # Constructor - Grid
 
-Authoritative source: ref/doc/iced/widget/fn.grid.html.
+Authoritative source: `ref/doc/iced/widget/fn.grid.html`.
 
 ## Rustdoc summary
 

@@ -8,7 +8,7 @@ order: 304
 
 # Constructor - Button
 
-Authoritative source: ref/doc/iced/widget/fn.button.html.
+Authoritative source: `ref/doc/iced/widget/fn.button.html`.
 
 ## Rustdoc summary
 
@@ -36,12 +36,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/markdown/src/main.rs
-- ref/examples/websocket/src/main.rs
-- ref/examples/editor/src/main.rs
-- ref/examples/lazy/src/main.rs
+- ref/examples/bezier_tool/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/counter/src/main.rs
 - ref/examples/download_progress/src/main.rs
-- ref/examples/todos/src/main.rs
+- ref/examples/editor/src/main.rs
+- ref/examples/events/src/main.rs
 
 ## Related
 

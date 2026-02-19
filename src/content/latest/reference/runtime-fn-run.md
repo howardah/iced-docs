@@ -6,9 +6,9 @@ last_updated: 2026-02-19
 order: 25
 ---
 
-# Runtime Function - iced::run
+# Runtime Function - `iced::run`
 
-Authoritative source: ref/doc/iced/fn.run.html.
+Authoritative source: `ref/doc/iced/fn.run.html`.
 
 ## Verified signature
 
@@ -34,11 +34,11 @@ It is the shortest path from update/view logic to a running app.
 
 ## Example References
 
-- ref/examples/tooltip/src/main.rs
-- ref/examples/svg/src/main.rs
+- ref/examples/combo_box/src/main.rs
 - ref/examples/counter/src/main.rs
-- ref/examples/custom_widget/src/main.rs
 - ref/examples/custom_quad/src/main.rs
+- ref/examples/custom_widget/src/main.rs
+- ref/examples/exit/src/main.rs
 - ref/examples/geometry/src/main.rs
 
 ## API verification notes

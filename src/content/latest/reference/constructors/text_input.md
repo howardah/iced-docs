@@ -8,7 +8,7 @@ order: 339
 
 # Constructor - Text Input
 
-Authoritative source: ref/doc/iced/widget/fn.text_input.html.
+Authoritative source: `ref/doc/iced/widget/fn.text_input.html`.
 
 ## Rustdoc summary
 
@@ -38,12 +38,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/screenshot/src/main.rs
-- ref/examples/lazy/src/main.rs
-- ref/examples/websocket/src/main.rs
-- ref/examples/todos/src/main.rs
-- ref/examples/qr_code/src/main.rs
 - ref/examples/changelog/src/main.rs
+- ref/examples/integration/src/controls.rs
+- ref/examples/lazy/src/main.rs
+- ref/examples/modal/src/main.rs
+- ref/examples/multi_window/src/main.rs
+- ref/examples/qr_code/src/main.rs
 
 ## Related
 

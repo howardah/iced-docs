@@ -8,7 +8,7 @@ order: 316
 
 # Constructor - Keyed Column
 
-Authoritative source: ref/doc/iced/widget/fn.keyed_column.html.
+Authoritative source: `ref/doc/iced/widget/fn.keyed_column.html`.
 
 ## Rustdoc summary
 

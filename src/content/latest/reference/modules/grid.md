@@ -8,7 +8,7 @@ order: 106
 
 # Module - Grid
 
-Authoritative source: ref/doc/iced/widget/grid/index.html.
+Authoritative source: `ref/doc/iced/widget/grid/index.html`.
 
 ## Rustdoc description
 

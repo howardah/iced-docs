@@ -8,7 +8,7 @@ order: 108
 
 # Module - Operation
 
-Authoritative source: ref/doc/iced/widget/operation/index.html.
+Authoritative source: `ref/doc/iced/widget/operation/index.html`.
 
 ## Rustdoc description
 

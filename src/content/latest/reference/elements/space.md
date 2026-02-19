@@ -30,12 +30,12 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
-- ref/examples/styling/src/main.rs
-- ref/examples/layout/src/main.rs
-- ref/examples/stopwatch/src/main.rs
 - ref/examples/combo_box/src/main.rs
 - ref/examples/delineate/src/main.rs
 - ref/examples/gallery/src/main.rs
+- ref/examples/gradient/src/main.rs
+- ref/examples/markdown/src/main.rs
+- ref/examples/multi_window/src/main.rs
 
 ## Related
 

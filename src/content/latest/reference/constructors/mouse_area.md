@@ -8,7 +8,7 @@ order: 317
 
 # Constructor - Mouse Area
 
-Authoritative source: ref/doc/iced/widget/fn.mouse_area.html.
+Authoritative source: `ref/doc/iced/widget/fn.mouse_area.html`.
 
 ## Rustdoc summary
 
@@ -35,8 +35,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/modal/src/main.rs
 - ref/examples/gallery/src/main.rs
+- ref/examples/modal/src/main.rs
 
 ## Related
 

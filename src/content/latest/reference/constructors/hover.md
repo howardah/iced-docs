@@ -8,7 +8,7 @@ order: 314
 
 # Constructor - Hover
 
-Authoritative source: ref/doc/iced/widget/fn.hover.html.
+Authoritative source: `ref/doc/iced/widget/fn.hover.html`.
 
 ## Rustdoc summary
 
@@ -36,8 +36,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/markdown/src/main.rs
 - ref/examples/bezier_tool/src/main.rs
+- ref/examples/markdown/src/main.rs
 
 ## Related
 

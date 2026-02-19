@@ -8,7 +8,7 @@ order: 329
 
 # Constructor - Scrollable
 
-Authoritative source: ref/doc/iced/widget/fn.scrollable.html.
+Authoritative source: `ref/doc/iced/widget/fn.scrollable.html`.
 
 ## Rustdoc summary
 
@@ -36,12 +36,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
+- ref/examples/scrollable/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/combo_box/src/main.rs
 - ref/examples/delineate/src/main.rs
-- ref/examples/geometry/src/main.rs
-- ref/examples/websocket/src/main.rs
-- ref/examples/markdown/src/main.rs
 - ref/examples/gallery/src/main.rs
-- ref/examples/pane_grid/src/main.rs
+- ref/examples/geometry/src/main.rs
 
 ## Related
 

@@ -8,7 +8,7 @@ order: 302
 
 # Constructor - Bottom Center
 
-Authoritative source: ref/doc/iced/widget/fn.bottom_center.html.
+Authoritative source: `ref/doc/iced/widget/fn.bottom_center.html`.
 
 ## Rustdoc summary
 

@@ -8,7 +8,7 @@ order: 119
 
 # Module - Slider
 
-Authoritative source: ref/doc/iced/widget/slider/index.html.
+Authoritative source: `ref/doc/iced/widget/slider/index.html`.
 
 ## Rustdoc description
 
