@@ -36,5 +36,5 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Related
 
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
+- [Widget Elements Catalog](/latest/reference/widget-elements)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)

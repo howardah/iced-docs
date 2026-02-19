@@ -37,11 +37,11 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/markdown/src/main.rs
-- ref/examples/bezier_tool/src/main.rs
 - ref/examples/text/src/main.rs
+- ref/examples/bezier_tool/src/main.rs
+- ref/examples/markdown/src/main.rs
 
 ## Related
 
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Widget Elements Catalog](/latest/reference/widget-elements)

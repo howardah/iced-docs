@@ -17,7 +17,7 @@ pub fn never<T>(never: Infallible) -> T
 ```
 ## When to use it
 
-Use it only for advanced unreachable `Infallible`-based branches in typed/generic code.
+Use it only for advanced unreachable Infallible-based branches in typed/generic code.
 
 ## Why to use it
 

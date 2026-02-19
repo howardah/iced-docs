@@ -36,14 +36,14 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/vectorial_text/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/checkbox/src/main.rs
-- ref/examples/layout/src/main.rs
-- ref/examples/tour/src/main.rs
 - ref/examples/events/src/main.rs
+- ref/examples/vectorial_text/src/main.rs
+- ref/examples/tour/src/main.rs
+- ref/examples/ferris/src/main.rs
+- ref/examples/progress_bar/src/main.rs
+- ref/examples/custom_shader/src/main.rs
 
 ## Related
 
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Widget Elements Catalog](/latest/reference/widget-elements)

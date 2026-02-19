@@ -35,13 +35,13 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/websocket/src/main.rs
 - ref/examples/text/src/main.rs
-- ref/examples/table/src/main.rs
 - ref/examples/tour/src/main.rs
+- ref/examples/table/src/main.rs
 - ref/examples/lazy/src/main.rs
+- ref/examples/websocket/src/main.rs
 
 ## Related
 
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Widget Elements Catalog](/latest/reference/widget-elements)

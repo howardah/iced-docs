@@ -21,12 +21,12 @@ Use it inside update logic when a message should trigger runtime shutdown.
 
 ## Why to use it
 
-It returns a `Task` so shutdown composes with the same side-effect model as other runtime actions.
+It returns a Task so shutdown composes with the same side-effect model as other runtime actions.
 
 ## Example References
 
-- ref/examples/changelog/src/main.rs
 - ref/examples/multi_window/src/main.rs
+- ref/examples/changelog/src/main.rs
 
 ## API verification notes
 

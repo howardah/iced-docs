@@ -39,14 +39,14 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/custom_quad/src/main.rs
-- ref/examples/sierpinski_triangle/src/main.rs
-- ref/examples/progress_bar/src/main.rs
-- ref/examples/game_of_life/src/main.rs
 - ref/examples/custom_widget/src/main.rs
+- ref/examples/progress_bar/src/main.rs
+- ref/examples/ferris/src/main.rs
+- ref/examples/scrollable/src/main.rs
+- ref/examples/color_palette/src/main.rs
 - ref/examples/qr_code/src/main.rs
 
 ## Related
 
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Widget Elements Catalog](/latest/reference/widget-elements)

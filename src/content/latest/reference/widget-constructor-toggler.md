@@ -37,13 +37,13 @@ It gives explicit widget construction with compile-time type checking and builde
 ## Example References
 
 - ref/examples/editor/src/main.rs
-- ref/examples/qr_code/src/main.rs
+- ref/examples/custom_quad/src/main.rs
 - ref/examples/tour/src/main.rs
+- ref/examples/qr_code/src/main.rs
 - ref/examples/styling/src/main.rs
 - ref/examples/markdown/src/main.rs
-- ref/examples/custom_quad/src/main.rs
 
 ## Related
 
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Widget Elements Catalog](/latest/reference/widget-elements)

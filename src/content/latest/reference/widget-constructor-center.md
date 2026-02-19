@@ -37,14 +37,14 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/multi_window/src/main.rs
-- ref/examples/table/src/main.rs
+- ref/examples/svg/src/main.rs
 - ref/examples/clock/src/main.rs
-- ref/examples/arc/src/main.rs
-- ref/examples/game_of_life/src/main.rs
-- ref/examples/changelog/src/main.rs
+- ref/examples/exit/src/main.rs
+- ref/examples/download_progress/src/main.rs
+- ref/examples/tooltip/src/main.rs
+- ref/examples/multi_window/src/main.rs
 
 ## Related
 
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Widget Elements Catalog](/latest/reference/widget-elements)

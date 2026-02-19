@@ -32,14 +32,14 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/markdown/src/main.rs
-- ref/examples/delineate/src/main.rs
 - ref/examples/multi_window/src/main.rs
 - ref/examples/tour/src/main.rs
+- ref/examples/combo_box/src/main.rs
 - ref/examples/pick_list/src/main.rs
-- ref/examples/gradient/src/main.rs
+- ref/examples/markdown/src/main.rs
+- ref/examples/styling/src/main.rs
 
 ## Related
 
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Widget Elements Catalog](/latest/reference/widget-elements)

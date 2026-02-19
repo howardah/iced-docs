@@ -24,5 +24,5 @@ Use this module when you need the widget family and related style/state APIs gro
 
 ## Related
 
-- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
+- [Widget Modules Catalog](/latest/reference/widget-modules)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)

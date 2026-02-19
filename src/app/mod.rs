@@ -26,6 +26,13 @@ pub enum Route {
         section: String,
         slug: String,
     },
+    #[route("/:version/:section/:group/:slug")]
+    DocNested {
+        version: String,
+        section: String,
+        group: String,
+        slug: String,
+    },
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -60,6 +67,7 @@ struct DocsCatalog {
     pages: Vec<DocPage>,
     versions: Vec<String>,
     page_lookup: HashMap<(String, String, String), usize>,
+    route_lookup: HashMap<String, usize>,
     section_lookup: HashMap<(String, String), Vec<usize>>,
     version_lookup: HashMap<String, Vec<usize>>,
     search: Vec<SearchEntry>,
@@ -132,11 +140,11 @@ fn SiteLayout() -> Element {
                             let target_version = event.value();
                             let destination = if let Some(page) = current_page.clone() {
                                 if has_page(&target_version, &page.section, &page.slug) {
-                                    Route::Doc {
-                                        version: target_version,
-                                        section: page.section,
-                                        slug: page.slug,
-                                    }
+                                    route_from_path(&slug_to_route_path(
+                                        &target_version,
+                                        &page.section,
+                                        &page.slug,
+                                    ))
                                 } else {
                                     first_page_route_for_version(&target_version)
                                 }
@@ -194,6 +202,14 @@ fn Home() -> Element {
         match route {
             Route::Doc { version, section, slug } => rsx! {
                 Doc { version, section, slug }
+            },
+            Route::DocNested {
+                version,
+                section,
+                group,
+                slug,
+            } => rsx! {
+                DocNested { version, section, group, slug }
             },
             _ => rsx! { p { "No documentation pages found." } },
         }
@@ -253,14 +269,24 @@ fn Search() -> Element {
 
 #[component]
 fn Doc(version: String, section: String, slug: String) -> Element {
+    let path = canonical_route_path(&version, &section, None, &slug);
+    render_doc(path)
+}
+
+#[component]
+fn DocNested(version: String, section: String, group: String, slug: String) -> Element {
+    let path = canonical_route_path(&version, &section, Some(&group), &slug);
+    render_doc(path)
+}
+
+fn render_doc(path: String) -> Element {
     let catalog = catalog();
-    let key = (version.clone(), section.clone(), slug.clone());
-    let Some(&index) = catalog.page_lookup.get(&key) else {
+    let Some(&index) = catalog.route_lookup.get(&path) else {
         return rsx! {
             article { class: "doc-page",
                 header { class: "doc-header",
                     h1 { "Page not found" }
-                    p { "No page for /{version}/{section}/{slug}" }
+                    p { "No page for {path}" }
                 }
             }
         };
@@ -501,11 +527,27 @@ fn current_doc_page(route: &Route) -> Option<DocPage> {
             version,
             section,
             slug,
-        } => catalog()
-            .page_lookup
-            .get(&(version.clone(), section.clone(), slug.clone()))
-            .and_then(|index| catalog().pages.get(*index))
-            .cloned(),
+        } => {
+            let path = canonical_route_path(version, section, None, slug);
+            catalog()
+                .route_lookup
+                .get(&path)
+                .and_then(|index| catalog().pages.get(*index))
+                .cloned()
+        }
+        Route::DocNested {
+            version,
+            section,
+            group,
+            slug,
+        } => {
+            let path = canonical_route_path(version, section, Some(group), slug);
+            catalog()
+                .route_lookup
+                .get(&path)
+                .and_then(|index| catalog().pages.get(*index))
+                .cloned()
+        }
         Route::Home {} => catalog().pages.first().cloned(),
         Route::Search {} => catalog().pages.first().cloned(),
     }
@@ -523,20 +565,12 @@ fn first_page_route_for_version(version: &str) -> Route {
     let catalog = catalog();
     if let Some(indices) = catalog.version_lookup.get(version) {
         if let Some(first) = indices.first().and_then(|index| catalog.pages.get(*index)) {
-            return Route::Doc {
-                version: first.version.clone(),
-                section: first.section.clone(),
-                slug: first.slug.clone(),
-            };
+            return route_from_path(&first.route_path);
         }
     }
 
     if let Some(first) = catalog.pages.first() {
-        return Route::Doc {
-            version: first.version.clone(),
-            section: first.section.clone(),
-            slug: first.slug.clone(),
-        };
+        return route_from_path(&first.route_path);
     }
 
     Route::Home {}
@@ -562,7 +596,7 @@ fn build_catalog() -> DocsCatalog {
             let slug = pieces[2].trim_end_matches(".md").to_string();
             let frontmatter = parse_frontmatter(entry.content).ok()?;
 
-            let route_path = format!("/{}/{}/{}", version, section, slug);
+            let route_path = slug_to_route_path(&version, &section, &slug);
             Some(DocPage {
                 version,
                 section,
@@ -595,6 +629,7 @@ fn build_catalog() -> DocsCatalog {
 
     let mut versions = BTreeSet::new();
     let mut page_lookup = HashMap::new();
+    let mut route_lookup = HashMap::new();
     let mut section_lookup: HashMap<(String, String), Vec<usize>> = HashMap::new();
     let mut version_lookup: HashMap<String, Vec<usize>> = HashMap::new();
     let mut search = Vec::new();
@@ -609,6 +644,7 @@ fn build_catalog() -> DocsCatalog {
             ),
             index,
         );
+        route_lookup.insert(page.route_path.clone(), index);
         section_lookup
             .entry((page.version.clone(), page.section.clone()))
             .or_default()
@@ -644,6 +680,7 @@ fn build_catalog() -> DocsCatalog {
         pages,
         versions,
         page_lookup,
+        route_lookup,
         section_lookup,
         version_lookup,
         search,
@@ -967,6 +1004,66 @@ fn slugify(input: &str) -> String {
     output.trim_matches('-').to_string()
 }
 
+fn canonical_route_path(version: &str, section: &str, group: Option<&str>, slug: &str) -> String {
+    if section != "reference" {
+        return format!("/{}/{}/{}", version, section, slug);
+    }
+
+    match group {
+        Some("widget-modules") => format!("/{}/{}/widget-modules/{}", version, section, slug),
+        Some("widget-constructors") => {
+            format!("/{}/{}/widget-constructors/{}", version, section, slug)
+        }
+        Some("widget-elements") => format!("/{}/{}/widget-elements/{}", version, section, slug),
+        _ => match slug {
+            "widget-modules" => format!("/{}/{}/widget-modules", version, section),
+            "widget-constructors" => format!("/{}/{}/widget-constructors", version, section),
+            "widget-elements" => format!("/{}/{}/widget-elements", version, section),
+            _ => format!("/{}/{}/{}", version, section, slug),
+        },
+    }
+}
+
+fn slug_to_route_path(version: &str, section: &str, slug: &str) -> String {
+    if section != "reference" {
+        return format!("/{}/{}/{}", version, section, slug);
+    }
+
+    if slug == "widget-modules-catalog" {
+        format!("/{}/{}/widget-modules", version, section)
+    } else if let Some(tail) = slug.strip_prefix("widget-module-") {
+        format!("/{}/{}/widget-modules/{}", version, section, tail)
+    } else if slug == "widget-constructors-catalog" {
+        format!("/{}/{}/widget-constructors", version, section)
+    } else if let Some(tail) = slug.strip_prefix("widget-constructor-") {
+        format!("/{}/{}/widget-constructors/{}", version, section, tail)
+    } else if slug == "widget-elements-catalog" {
+        format!("/{}/{}/widget-elements", version, section)
+    } else if let Some(tail) = slug.strip_prefix("widget-element-") {
+        format!("/{}/{}/widget-elements/{}", version, section, tail)
+    } else {
+        format!("/{}/{}/{}", version, section, slug)
+    }
+}
+
+fn route_from_path(path: &str) -> Route {
+    let segments: Vec<&str> = path.trim_matches('/').split('/').collect();
+    match segments.as_slice() {
+        [version, section, slug] => Route::Doc {
+            version: (*version).to_string(),
+            section: (*section).to_string(),
+            slug: (*slug).to_string(),
+        },
+        [version, section, group, slug] => Route::DocNested {
+            version: (*version).to_string(),
+            section: (*section).to_string(),
+            group: (*group).to_string(),
+            slug: (*slug).to_string(),
+        },
+        _ => Route::Home {},
+    }
+}
+
 fn escape_js_string(value: &str) -> String {
     value
         .replace('\\', "\\\\")
@@ -1018,20 +1115,15 @@ mod tests {
                 }
 
                 let segments: Vec<&str> = link.trim_matches('/').split('/').collect();
-                if segments.len() != 3 {
+                if segments.len() != 3 && segments.len() != 4 {
                     panic!(
                         "{} contains malformed internal link {}",
                         page.route_path, link
                     );
                 }
 
-                let key = (
-                    segments[0].to_string(),
-                    segments[1].to_string(),
-                    segments[2].to_string(),
-                );
                 assert!(
-                    docs.page_lookup.contains_key(&key),
+                    docs.route_lookup.contains_key(&link),
                     "{} links to missing page {}",
                     page.route_path,
                     link

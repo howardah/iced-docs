@@ -36,13 +36,13 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/progress_bar/src/main.rs
-- ref/examples/changelog/src/main.rs
 - ref/examples/download_progress/src/main.rs
 - ref/examples/styling/src/main.rs
 - ref/examples/scrollable/src/main.rs
+- ref/examples/changelog/src/main.rs
+- ref/examples/progress_bar/src/main.rs
 
 ## Related
 
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Widget Elements Catalog](/latest/reference/widget-elements)

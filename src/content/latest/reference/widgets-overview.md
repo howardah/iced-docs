@@ -23,9 +23,9 @@ Authoritative source:
 
 ## Catalog pages
 
-- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
+- [Widget Modules Catalog](/latest/reference/widget-modules)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Widget Elements Catalog](/latest/reference/widget-elements)
 
 ## Notes
 

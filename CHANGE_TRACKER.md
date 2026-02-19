@@ -266,3 +266,58 @@ Validation tests passing:
 - `app::tests::all_pages_have_required_frontmatter`
 - `app::tests::internal_links_resolve`
 - `app::tests::search_index_builds`
+
+## 2026-02-19 (Routing Pass - Simplified Catalog/Subpath URLs)
+
+### Summary
+
+Updated reference routing to use simplified catalog index URLs and nested subpaths, as requested.
+
+### Implemented
+
+- Extended router to support nested doc paths:
+- `src/app/mod.rs`
+- Added route variant:
+  - `/:version/:section/:group/:slug`
+
+- Introduced canonical route mapping for reference families:
+- Catalog indexes:
+  - `/latest/reference/widget-modules`
+  - `/latest/reference/widget-constructors`
+  - `/latest/reference/widget-elements`
+- Item pages:
+  - `/latest/reference/widget-modules/<name>`
+  - `/latest/reference/widget-constructors/<name>`
+  - `/latest/reference/widget-elements/<name>`
+
+- Added routing helpers:
+- `slug_to_route_path`
+- `canonical_route_path`
+- `route_from_path`
+- Refactored `Doc` rendering into shared `render_doc` + `DocNested` route component.
+
+- Added `route_lookup` index to catalog for route-based page resolution.
+
+- Updated link validation test to support both 3-segment and 4-segment internal routes and validate against canonical route lookup.
+
+- Updated reference content generation to emit simplified URLs:
+- `scripts/generate_reference_pages.sh`
+- Regenerated reference pages with new canonical links.
+
+- Updated manual reference overview links:
+- `src/content/latest/reference/widgets-overview.md`
+
+### Build/Test Results
+
+Executed successfully after routing changes:
+
+- `cargo fmt`
+- `cargo check`
+- `cargo test`
+- `scripts/ci_quality_gates.sh`
+
+Validation tests passing:
+
+- `app::tests::all_pages_have_required_frontmatter`
+- `app::tests::internal_links_resolve`
+- `app::tests::search_index_builds`

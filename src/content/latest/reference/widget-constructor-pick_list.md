@@ -42,14 +42,14 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
+- ref/examples/toast/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/text/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/qr_code/src/main.rs
+- ref/examples/pick_list/src/main.rs
+- ref/examples/styling/src/main.rs
 - ref/examples/modal/src/main.rs
-- ref/examples/game_of_life/src/main.rs
+- ref/examples/lazy/src/main.rs
 
 ## Related
 
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Widget Elements Catalog](/latest/reference/widget-elements)

@@ -29,7 +29,7 @@ Use it for daemon-like or background-centric app lifecycles, including multi-win
 
 ## Why to use it
 
-It provides the daemon runtime builder counterpart to `application`.
+It provides the daemon runtime builder counterpart to application.
 
 ## Example References
 

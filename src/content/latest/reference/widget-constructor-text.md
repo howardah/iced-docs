@@ -36,14 +36,14 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/layout/src/main.rs
+- ref/examples/counter/src/main.rs
+- ref/examples/websocket/src/main.rs
+- ref/examples/url_handler/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/integration/src/controls.rs
-- ref/examples/markdown/src/main.rs
-- ref/examples/color_palette/src/main.rs
+- ref/examples/gradient/src/main.rs
+- ref/examples/loading_spinners/src/main.rs
 
 ## Related
 
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Widget Elements Catalog](/latest/reference/widget-elements)

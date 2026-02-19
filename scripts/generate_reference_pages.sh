@@ -57,7 +57,7 @@ extract_index_description() {
 
 list_examples() {
     local pattern="$1"
-    rg -l "$pattern" ref/examples -g '*.rs' 2>/dev/null | head -n 6 || true
+    rg -l "$pattern" ref/examples -g '*.rs' 2>/dev/null | sed -n '1,6p' || true
 }
 
 render_example_section() {
@@ -98,27 +98,27 @@ while read -r fn_name || [[ -n "$fn_name" ]]; do
     case "$fn_name" in
         run)
             ex_files=( $(list_examples 'iced::run\(') )
-            when='Use it for straightforward apps where `State: Default` is acceptable and you want minimal startup wiring.'
+            when='Use it for straightforward apps where State: Default is acceptable and you want minimal startup wiring.'
             why='It is the shortest path from update/view logic to a running app.'
             ;;
         application)
             ex_files=( $(list_examples 'iced::application\(') )
-            when='Use it when you need runtime builder configuration (title/theme/window/subscription/font/presets) before `.run()`.'
+            when='Use it when you need runtime builder configuration (title/theme/window/subscription/font/presets) before run().'
             why='It scales better for production apps with explicit startup and configuration needs.'
             ;;
         daemon)
             ex_files=( $(list_examples 'iced::daemon\(') )
             when='Use it for daemon-like or background-centric app lifecycles, including multi-window orchestration.'
-            why='It provides the daemon runtime builder counterpart to `application`.'
+            why='It provides the daemon runtime builder counterpart to application.'
             ;;
         exit)
             ex_files=( $(list_examples 'iced::exit\(') )
             when='Use it inside update logic when a message should trigger runtime shutdown.'
-            why='It returns a `Task` so shutdown composes with the same side-effect model as other runtime actions.'
+            why='It returns a Task so shutdown composes with the same side-effect model as other runtime actions.'
             ;;
         never)
             ex_files=( $(list_examples 'iced::never\(') )
-            when='Use it only for advanced unreachable `Infallible`-based branches in typed/generic code.'
+            when='Use it only for advanced unreachable Infallible-based branches in typed/generic code.'
             why='It allows impossible branches to satisfy type requirements safely.'
             ;;
         *)
@@ -139,7 +139,7 @@ order: ${runtime_order}
 
 # Runtime Function - iced::${fn_name}
 
-Authoritative source: `ref/doc/iced/fn.${fn_name}.html`.
+Authoritative source: ref/doc/iced/fn.${fn_name}.html.
 
 ## Verified signature
 
@@ -211,8 +211,8 @@ PAGE
 
 ## Related
 
-- [Widget Modules Catalog](/latest/reference/widget-modules-catalog)
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
+- [Widget Modules Catalog](/latest/reference/widget-modules)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
 PAGE
     } > "$ROOT/widget-module-${module_name}.md"
 
@@ -268,8 +268,8 @@ PAGE
 
 ## Related
 
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
+- [Widget Elements Catalog](/latest/reference/widget-elements)
 PAGE
     } > "$ROOT/widget-constructor-${fn_name}.md"
 
@@ -326,8 +326,8 @@ PAGE
 
 ## Related
 
-- [Widget Elements Catalog](/latest/reference/widget-elements-catalog)
-- [Widget Constructors Catalog](/latest/reference/widget-constructors-catalog)
+- [Widget Elements Catalog](/latest/reference/widget-elements)
+- [Widget Constructors Catalog](/latest/reference/widget-constructors)
 PAGE
     } > "$ROOT/widget-element-${slug}.md"
 
@@ -352,7 +352,7 @@ Generated from ref/doc/iced/widget/sidebar-items.js.
 PAGE
 while read -r module_name || [[ -n "$module_name" ]]; do
     [[ -z "$module_name" ]] && continue
-    echo "- [Widget Module - ${module_name}](/latest/reference/widget-module-${module_name})" >> "$ROOT/widget-modules-catalog.md"
+    echo "- [Widget Module - ${module_name}](/latest/reference/widget-modules/${module_name})" >> "$ROOT/widget-modules-catalog.md"
 done < <(extract_array "$widget_sidebar" "mod")
 
 cat > "$ROOT/widget-constructors-catalog.md" <<PAGE
@@ -373,7 +373,7 @@ Generated from ref/doc/iced/widget/sidebar-items.js.
 PAGE
 while read -r fn_name || [[ -n "$fn_name" ]]; do
     [[ -z "$fn_name" ]] && continue
-    echo "- [Widget Constructor - ${fn_name}](/latest/reference/widget-constructor-${fn_name})" >> "$ROOT/widget-constructors-catalog.md"
+    echo "- [Widget Constructor - ${fn_name}](/latest/reference/widget-constructors/${fn_name})" >> "$ROOT/widget-constructors-catalog.md"
 done < <(extract_array "$widget_sidebar" "fn")
 
 cat > "$ROOT/widget-elements-catalog.md" <<PAGE
@@ -395,5 +395,5 @@ PAGE
 while read -r struct_name || [[ -n "$struct_name" ]]; do
     [[ -z "$struct_name" ]] && continue
     slug="$(kebab_from_pascal "$struct_name")"
-    echo "- [Widget Element - ${struct_name}](/latest/reference/widget-element-${slug})" >> "$ROOT/widget-elements-catalog.md"
+    echo "- [Widget Element - ${struct_name}](/latest/reference/widget-elements/${slug})" >> "$ROOT/widget-elements-catalog.md"
 done < <(extract_array "$widget_sidebar" "struct")
