@@ -1109,3 +1109,31 @@ Performed a full documentation pass across `src/content/latest` to make every ro
 ### Verification
 
 - `cargo test` passes.
+
+## 2026-02-19 (Refactor: Split `src/app/mod.rs` Into Focused Modules)
+
+### Summary
+
+Refactored the monolithic `src/app/mod.rs` into smaller, responsibility-based modules while keeping runtime behavior and routes unchanged.
+
+### New module structure
+
+- `src/app/mod.rs`
+  - App shell, routing enum, high-level page components, and tests.
+- `src/app/types.rs`
+  - Shared data models (`Frontmatter`, `DocPage`, `SearchEntry`, `DocsCatalog`).
+- `src/app/generated.rs`
+  - Generated content include (`content_gen.rs`).
+- `src/app/catalog.rs`
+  - Content catalog building, frontmatter parsing, ordering, and indexing.
+- `src/app/markdown.rs`
+  - Markdown rendering pipeline, heading anchors/TOC extraction, and code highlighting/copy HTML output.
+- `src/app/routing.rs`
+  - Route canonicalization and slug/path conversion helpers.
+- `src/app/sidebar.rs`
+  - Sidebar component and reference subgroup/family menu logic.
+
+### Verification
+
+- `cargo check` (clean)
+- `cargo test` (all tests passing)
