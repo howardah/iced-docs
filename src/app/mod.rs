@@ -3,6 +3,7 @@ use std::sync::OnceLock;
 
 use dioxus::document;
 use dioxus::prelude::*;
+use pulldown_cmark::{html, Options, Parser};
 
 mod generated {
     include!(concat!(env!("OUT_DIR"), "/content_gen.rs"));
@@ -71,21 +72,6 @@ struct DocsCatalog {
     section_lookup: HashMap<(String, String), Vec<usize>>,
     version_lookup: HashMap<String, Vec<usize>>,
     search: Vec<SearchEntry>,
-}
-
-#[derive(Debug, Clone)]
-enum Block {
-    Heading { level: u8, text: String, id: String },
-    Paragraph(String),
-    List(Vec<String>),
-    Code { lang: String, code: String },
-}
-
-#[derive(Debug, Clone)]
-enum Inline {
-    Text(String),
-    Code(String),
-    Link { text: String, href: String },
 }
 
 pub fn app() -> Element {
@@ -293,16 +279,95 @@ fn render_doc(path: String) -> Element {
     };
 
     let page = catalog.pages[index].clone();
-    let blocks = parse_blocks(&page.body);
-    let toc_items: Vec<(String, String)> = blocks
-        .iter()
-        .filter_map(|block| match block {
-            Block::Heading { level, text, id } if *level == 2 || *level == 3 => {
-                Some((text.clone(), id.clone()))
-            }
-            _ => None,
-        })
-        .collect();
+    let toc_items = extract_toc_items(&page.body);
+    let markdown_mount_id = format!("md-{}", slugify(&path));
+    use_effect({
+        let markdown_mount_id = markdown_mount_id.clone();
+        move || {
+            let script = format!(
+                r##"
+(() => {{
+  const mount = document.getElementById("{mount_id}");
+  if (!mount) return;
+
+  const slugify = (value) => {{
+    let out = "";
+    let prevDash = false;
+    for (const ch of value) {{
+      if ((ch >= "a" && ch <= "z") || (ch >= "A" && ch <= "Z") || (ch >= "0" && ch <= "9")) {{
+        out += ch.toLowerCase();
+        prevDash = false;
+      }} else if (!prevDash) {{
+        out += "-";
+        prevDash = true;
+      }}
+    }}
+    return out.replace(/^-+|-+$/g, "");
+  }};
+
+  const seenHeadings = new Map();
+  for (const heading of mount.querySelectorAll("h2, h3")) {{
+    const title = heading.textContent ? heading.textContent.trim() : "";
+    if (!title) continue;
+
+    const base = slugify(title);
+    if (!base) continue;
+    const count = seenHeadings.get(base) || 0;
+    seenHeadings.set(base, count + 1);
+    const id = count === 0 ? base : `${{base}}-${{count}}`;
+    heading.id = id;
+
+    let anchor = heading.querySelector("a.heading-link");
+    if (!anchor) {{
+      anchor = document.createElement("a");
+      anchor.className = "heading-link";
+      anchor.textContent = "#";
+      heading.prepend(anchor);
+    }}
+    anchor.setAttribute("href", `#${{id}}`);
+  }}
+
+  for (const pre of mount.querySelectorAll("pre")) {{
+    const parent = pre.parentElement;
+    if (!parent || parent.classList.contains("code-block")) continue;
+
+    const codeNode = pre.querySelector("code");
+    const text = codeNode ? codeNode.textContent || "" : pre.textContent || "";
+    const languageClass = codeNode
+      ? Array.from(codeNode.classList).find((name) => name.startsWith("language-"))
+      : null;
+    const language = languageClass ? languageClass.replace("language-", "") : "text";
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "code-block";
+
+    const head = document.createElement("div");
+    head.className = "code-head";
+
+    const lang = document.createElement("span");
+    lang.className = "code-lang";
+    lang.textContent = language;
+
+    const button = document.createElement("button");
+    button.className = "copy-btn";
+    button.type = "button";
+    button.textContent = "Copy";
+    button.addEventListener("click", () => {{
+      if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+      navigator.clipboard.writeText(text);
+    }});
+
+    head.append(lang, button);
+    parent.insertBefore(wrapper, pre);
+    wrapper.append(head, pre);
+  }}
+}})();
+"##,
+                mount_id = escape_js_string(&markdown_mount_id),
+            );
+            document::eval(&script);
+        }
+    });
 
     let version_indices = catalog
         .version_lookup
@@ -323,6 +388,8 @@ fn render_doc(path: String) -> Element {
         .and_then(|doc_index| catalog.pages.get(*doc_index))
         .cloned();
 
+    let rendered_markdown = render_markdown_html(&page.body);
+
     rsx! {
         article { class: "doc-page",
             header { class: "doc-header",
@@ -334,64 +401,8 @@ fn render_doc(path: String) -> Element {
 
             div { class: "doc-body-shell",
                 section { class: "markdown card",
-                    for block in blocks {
-                        match block {
-                            Block::Heading { level: 2, text, id } => rsx! {
-                                h2 { id: "{id}", a { href: "#{id}", class: "heading-link", "#" } " {text}" }
-                            },
-                            Block::Heading { level: 3, text, id } => rsx! {
-                                h3 { id: "{id}", a { href: "#{id}", class: "heading-link", "#" } " {text}" }
-                            },
-                            Block::Heading { .. } => rsx! { },
-                            Block::Paragraph(text) => rsx! {
-                                p {
-                                    for span in parse_inline(&text) {
-                                        match span {
-                                            Inline::Text(value) => rsx! { span { "{value}" } },
-                                            Inline::Code(value) => rsx! { code { "{value}" } },
-                                            Inline::Link { text, href } => rsx! { a { href: "{href}", "{text}" } },
-                                        }
-                                    }
-                                }
-                            },
-                            Block::List(items) => rsx! {
-                                ul {
-                                    for item in items {
-                                        li {
-                                            for span in parse_inline(&item) {
-                                                match span {
-                                                    Inline::Text(value) => rsx! { span { "{value}" } },
-                                                    Inline::Code(value) => rsx! { code { "{value}" } },
-                                                    Inline::Link { text, href } => rsx! { a { href: "{href}", "{text}" } },
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            Block::Code { lang, code } => {
-                                let copy_text = code.clone();
-                                rsx! {
-                                    div { class: "code-block",
-                                        div { class: "code-head",
-                                            span { class: "code-lang", "{lang}" }
-                                            button {
-                                                class: "copy-btn",
-                                                onclick: move |_| {
-                                                    let script = format!(
-                                                        "navigator.clipboard && navigator.clipboard.writeText(\"{}\")",
-                                                        escape_js_string(&copy_text),
-                                                    );
-                                                    document::eval(&script);
-                                                },
-                                                "Copy"
-                                            }
-                                        }
-                                        pre { code { "{code}" } }
-                                    }
-                                }
-                            }
-                        }
+                    div { id: "{markdown_mount_id}",
+                        dangerous_inner_html: rendered_markdown
                     }
                 }
                 aside { class: "toc card",
@@ -765,140 +776,102 @@ fn strip_frontmatter(raw: &str) -> String {
     raw[frontmatter_end + 9..].to_string()
 }
 
-fn parse_blocks(markdown: &str) -> Vec<Block> {
-    let mut blocks = Vec::new();
-    let mut lines = markdown.lines().peekable();
+fn extract_toc_items(markdown: &str) -> Vec<(String, String)> {
+    let mut items = Vec::new();
+    let mut seen = HashMap::<String, usize>::new();
+    let mut in_fence = false;
 
-    while let Some(line) = lines.next() {
-        let trimmed = line.trim_end();
-
-        if trimmed.is_empty() {
+    for line in markdown.lines() {
+        let trimmed = line.trim();
+        if trimmed.starts_with("```") {
+            in_fence = !in_fence;
+            continue;
+        }
+        if in_fence {
             continue;
         }
 
-        if let Some(lang) = trimmed.strip_prefix("```") {
-            let mut code = String::new();
-            for code_line in lines.by_ref() {
-                if code_line.trim_start().starts_with("```") {
-                    break;
-                }
-                code.push_str(code_line);
-                code.push('\n');
-            }
-            blocks.push(Block::Code {
-                lang: lang.trim().to_string(),
-                code: code.trim_end().to_string(),
-            });
+        let heading = trimmed
+            .strip_prefix("### ")
+            .or_else(|| trimmed.strip_prefix("## "));
+        let Some(raw) = heading else {
+            continue;
+        };
+
+        let title = clean_heading_text(raw);
+        if title.is_empty() {
             continue;
         }
 
-        if let Some(text) = trimmed.strip_prefix("## ") {
-            blocks.push(Block::Heading {
-                level: 2,
-                text: text.trim().to_string(),
-                id: slugify(text),
-            });
-            continue;
-        }
-
-        if let Some(text) = trimmed.strip_prefix("### ") {
-            blocks.push(Block::Heading {
-                level: 3,
-                text: text.trim().to_string(),
-                id: slugify(text),
-            });
-            continue;
-        }
-
-        if trimmed.starts_with('#') {
-            continue;
-        }
-
-        if let Some(item) = trimmed.strip_prefix("- ") {
-            let mut items = vec![item.to_string()];
-            while let Some(next_line) = lines.peek() {
-                if let Some(next_item) = next_line.trim_start().strip_prefix("- ") {
-                    items.push(next_item.to_string());
-                    lines.next();
-                } else {
-                    break;
-                }
-            }
-            blocks.push(Block::List(items));
-            continue;
-        }
-
-        let mut paragraph = trimmed.to_string();
-        while let Some(next_line) = lines.peek() {
-            let next_trimmed = next_line.trim();
-            if next_trimmed.is_empty()
-                || next_trimmed.starts_with("```")
-                || next_trimmed.starts_with("## ")
-                || next_trimmed.starts_with("### ")
-                || next_trimmed.starts_with("- ")
-            {
-                break;
-            }
-            paragraph.push(' ');
-            paragraph.push_str(next_trimmed);
-            lines.next();
-        }
-        blocks.push(Block::Paragraph(paragraph));
+        let base = slugify(&title);
+        let count = seen.entry(base.clone()).or_insert(0);
+        let id = if *count == 0 {
+            base
+        } else {
+            format!("{}-{}", base, *count)
+        };
+        *count += 1;
+        items.push((title, id));
     }
 
-    blocks
+    items
 }
 
-fn parse_inline(text: &str) -> Vec<Inline> {
-    let mut out = Vec::new();
-    let chars: Vec<char> = text.chars().collect();
+fn clean_heading_text(value: &str) -> String {
+    let chars: Vec<char> = value.chars().collect();
+    let mut out = String::new();
     let mut cursor = 0;
 
     while cursor < chars.len() {
         if chars[cursor] == '`' {
             if let Some(end) = chars[cursor + 1..].iter().position(|ch| *ch == '`') {
-                let code = chars[cursor + 1..cursor + 1 + end]
-                    .iter()
-                    .collect::<String>();
-                out.push(Inline::Code(code));
+                out.push_str(
+                    &chars[cursor + 1..cursor + 1 + end]
+                        .iter()
+                        .collect::<String>(),
+                );
                 cursor += end + 2;
                 continue;
             }
         }
 
         if chars[cursor] == '[' {
-            let rest = &chars[cursor..];
-            if let Some(close_text) = rest.iter().position(|ch| *ch == ']') {
-                let next = cursor + close_text + 1;
-                if next + 1 < chars.len() && chars[next] == '(' {
-                    if let Some(close_href) = chars[next + 1..].iter().position(|ch| *ch == ')') {
-                        let text_value = chars[cursor + 1..cursor + close_text]
-                            .iter()
-                            .collect::<String>();
-                        let href_value = chars[next + 1..next + 1 + close_href]
-                            .iter()
-                            .collect::<String>();
-                        out.push(Inline::Link {
-                            text: text_value,
-                            href: href_value,
-                        });
-                        cursor = next + close_href + 2;
+            if let Some(close_text) = chars[cursor..].iter().position(|ch| *ch == ']') {
+                let open_href = cursor + close_text + 1;
+                if open_href < chars.len() && chars[open_href] == '(' {
+                    if let Some(close_href) =
+                        chars[open_href + 1..].iter().position(|ch| *ch == ')')
+                    {
+                        out.push_str(
+                            &chars[cursor + 1..cursor + close_text]
+                                .iter()
+                                .collect::<String>(),
+                        );
+                        cursor = open_href + close_href + 2;
                         continue;
                     }
                 }
             }
         }
 
-        let mut next_special = cursor + 1;
-        while next_special < chars.len() && chars[next_special] != '`' && chars[next_special] != '['
-        {
-            next_special += 1;
+        if !matches!(chars[cursor], '*' | '_' | '~') {
+            out.push(chars[cursor]);
         }
-        out.push(Inline::Text(chars[cursor..next_special].iter().collect()));
-        cursor = next_special;
+        cursor += 1;
     }
 
-    out
+    out.split_whitespace().collect::<Vec<_>>().join(" ")
+}
+
+fn render_markdown_html(markdown: &str) -> String {
+    let options = Options::ENABLE_TABLES
+        | Options::ENABLE_FOOTNOTES
+        | Options::ENABLE_STRIKETHROUGH
+        | Options::ENABLE_TASKLISTS;
+    let parser = Parser::new_ext(markdown, options);
+    let mut html_out = String::new();
+    html::push_html(&mut html_out, parser);
+    html_out
 }
 
 fn section_rank(section: &str) -> usize {

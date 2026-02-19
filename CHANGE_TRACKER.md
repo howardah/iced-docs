@@ -541,3 +541,81 @@ In `cat <<PAGE` heredocs, backticks can trigger command substitution. Eliminatin
 - `scripts/ci_quality_gates.sh`
 
 All passed.
+
+## 2026-02-19 (Markdown Parsing Migration - Dioxus 0.7 Compatible)
+
+### Summary
+
+Replaced the hand-rolled markdown block/inline parser in the site renderer with `pulldown-cmark` parsing/rendering, while preserving current UX features (TOC, deep heading links, code-copy buttons). Also documented why `dioxus-markdown = 0.0.1` could not be mounted directly in this Dioxus 0.7 app.
+
+### Implemented
+
+- Updated markdown rendering in:
+- `src/app/mod.rs`
+
+- Removed custom parser pipeline:
+- Deleted internal markdown block/inline enums and parsing functions (`parse_blocks`, `parse_inline`).
+
+- Added markdown rendering via parser library:
+- New `render_markdown_html` uses `pulldown-cmark` (`Parser::new_ext` + `html::push_html`).
+- Enabled parsing features: tables, footnotes, strikethrough, and task lists.
+
+- Preserved existing page behavior after render:
+- Kept TOC generation from h2/h3 via new `extract_toc_items`.
+- Added heading-text cleanup helper (`clean_heading_text`) so TOC labels/slugs stay readable.
+- Added DOM enhancement pass (`document::eval`) that:
+  - assigns deterministic heading ids to h2/h3,
+  - injects deep-link `#` anchors,
+  - wraps code blocks with existing `.code-block` chrome and copy button.
+
+- Dependency updates:
+- `Cargo.toml`: added `pulldown-cmark = "0.13"`.
+
+### Compatibility Note
+
+- `dioxus-markdown = 0.0.1` currently depends on `dioxus 0.6.x`, which is type-incompatible with this repo’s required `dioxus 0.7.x` component system. Attempting to mount `dioxus_markdown::Markdown` in RSX fails with mixed `dioxus_core` versions.
+- This pass therefore uses a Dioxus-0.7-safe parser/renderer path while keeping the same site functionality.
+
+### Build/Test Results
+
+Executed successfully after migration:
+
+- `cargo fmt`
+- `cargo check`
+
+## 2026-02-19 (Markdown Code Block Fix - Render + Copy Restore)
+
+### Summary
+
+Fixed a regression where fenced code blocks were disappearing after markdown rendering, and restored the copy-button behavior on those blocks.
+
+### Root Cause
+
+- In `src/app/mod.rs`, the DOM enhancement logic wrapped `<pre>` nodes in a new `.code-block` container using the wrong operation order:
+- `wrapper.append(head, pre)` was called before `parent.insertBefore(wrapper, pre)`.
+- This moved `pre` out of its parent first, so the subsequent `insertBefore(..., pre)` reference became invalid and the block could be dropped from display.
+
+### Implemented
+
+- Updated code-block wrapping order in:
+- `src/app/mod.rs`
+- New order:
+  - `parent.insertBefore(wrapper, pre)`
+  - `wrapper.append(head, pre)`
+
+- Updated markdown HTML injection in:
+- `src/app/mod.rs`
+- `dangerous_inner_html` now receives a precomputed rendered string value directly instead of interpolated string formatting, ensuring proper HTML insertion.
+
+### Result
+
+- Triple-backtick fenced code blocks render again in doc pages.
+- Existing click-to-copy control is reattached to each rendered code block and writes code text to clipboard.
+
+### Build/Test Results
+
+Executed successfully after the fix:
+
+- `cargo fmt`
+- `cargo check`
+- `cargo test`
