@@ -42,6 +42,12 @@ It gives explicit widget construction with compile-time type checking and builde
 - ref/examples/bezier_tool/src/main.rs
 - ref/examples/markdown/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+let right = container("Right!").align_right(Fill);
+```
+
 ## Related
 
 - [Constructors](/latest/reference/constructors)

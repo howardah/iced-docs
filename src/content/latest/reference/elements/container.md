@@ -40,6 +40,24 @@ It enables strongly typed composition and explicit builder method flows.
 - ref/examples/changelog/src/main.rs
 - ref/examples/checkbox/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::container;
+
+enum Message {
+    // ...
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    container("This text is centered inside a rounded box!")
+        .padding(10)
+        .center(800)
+        .style(container::rounded_box)
+        .into()
+}
+```
+
 ## Related
 
 - [Elements](/latest/reference/elements)

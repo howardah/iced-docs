@@ -35,11 +35,39 @@ It is the shortest path from update/view logic to a running app.
 ## Example References
 
 - ref/examples/custom_widget/src/main.rs
-- ref/examples/geometry/src/main.rs
 - ref/examples/exit/src/main.rs
 - ref/examples/custom_quad/src/main.rs
-- ref/examples/slider/src/main.rs
-- ref/examples/tooltip/src/main.rs
+- ref/examples/progress_bar/src/main.rs
+- ref/examples/counter/src/main.rs
+- ref/examples/lazy/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::{button, column, text, Column};
+
+pub fn main() -> iced::Result {
+    iced::run(update, view)
+}
+
+#[derive(Debug, Clone)]
+enum Message {
+    Increment,
+}
+
+fn update(value: &mut u64, message: Message) {
+    match message {
+        Message::Increment => *value += 1,
+    }
+}
+
+fn view(value: &u64) -> Column<Message> {
+    column![
+        text(value),
+        button("+").on_press(Message::Increment),
+    ]
+}
+```
 
 ## API verification notes
 

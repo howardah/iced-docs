@@ -42,6 +42,38 @@ It gives explicit widget construction with compile-time type checking and builde
 
 - ref/examples/pane_grid/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::{pane_grid, text};
+
+struct State {
+    panes: pane_grid::State<Pane>,
+}
+
+enum Pane {
+    SomePane,
+    AnotherKindOfPane,
+}
+
+enum Message {
+    PaneDragged(pane_grid::DragEvent),
+    PaneResized(pane_grid::ResizeEvent),
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    pane_grid(&state.panes, |pane, state, is_maximized| {
+        pane_grid::Content::new(match state {
+            Pane::SomePane => text("This is some pane"),
+            Pane::AnotherKindOfPane => text("This is another kind of pane"),
+        })
+    })
+    .on_drag(Message::PaneDragged)
+    .on_resize(10, Message::PaneResized)
+    .into()
+}
+```
+
 ## Related
 
 - [Constructors](/latest/reference/constructors)

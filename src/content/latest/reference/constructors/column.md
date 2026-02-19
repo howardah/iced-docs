@@ -36,11 +36,25 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/table/src/main.rs
 - ref/examples/text/src/main.rs
+- ref/examples/table/src/main.rs
 - ref/examples/lazy/src/main.rs
 - ref/examples/tour/src/main.rs
 - ref/examples/websocket/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::{column, text};
+
+enum Message {
+    // ...
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    column((0..5).map(|i| text!("Item {i}").into())).into()
+}
+```
 
 ## Related
 

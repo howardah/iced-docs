@@ -37,6 +37,26 @@ It enables strongly typed composition and explicit builder method flows.
 - ref/examples/editor/src/main.rs
 - ref/examples/table/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::{container, tooltip};
+
+enum Message {
+    // ...
+}
+
+fn view(_state: &State) -> Element<'_, Message> {
+    tooltip(
+        "Hover me to display the tooltip!",
+        container("This is the tooltip contents!")
+            .padding(10)
+            .style(container::rounded_box),
+        tooltip::Position::Bottom,
+    ).into()
+}
+```
+
 ## Related
 
 - [Elements](/latest/reference/elements)

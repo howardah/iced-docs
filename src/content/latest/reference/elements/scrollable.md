@@ -41,6 +41,24 @@ It enables strongly typed composition and explicit builder method flows.
 - ref/examples/delineate/src/main.rs
 - ref/examples/gallery/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::{column, scrollable, space};
+
+enum Message {
+    // ...
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    scrollable(column![
+        "Scroll me!",
+        space().height(3000),
+        "You did it!",
+    ]).into()
+}
+```
+
 ## Related
 
 - [Elements](/latest/reference/elements)

@@ -37,6 +37,36 @@ It enables strongly typed composition and explicit builder method flows.
 - ref/examples/editor/src/main.rs
 - ref/examples/markdown/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::text_editor;
+
+struct State {
+   content: text_editor::Content,
+}
+
+#[derive(Debug, Clone)]
+enum Message {
+    Edit(text_editor::Action)
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    text_editor(&state.content)
+        .placeholder("Type something here...")
+        .on_action(Message::Edit)
+        .into()
+}
+
+fn update(state: &mut State, message: Message) {
+    match message {
+        Message::Edit(action) => {
+            state.content.perform(action);
+        }
+    }
+}
+```
+
 ## Related
 
 - [Elements](/latest/reference/elements)

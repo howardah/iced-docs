@@ -35,6 +35,24 @@ It enables strongly typed composition and explicit builder method flows.
 - ref/examples/pane_grid/src/main.rs
 - ref/examples/layout/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::pin;
+use iced::Fill;
+
+enum Message {
+    // ...
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    pin("This text is displayed at coordinates (50, 50)!")
+        .x(50)
+        .y(50)
+        .into()
+}
+```
+
 ## Related
 
 - [Elements](/latest/reference/elements)

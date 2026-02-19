@@ -27,6 +27,21 @@ Use this module when you need the widget family and related style/state APIs gro
 - ref/examples/download_progress/src/main.rs
 - ref/examples/editor/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::button;
+
+#[derive(Clone)]
+enum Message {
+    ButtonPressed,
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    button("Press me!").on_press(Message::ButtonPressed).into()
+}
+```
+
 ## Related
 
 - [Modules](/latest/reference/modules)

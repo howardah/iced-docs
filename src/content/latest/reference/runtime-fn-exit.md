@@ -29,6 +29,7 @@ It returns a Task so shutdown composes with the same side-effect model as other 
 - ref/examples/multi_window/src/main.rs
 - ref/examples/changelog/src/main.rs
 
+
 ## API verification notes
 
 - Confirm full bounds and semantics in rustdoc before documenting advanced behavior.

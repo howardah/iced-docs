@@ -38,12 +38,18 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/table/src/main.rs
+- ref/examples/geometry/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/svg/src/main.rs
+- ref/examples/todos/src/main.rs
 - ref/examples/multi_window/src/main.rs
 - ref/examples/tour/src/main.rs
-- ref/examples/todos/src/main.rs
+- ref/examples/svg/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+let center_x = container("Horizontal Center!").center_x(Fill);
+```
 
 ## Related
 

@@ -138,6 +138,66 @@ render_example_section() {
     done
 }
 
+extract_inline_examples_markdown() {
+    local file="$1"
+    local max_examples="${2:-3}"
+    [[ -f "$file" ]] || return 0
+
+    MAX_EXAMPLES="$max_examples" perl -0777 -ne '
+        my $html = $_;
+        my $max = $ENV{"MAX_EXAMPLES"} // 3;
+        my $count = 0;
+
+        sub decode_html {
+            my ($s) = @_;
+            $s =~ s/<br\s*\/?>/\n/g;
+            $s =~ s/<\/p>/\n/g;
+            $s =~ s/<[^>]+>//g;
+            $s =~ s/&lt;/</g;
+            $s =~ s/&gt;/>/g;
+            $s =~ s/&amp;/&/g;
+            $s =~ s/&nbsp;/ /g;
+            $s =~ s/&#39;/'\''/g;
+            $s =~ s/&quot;/"/g;
+            $s =~ s/\r//g;
+            $s =~ s/[ \t]+\n/\n/g;
+            $s =~ s/\n{3,}/\n\n/g;
+            $s =~ s/^\s+//;
+            $s =~ s/\s+$//;
+            return $s;
+        }
+
+        my @sections = ();
+        while ($html =~ m{<h2 id="example"[^>]*>.*?</h2>(.*?)(?=<h2 id="|<h3 id="|<details class="toggle method-toggle"|</section>|\z)}sg) {
+            push @sections, $1;
+        }
+        @sections = ($html) if scalar(@sections) == 0;
+
+        for my $section (@sections) {
+            while ($section =~ m{<pre class="[^"]*rust-example-rendered[^"]*"><code>(.*?)</code></pre>}sg) {
+                my $code = decode_html($1);
+                next if $code eq "";
+                print "```rust\n$code\n```\n\n";
+                $count++;
+                last if $count >= $max;
+            }
+            last if $count >= $max;
+        }
+    ' "$file"
+}
+
+render_inline_examples_section() {
+    local markdown="$1"
+    if [[ -z "${markdown//[[:space:]]/}" ]]; then
+        return
+    fi
+    cat <<PAGE
+## Inline Examples (from rustdoc)
+
+${markdown}
+PAGE
+}
+
 rm -f "$ROOT"/runtime-fn-*.md
 rm -f "$ROOT"/widget-*.md
 rm -f "$ROOT"/modules/*.md "$ROOT"/constructors/*.md "$ROOT"/elements/*.md
@@ -147,7 +207,9 @@ while read -r fn_name || [[ -n "$fn_name" ]]; do
     [[ -z "$fn_name" ]] && continue
 
     runtime_order=$((runtime_order + 1))
-    sig="$(extract_signature "ref/doc/iced/fn.${fn_name}.html")"
+    runtime_doc="ref/doc/iced/fn.${fn_name}.html"
+    sig="$(extract_signature "$runtime_doc")"
+    inline_examples="$(extract_inline_examples_markdown "$runtime_doc" 2)"
     ex_files=()
     auto_files=()
     inferred_files=()
@@ -219,6 +281,8 @@ ${why}
 
 PAGE
         render_example_section "Example References" "${ex_files[@]}"
+        echo
+        render_inline_examples_section "$inline_examples"
         cat <<'PAGE'
 
 ## API verification notes
@@ -241,6 +305,8 @@ while read -r module_name || [[ -n "$module_name" ]]; do
 
     display="$(titleize_name "$module_name")"
     description="$(extract_index_description mod "$module_name")"
+    module_doc="ref/doc/iced/widget/${module_name}/index.html"
+    inline_examples="$(extract_inline_examples_markdown "$module_doc" 2)"
     ex_files=()
     auto_files=( $(list_examples_limited "widget::${module_name}" 8) )
     inferred_files=( $(infer_examples_from_dir "$module_name") )
@@ -271,6 +337,8 @@ Use this module when you need the widget family and related style/state APIs gro
 
 PAGE
         render_example_section "Example References" "${ex_files[@]}"
+        echo
+        render_inline_examples_section "$inline_examples"
         cat <<'PAGE'
 
 ## Related
@@ -287,7 +355,9 @@ while read -r fn_name || [[ -n "$fn_name" ]]; do
     constructor_order=$((constructor_order + 1))
 
     display="$(titleize_name "$fn_name")"
-    sig="$(extract_signature "ref/doc/iced/widget/fn.${fn_name}.html")"
+    constructor_doc="ref/doc/iced/widget/fn.${fn_name}.html"
+    sig="$(extract_signature "$constructor_doc")"
+    inline_examples="$(extract_inline_examples_markdown "$constructor_doc" 2)"
     description="$(extract_index_description fn "$fn_name")"
     ex_files=()
     auto_files=( $(list_examples_limited "\\b${fn_name}\\(" 8) )
@@ -331,6 +401,8 @@ It gives explicit widget construction with compile-time type checking and builde
 
 PAGE
         render_example_section "Example References" "${ex_files[@]}"
+        echo
+        render_inline_examples_section "$inline_examples"
         cat <<'PAGE'
 
 ## Related
@@ -348,7 +420,9 @@ while read -r struct_name || [[ -n "$struct_name" ]]; do
     slug="$(kebab_from_pascal "$struct_name")"
     display="$(titleize_name "$slug")"
 
-    sig="$(extract_signature "ref/doc/iced/widget/struct.${struct_name}.html")"
+    element_doc="ref/doc/iced/widget/struct.${struct_name}.html"
+    sig="$(extract_signature "$element_doc")"
+    inline_examples="$(extract_inline_examples_markdown "$element_doc" 2)"
     description="$(extract_index_description struct "$struct_name")"
     ex_files=()
     auto_files=( $(list_examples_limited "widget::${struct_name}|\\b${struct_name}<'|\\b${struct_name}\\b" 8) )
@@ -392,6 +466,8 @@ It enables strongly typed composition and explicit builder method flows.
 
 PAGE
         render_example_section "Example References" "${ex_files[@]}"
+        echo
+        render_inline_examples_section "$inline_examples"
         cat <<'PAGE'
 
 ## Related

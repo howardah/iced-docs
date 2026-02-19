@@ -27,6 +27,35 @@ Use this module when you need the widget family and related style/state APIs gro
 - ref/examples/styling/src/main.rs
 - ref/examples/tour/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::toggler;
+
+struct State {
+   is_checked: bool,
+}
+
+enum Message {
+    TogglerToggled(bool),
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    toggler(state.is_checked)
+        .label("Toggle me!")
+        .on_toggle(Message::TogglerToggled)
+        .into()
+}
+
+fn update(state: &mut State, message: Message) {
+    match message {
+        Message::TogglerToggled(is_checked) => {
+            state.is_checked = is_checked;
+        }
+    }
+}
+```
+
 ## Related
 
 - [Modules](/latest/reference/modules)

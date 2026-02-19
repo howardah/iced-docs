@@ -38,6 +38,24 @@ It gives explicit widget construction with compile-time type checking and builde
 
 - ref/examples/layout/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::pin;
+use iced::Fill;
+
+enum Message {
+    // ...
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    pin("This text is displayed at coordinates (50, 50)!")
+        .x(50)
+        .y(50)
+        .into()
+}
+```
+
 ## Related
 
 - [Constructors](/latest/reference/constructors)

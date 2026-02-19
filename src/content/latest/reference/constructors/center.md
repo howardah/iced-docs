@@ -39,11 +39,17 @@ It gives explicit widget construction with compile-time type checking and builde
 ## Example References
 
 - ref/examples/clock/src/main.rs
-- ref/examples/checkbox/src/main.rs
-- ref/examples/changelog/src/main.rs
-- ref/examples/multi_window/src/main.rs
-- ref/examples/custom_widget/src/main.rs
-- ref/examples/loading_spinners/src/circular.rs
+- ref/examples/custom_quad/src/main.rs
+- ref/examples/styling/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/layout/src/main.rs
+- ref/examples/modal/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+let center = container("Center!").center(Fill);
+```
 
 ## Related
 

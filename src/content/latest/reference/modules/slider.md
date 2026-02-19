@@ -27,6 +27,33 @@ Use this module when you need the widget family and related style/state APIs gro
 - ref/examples/custom_widget/src/main.rs
 - ref/examples/ferris/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::slider;
+
+struct State {
+   value: f32,
+}
+
+#[derive(Debug, Clone)]
+enum Message {
+    ValueChanged(f32),
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    slider(0.0..=100.0, state.value, Message::ValueChanged).into()
+}
+
+fn update(state: &mut State, message: Message) {
+    match message {
+        Message::ValueChanged(value) => {
+            state.value = value;
+        }
+    }
+}
+```
+
 ## Related
 
 - [Modules](/latest/reference/modules)

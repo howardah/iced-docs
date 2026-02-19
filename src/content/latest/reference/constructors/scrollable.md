@@ -37,12 +37,30 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/tour/src/main.rs
-- ref/examples/geometry/src/main.rs
+- ref/examples/delineate/src/main.rs
+- ref/examples/pane_grid/src/main.rs
+- ref/examples/gallery/src/main.rs
 - ref/examples/changelog/src/main.rs
 - ref/examples/todos/src/main.rs
-- ref/examples/styling/src/main.rs
 - ref/examples/pick_list/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::{column, scrollable, space};
+
+enum Message {
+    // ...
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    scrollable(column![
+        "Scroll me!",
+        space().height(3000),
+        "You did it!",
+    ]).into()
+}
+```
 
 ## Related
 

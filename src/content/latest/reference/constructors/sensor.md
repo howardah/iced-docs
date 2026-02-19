@@ -36,8 +36,9 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/gallery/src/main.rs
 - ref/examples/markdown/src/main.rs
+- ref/examples/gallery/src/main.rs
+
 
 ## Related
 

@@ -28,6 +28,7 @@ It allows impossible branches to satisfy type requirements safely.
 
 - TODO(api-verify): add canonical example mapping for this item.
 
+
 ## API verification notes
 
 - Confirm full bounds and semantics in rustdoc before documenting advanced behavior.

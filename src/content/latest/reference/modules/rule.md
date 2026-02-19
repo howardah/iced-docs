@@ -22,6 +22,21 @@ Use this module when you need the widget family and related style/state APIs gro
 
 - TODO(api-verify): add canonical example mapping for this item.
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::rule;
+
+#[derive(Clone)]
+enum Message {
+    // ...,
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    rule::horizontal(2).into()
+}
+```
+
 ## Related
 
 - [Modules](/latest/reference/modules)

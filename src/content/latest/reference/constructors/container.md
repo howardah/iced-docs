@@ -38,11 +38,29 @@ It gives explicit widget construction with compile-time type checking and builde
 ## Example References
 
 - ref/examples/clock/src/main.rs
+- ref/examples/scrollable/src/main.rs
 - ref/examples/ferris/src/main.rs
-- ref/examples/modal/src/main.rs
 - ref/examples/markdown/src/main.rs
+- ref/examples/game_of_life/src/main.rs
 - ref/examples/delineate/src/main.rs
-- ref/examples/slider/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::container;
+
+enum Message {
+    // ...
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    container("This text is centered inside a rounded box!")
+        .padding(10)
+        .center(800)
+        .style(container::rounded_box)
+        .into()
+}
+```
 
 ## Related
 

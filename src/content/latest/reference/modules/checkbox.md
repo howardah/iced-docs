@@ -27,6 +27,35 @@ Use this module when you need the widget family and related style/state APIs gro
 - ref/examples/game_of_life/src/main.rs
 - ref/examples/gradient/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::checkbox;
+
+struct State {
+   is_checked: bool,
+}
+
+enum Message {
+    CheckboxToggled(bool),
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    checkbox(state.is_checked)
+        .label("Toggle me!")
+        .on_toggle(Message::CheckboxToggled)
+        .into()
+}
+
+fn update(state: &mut State, message: Message) {
+    match message {
+        Message::CheckboxToggled(is_checked) => {
+            state.is_checked = is_checked;
+        }
+    }
+}
+```
+
 ## Related
 
 - [Modules](/latest/reference/modules)

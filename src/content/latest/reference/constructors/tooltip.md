@@ -44,9 +44,29 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/table/src/main.rs
-- ref/examples/tooltip/src/main.rs
 - ref/examples/editor/src/main.rs
+- ref/examples/tooltip/src/main.rs
+- ref/examples/table/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::{container, tooltip};
+
+enum Message {
+    // ...
+}
+
+fn view(_state: &State) -> Element<'_, Message> {
+    tooltip(
+        "Hover me to display the tooltip!",
+        container("This is the tooltip contents!")
+            .padding(10)
+            .style(container::rounded_box),
+        tooltip::Position::Bottom,
+    ).into()
+}
+```
 
 ## Related
 

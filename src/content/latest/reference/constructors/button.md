@@ -37,12 +37,27 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/loupe/src/main.rs
-- ref/examples/scrollable/src/main.rs
-- ref/examples/pokedex/src/main.rs
 - ref/examples/editor/src/main.rs
-- ref/examples/lazy/src/main.rs
-- ref/examples/system_information/src/main.rs
+- ref/examples/events/src/main.rs
+- ref/examples/loupe/src/main.rs
+- ref/examples/pokedex/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/modal/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::button;
+
+#[derive(Clone)]
+enum Message {
+    ButtonPressed,
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    button("Press me!").on_press(Message::ButtonPressed).into()
+}
+```
 
 ## Related
 

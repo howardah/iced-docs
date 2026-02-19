@@ -34,11 +34,39 @@ It enables strongly typed composition and explicit builder method flows.
 ## Example References
 
 - ref/examples/sierpinski_triangle/src/main.rs
-- ref/examples/sandpiles/src/main.rs
-- ref/examples/game_of_life/src/main.rs
-- ref/examples/pokedex/src/main.rs
 - ref/examples/bezier_tool/src/main.rs
+- ref/examples/game_of_life/src/main.rs
+- ref/examples/sandpiles/src/main.rs
 - ref/examples/tour/src/main.rs
+- ref/examples/pokedex/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::button;
+
+#[derive(Clone)]
+enum Message {
+    ButtonPressed,
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    button("Press me!").on_press(Message::ButtonPressed).into()
+}
+```
+
+```rust
+use iced::widget::button;
+
+#[derive(Clone)]
+enum Message {
+    ButtonPressed,
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    button("I am disabled!").into()
+}
+```
 
 ## Related
 

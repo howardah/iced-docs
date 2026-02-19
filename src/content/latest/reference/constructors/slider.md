@@ -41,11 +41,38 @@ It gives explicit widget construction with compile-time type checking and builde
 ## Example References
 
 - ref/examples/custom_widget/src/main.rs
-- ref/examples/ferris/src/main.rs
-- ref/examples/vectorial_text/src/main.rs
 - ref/examples/loading_spinners/src/main.rs
-- ref/examples/integration/src/controls.rs
+- ref/examples/ferris/src/main.rs
 - ref/examples/color_palette/src/main.rs
+- ref/examples/integration/src/controls.rs
+- ref/examples/vectorial_text/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::slider;
+
+struct State {
+   value: f32,
+}
+
+#[derive(Debug, Clone)]
+enum Message {
+    ValueChanged(f32),
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    slider(0.0..=100.0, state.value, Message::ValueChanged).into()
+}
+
+fn update(state: &mut State, message: Message) {
+    match message {
+        Message::ValueChanged(value) => {
+            state.value = value;
+        }
+    }
+}
+```
 
 ## Related
 

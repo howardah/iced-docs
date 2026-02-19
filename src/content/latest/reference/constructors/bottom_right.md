@@ -40,6 +40,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 - ref/examples/custom_quad/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+let bottom_right = container("Bottom!").align_right(Fill).align_bottom(Fill);
+```
+
 ## Related
 
 - [Constructors](/latest/reference/constructors)

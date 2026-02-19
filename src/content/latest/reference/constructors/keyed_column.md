@@ -39,6 +39,22 @@ It gives explicit widget construction with compile-time type checking and builde
 
 - ref/examples/todos/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::{keyed_column, text};
+
+enum Message {
+    // ...
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    keyed_column((0..=100).map(|i| {
+        (i, text!("Item {i}").into())
+    })).into()
+}
+```
+
 ## Related
 
 - [Constructors](/latest/reference/constructors)

@@ -27,6 +27,24 @@ Use this module when you need the widget family and related style/state APIs gro
 - ref/examples/checkbox/src/main.rs
 - ref/examples/clock/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::container;
+
+enum Message {
+    // ...
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    container("This text is centered inside a rounded box!")
+        .padding(10)
+        .center(800)
+        .style(container::rounded_box)
+        .into()
+}
+```
+
 ## Related
 
 - [Modules](/latest/reference/modules)

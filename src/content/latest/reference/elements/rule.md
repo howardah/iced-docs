@@ -34,6 +34,21 @@ It enables strongly typed composition and explicit builder method flows.
 
 - TODO(api-verify): add canonical example mapping for this item.
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::rule;
+
+#[derive(Clone)]
+enum Message {
+    // ...,
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    rule::horizontal(2).into()
+}
+```
+
 ## Related
 
 - [Elements](/latest/reference/elements)

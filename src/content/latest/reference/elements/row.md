@@ -32,11 +32,30 @@ It enables strongly typed composition and explicit builder method flows.
 
 ## Example References
 
-- ref/examples/tour/src/main.rs
 - ref/examples/game_of_life/src/preset.rs
 - ref/examples/layout/src/main.rs
+- ref/examples/tour/src/main.rs
 - ref/examples/changelog/src/main.rs
 - ref/examples/styling/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::{button, row};
+
+#[derive(Debug, Clone)]
+enum Message {
+    // ...
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    row![
+        "I am to the left!",
+        button("I am in the middle!"),
+        "I am to the right!",
+    ].into()
+}
+```
 
 ## Related
 

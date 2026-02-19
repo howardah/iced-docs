@@ -37,12 +37,30 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/editor/src/main.rs
-- ref/examples/loupe/src/main.rs
-- ref/examples/color_palette/src/main.rs
-- ref/examples/todos/src/main.rs
-- ref/examples/pokedex/src/main.rs
+- ref/examples/counter/src/main.rs
 - ref/examples/table/src/main.rs
+- ref/examples/editor/src/main.rs
+- ref/examples/websocket/src/main.rs
+- ref/examples/integration/src/controls.rs
+- ref/examples/loading_spinners/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::text;
+use iced::color;
+
+enum Message {
+    // ...
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    text("Hello, this is iced!")
+        .size(20)
+        .color(color!(0x0000ff))
+        .into()
+}
+```
 
 ## Related
 

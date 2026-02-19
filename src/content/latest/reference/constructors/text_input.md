@@ -39,12 +39,41 @@ It gives explicit widget construction with compile-time type checking and builde
 
 ## Example References
 
-- ref/examples/modal/src/main.rs
-- ref/examples/lazy/src/main.rs
+- ref/examples/screenshot/src/main.rs
 - ref/examples/qr_code/src/main.rs
 - ref/examples/multi_window/src/main.rs
-- ref/examples/todos/src/main.rs
-- ref/examples/changelog/src/main.rs
+- ref/examples/modal/src/main.rs
+- ref/examples/integration/src/controls.rs
+- ref/examples/tour/src/main.rs
+
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::text_input;
+
+struct State {
+   content: String,
+}
+
+#[derive(Debug, Clone)]
+enum Message {
+    ContentChanged(String)
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    text_input("Type something here...", &state.content)
+        .on_input(Message::ContentChanged)
+        .into()
+}
+
+fn update(state: &mut State, message: Message) {
+    match message {
+        Message::ContentChanged(content) => {
+            state.content = content;
+        }
+    }
+}
+```
 
 ## Related
 

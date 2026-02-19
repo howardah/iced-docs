@@ -40,6 +40,12 @@ It gives explicit widget construction with compile-time type checking and builde
 
 - TODO(api-verify): add canonical example mapping for this item.
 
+## Inline Examples (from rustdoc)
+
+```rust
+let right_center = container("Bottom Center!").align_right(Fill).center_y(Fill);
+```
+
 ## Related
 
 - [Constructors](/latest/reference/constructors)

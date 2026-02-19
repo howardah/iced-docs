@@ -40,6 +40,35 @@ It enables strongly typed composition and explicit builder method flows.
 - ref/examples/modal/src/main.rs
 - ref/examples/multi_window/src/main.rs
 
+## Inline Examples (from rustdoc)
+
+```rust
+use iced::widget::text_input;
+
+struct State {
+   content: String,
+}
+
+#[derive(Debug, Clone)]
+enum Message {
+    ContentChanged(String)
+}
+
+fn view(state: &State) -> Element<'_, Message> {
+    text_input("Type something here...", &state.content)
+        .on_input(Message::ContentChanged)
+        .into()
+}
+
+fn update(state: &mut State, message: Message) {
+    match message {
+        Message::ContentChanged(content) => {
+            state.content = content;
+        }
+    }
+}
+```
+
 ## Related
 
 - [Elements](/latest/reference/elements)

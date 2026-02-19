@@ -815,3 +815,39 @@ Fixed incomplete/flattened `Verified signature` extraction in generated referenc
 
 - Spot-check confirmed `src/content/latest/reference/constructors/button.md` now contains full multi-line signature with proper `where` bounds.
 - `cargo check` passes after regeneration.
+
+## 2026-02-19 (Rustdoc Inline Example Ingestion)
+
+### Summary
+
+Updated reference generation so inline rustdoc examples embedded in authoritative API pages are included directly in generated markdown pages.
+
+### Implemented
+
+- Enhanced generator:
+- `scripts/generate_reference_pages.sh`
+
+- Added extraction/render helpers:
+  - `extract_inline_examples_markdown`
+  - `render_inline_examples_section`
+
+- Extraction behavior:
+  - Reads authoritative rustdoc HTML pages.
+  - Captures rendered rustdoc example blocks (`rust-example-rendered`) from `Example` sections.
+  - Decodes HTML entities and strips markup while preserving code formatting.
+  - Limits included inline examples per page (currently 2 for generated item pages).
+
+- Integration:
+  - Runtime function pages (`runtime-fn-*.md`)
+  - Constructor pages (`constructors/*.md`)
+  - Element pages (`elements/*.md`)
+  - Module pages (`modules/*.md`) when module rustdoc includes examples.
+
+### Result
+
+- Generated pages now include an additional section:
+  - `## Inline Examples (from rustdoc)`
+- Verified on:
+  - `src/content/latest/reference/constructors/button.md`
+  - `src/content/latest/reference/runtime-fn-application.md`
+  - `src/content/latest/reference/elements/button.md`

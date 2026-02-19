@@ -41,6 +41,7 @@ It gives explicit widget construction with compile-time type checking and builde
 
 - ref/examples/table/src/main.rs
 
+
 ## Related
 
 - [Constructors](/latest/reference/constructors)
