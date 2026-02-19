@@ -741,3 +741,32 @@ Executed successfully after flash-removal refactor:
 - `cargo check`
 - `cargo test`
 - `cargo build --target wasm32-unknown-unknown`
+
+## 2026-02-19 (Markdown Rust Code-Block Formatter Script)
+
+### Summary
+
+Added a utility script to run `rustfmt` over fenced Rust code blocks inside markdown files.
+
+### Implemented
+
+- New script:
+- `scripts/rustfmt_markdown_code_blocks.sh`
+
+- Behavior:
+- Scans markdown files (`.md`) and targets fenced blocks labeled `rust` or `rs`.
+- Runs `rustfmt --emit stdout --edition 2021` on each matched block.
+- Rewrites files in place with formatted block content.
+- If a snippet is not formatable by `rustfmt`, the original snippet is preserved (safe fallback).
+
+- CLI modes:
+- Default: formats files in place.
+- `--check`: reports files that would change and exits non-zero if changes are needed.
+- Optional file-path arguments to limit scope.
+
+### Verification
+
+- Script smoke tests:
+  - `scripts/rustfmt_markdown_code_blocks.sh --check src/content/latest/guide/overview.md`
+  - `scripts/rustfmt_markdown_code_blocks.sh --check src/content/latest/**/*.md`
+- The broader check mode completed and reported pending formatting candidates without mutating files.

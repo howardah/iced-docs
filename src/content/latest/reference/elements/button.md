@@ -17,9 +17,12 @@ A generic widget that produces a message when pressed.
 ## Verified type declaration
 
 ```rust
-pub struct Button<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>where
-Renderer: Renderer,
-Theme: Catalog,{ /* private fields */ }
+/private/var/folders/hk/wykb6d7d2m5cg1rjhfx_tw200000gn/T/tmp.gDTBKDagjh:
+
+pub struct Button<'a, Message, Theme = Theme, Renderer = Renderer<Renderer, Renderer>>
+where
+    Renderer: Renderer,
+    Theme: Catalog, {/* private fields */}
 ```
 
 ## When to use
