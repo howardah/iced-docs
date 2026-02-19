@@ -1,50 +1,15 @@
-# Development
+# Iced Docs
 
-Your new bare-bones project includes minimal organization with a single `main.rs` file and a few assets.
+Beginner-friendly, documentation website for the Rust GUI crate `iced`, built with **Dioxus 0.7** and **Tailwind CSS**.
 
-```
-project/
-├─ assets/ # Any assets that are used by the app should be placed here
-├─ src/
-│  ├─ main.rs # main.rs is the entry point to your application and currently contains all components for the app
-├─ Cargo.toml # The Cargo.toml file defines the dependencies and feature flags for your project
-```
+## A Disclaimer About AI Usage
 
-### Automatic Tailwind (Dioxus 0.7+)
+This project was initialized with the use of an AI coding agent. This means that it's likely that some of the content is wrong, unhelpful, or incomplete. I tried to get the AI to ground all information with references to the rustdocs and official examples, but only time will tell how well it did with that.
 
-As of Dioxus 0.7, there no longer is a need to manually install tailwind. Simply `dx serve` and you're good to go!
+This was done simply to have a quick place to start from with the idea that it can be manually edited and improved over time.
 
-Automatic tailwind is supported by checking for a file called `tailwind.css` in your app's manifest directory (next to Cargo.toml). To customize the file, use the dioxus.toml:
+That said, though this whole project is low-priority for me, I will try to update it as I have time / find things wrong with it.
 
-```toml
-[application]
-tailwind_input = "my.css"
-tailwind_output = "assets/out.css" # also customize the location of the out file!
-```
+## Contributing
 
-### Tailwind Manual Install
-
-To use tailwind plugins or manually customize tailwind, you can can install the Tailwind CLI and use it directly.
-
-### Tailwind
-1. Install npm: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
-2. Install the Tailwind CSS CLI: https://tailwindcss.com/docs/installation/tailwind-cli
-3. Run the following command in the root of the project to start the Tailwind CSS compiler:
-
-```bash
-npx @tailwindcss/cli -i ./input.css -o ./assets/tailwind.css --watch
-```
-
-### Serving Your App
-
-Run the following command in the root of your project to start developing with the default platform:
-
-```bash
-dx serve --platform web
-```
-
-To run for a different platform, use the `--platform platform` flag. E.g.
-```bash
-dx serve --platform desktop
-```
-
+Contributions are more than welcome! If you find an issue, want to improve something, or have a suggestion, please open an issue or submit a pull request.
