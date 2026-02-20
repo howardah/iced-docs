@@ -12,6 +12,7 @@ FROM rust:1.93 AS builder
 WORKDIR /app
 
 COPY Cargo.toml Cargo.lock ./
+COPY build.rs ./build.rs
 COPY Dioxus.toml ./Dioxus.toml
 COPY tailwind.css ./tailwind.css
 
